@@ -6,33 +6,11 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/17 02:27:22 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/17 09:27:01 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*findpath(char **envp)
-{
-	int		i;
-	int		j;
-	char	*returnvalue;
-
-	i = 0;
-	j = -1;
-	while (envp[i])
-	{
-		if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T'
-		&& envp[i][3] == 'H' && envp[i][4] == '=')
-			break ;
-		i++;
-	}
-	returnvalue = malloc(ft_strlen(envp[i]) * sizeof(char) + 1);
-	while (envp[i][++j])
-		returnvalue[j] = envp[i][j];
-	returnvalue[j] = '\0';
-	return (returnvalue);
-}
 
 void	getusernameandpcname(t_lists *data)
 {
@@ -80,4 +58,20 @@ void	ft_error(char *a)
 	while (a[i])
 		write(1, &a[i++], 1);
 	exit(1);
+}
+
+int	lettercount(char *text, char letter)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (text[i])
+	{
+		if (text[i] == letter)
+			count++;
+		i++;
+	}
+	return (count);
 }

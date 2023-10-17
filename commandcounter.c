@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   commandcounter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/17 13:29:33 by gotunc           ###   ########.fr       */
+/*   Created: 2023/10/17 09:32:38 by gotunc            #+#    #+#             */
+/*   Updated: 2023/10/17 11:23:22 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse(char *command, t_lists *data)
+int	isinnail(command)
 {
-	int	i;
-	int	argcount;
+}
+
+int	commandcounter(char *command)
+{
+	int		i;
+	char	**commandarray;
+	int		commandcount;
 
 	i = 0;
-	argcount = 0;
-	if (lettercount(command, 34) % 2 != 0 || lettercount(command, 39) % 2 != 0)
+	commandarray = ft_split(command, ' ');
+	commandcount = 0;
+	while (command[i])
 	{
-		printf("\033[31;4mMinishell: Command is invalid: %s\n\033[0m", command);
-		return (0);
-	}
-	data->commandcount = commandcount(command); // bu fonksiyon eklenecek
-	while (command[i]) // bu döngüyü kullanarak kaç tane girdi olması gerektiğini hesaplayacağım
-	{
+		if (command[i] == 34)
+		{
+			commandcount++;
+			i++;
+			while (command[i] == 34 && (command[i] == ' ' || command[i] == '<' || command[i] == '>'))
+				i++;
+		}
 		i++;
 	}
-	return (1);
 }

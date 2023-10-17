@@ -1,6 +1,6 @@
 NAME = minishell
 
-src = minishellmain.c helperfunctions.c controls.c signals.c
+src = minishellmain.c helperfunctions.c controls.c signals.c parse.c
 
 objs = minishellmain.o
 
@@ -11,6 +11,7 @@ $(NAME):
 	gcc -Wall -Werror -Wextra -lreadline $(src) libft/libft.a -o $(NAME)
 clean:
 	rm -rf $(objs)
+	make clean -C ./libft/
 
 fclean: clean
 	rm -rf $(NAME)

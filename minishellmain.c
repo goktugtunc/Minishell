@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/17 02:18:40 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/17 13:24:26 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	startprogram(t_lists *data)
 		command = readline(data->starttext);
 		if (command == NULL)
 		{
-			printf("\r%sExit!\n", data->starttext);	
+			printf("\r%sExit!\n", data->starttext);
 			exit(1);
 		}
-		//parse(d);
+		if (parse(command))
+		{
+		}
 	}
 }
 
@@ -34,10 +36,7 @@ int	main(int argc, char **argv, char **envp)
 
 	data = malloc(sizeof(t_lists));
 	signal(SIGINT, ifsendsigint);
-	controller(data, envp, argc, argv);
-	data->envp = envp;
-	data->argv = argv;
-	data->argc = argc;
+	initializefunction(data, envp, argc, argv);
 	startprogram(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/17 01:14:40 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/17 13:24:08 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # include "libft/libft.h"
 
 typedef struct s_lists{
-	char	*path;
+	char	*allpath;
+	char	**path;
 	char	*username;
+	int		commandcount;
 	char	*pcname;
 	char	*starttext;
 	int		argc;
@@ -29,13 +31,13 @@ typedef struct s_lists{
 	char	**envp;
 }	t_lists;
 
-char	*findpath(char **envp);
 void	getusernameandpcname(t_lists *data);
 void	findstarttext(t_lists *data);
-void	controller(t_lists *data, char **envp, int argc, char **argv);
+void	initializefunction(t_lists *data, char **envp, int argc, char **argv);
 void	ifsendsigint(int signal);
-void	ifsendsigkill(int signal);
 void	ft_error(char *a);
+int		lettercount(char *text, char letter);
+int		parse(char *command);
 
 #endif
 
