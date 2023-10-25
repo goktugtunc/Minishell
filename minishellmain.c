@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/25 18:06:56 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/10/26 00:08:14 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ void	startprogram(t_lists *data)
 {
 	while (True)
 	{
+		data->errorcontrol = 0;
 		data->commandline = readline(data->starttext);
 		if (data->commandline == NULL)
 			ifSendEOF(data);
-		if (parse(data->commandline, data))
+		parse(data->commandline, data);
+		if (data->errorcontrol == 0)
 		{
 		}
 	}

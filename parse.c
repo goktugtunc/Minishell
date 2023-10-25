@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/25 20:36:58 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/10/26 01:55:24 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	parse(char *command, t_lists *data)
 	if (check_quote(command) != 0)
 	{
 		printf("\033[31;4mMinishell: Command is invalid: %s\n\033[0m", command);
+		data->errorcontrol = 1;
 		return (0);
 	}
 	command = ft_strtrim(command, " ");
@@ -166,6 +167,6 @@ int	parse(char *command, t_lists *data)
 		j = 0;
 		printf("%s\n", data->newstr);
 	}
-	data->arguments = ft_split(data->newstr, ' ');
+	data->arguments = ft_split(data->newstr, ' ')
 	return (1);
 } // fonksiyon güçlendirilip hataları giderilecek!
