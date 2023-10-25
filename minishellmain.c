@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/17 13:24:26 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/25 18:06:56 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 void	startprogram(t_lists *data)
 {
-	char	*command;
-
-	while (1)
+	while (True)
 	{
-		command = readline(data->starttext);
-		if (command == NULL)
-		{
-			printf("\r%sExit!\n", data->starttext);
-			exit(1);
-		}
-		if (parse(command))
+		data->commandline = readline(data->starttext);
+		if (data->commandline == NULL)
+			ifSendEOF(data);
+		if (parse(data->commandline, data))
 		{
 		}
 	}

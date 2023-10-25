@@ -3,49 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/17 09:27:01 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/25 16:20:39 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	getusernameandpcname(t_lists *data)
+char	*getpcname(void)
 {
+	char	*pcname;
 	int		fd[2];
 	pid_t	id;
 	int		bytesread;
 
-	data->pcname = malloc(256 * sizeof(char));
+	pcname = malloc(256 * sizeof(char));
 	pipe(fd);
 	id = fork();
 	if (id == 0)
 	{
-		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		execve("/usr/sbin/scutil",
 			ft_split("scutil --get ComputerName", ' '), NULL);
-		close(fd[1]);
 	}
 	else
 	{
-		close(fd[1]);
 		wait(NULL);
-		bytesread = read(fd[0], data->pcname, sizeof(data->pcname));
-		close(fd[0]);
+		bytesread = read(fd[0], pcname, sizeof(pcname));
 		if (bytesread == -1)
 			ft_error("File read error!");
-		data->pcname[bytesread] = '\0';
+		pcname[bytesread] = '\0';
 	}
+	return (pcname);
 }
 
-void	findstarttext(t_lists *data)
+void	findstarttext(t_lists *data, char *pcname)
 {
 	data->starttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
 	data->starttext = ft_strjoin(data->starttext, "@");
-	data->starttext = ft_strjoin(data->starttext, data->pcname);
+	data->starttext = ft_strjoin(data->starttext, pcname);
 	data->starttext = ft_strjoin(data->starttext, " : ");
 	data->starttext = ft_strjoin(data->starttext, "\033[0m");
 }

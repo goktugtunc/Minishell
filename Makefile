@@ -1,6 +1,6 @@
 NAME = minishell
 
-src = minishellmain.c helperfunctions.c controls.c signals.c parse.c
+src = minishellmain.c helperfunctions.c helperfunctions2.c controls.c signals.c parse.c
 
 objs = minishellmain.o
 
