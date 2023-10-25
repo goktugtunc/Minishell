@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/26 01:55:24 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/10/25 16:06:27 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,6 @@ int	parse(char *command, t_lists *data)
 		j = 0;
 		printf("%s\n", data->newstr);
 	}
-	data->arguments = ft_split(data->newstr, ' ')
+	data->arguments = ft_split(data->newstr, ' ');
 	return (1);
 } // fonksiyon güçlendirilip hataları giderilecek!
