@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/25 16:20:39 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/10/28 18:36:36 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ char	*getpcname(void)
 	pid_t	id;
 	int		bytesread;
 
-	pcname = malloc(256 * sizeof(char));
+	pcname = malloc(256 * sizeof(char));////////
 	pipe(fd);
 	id = fork();
 	if (id == 0)
-	{
+	{/////// closing fd;
 		dup2(fd[1], STDOUT_FILENO);
 		execve("/usr/sbin/scutil",
 			ft_split("scutil --get ComputerName", ' '), NULL);
 	}
 	else
-	{
+	{////////closing fd;
 		wait(NULL);
 		bytesread = read(fd[0], pcname, sizeof(pcname));
 		if (bytesread == -1)

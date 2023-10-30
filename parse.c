@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/25 16:06:27 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/10/28 18:36:56 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,20 +153,23 @@ int	parse(char *command, t_lists *data)
 			else
 				data->newstr = ft_strjoin(data->newstr, "<");
 		}
-		else
-		{
+		// if ()
+		// {
 			while (command[i] != ' ' && command[i] != '<'
 				&& command[i] != '>' && command[i])
 				data->tempstr[j++] = command[i++];
 			data->tempstr[j] = '\0';
 			data->newstr = ft_strjoin(data->newstr, data->tempstr);
 			i--;
-		}
+		// }
 		data->newstr = ft_strjoin(data->newstr, " ");
 		i++;
 		j = 0;
 		printf("%s\n", data->newstr);
 	}
+	
 	data->arguments = ft_split(data->newstr, ' ');
+	//printf("1%s\n", data->arguments[0]);
 	return (1);
 } // fonksiyon güçlendirilip hataları giderilecek!
+ 

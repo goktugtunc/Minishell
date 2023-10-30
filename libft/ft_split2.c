@@ -3,35 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 11:54:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/17 12:09:44 by gotunc           ###   ########.fr       */
+/*   Created: 2023/07/08 00:49:22 by gotunc            #+#    #+#             */
+/*   Updated: 2023/10/28 18:39:49 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int	nailcounter(char *s, int i)
-{
-	int	counter;
-	int	j;
-
-	j = 0;
-	counter = 0;
-	while (s[i] && j < i)
-	{
-		if (s[i] == 34)
-									// 01101101 --- 
-									// 01101011 
-									'm' & 1 != 'l' & 1 && i < 8
-									m = m >> 1;
-									n = 
-									if ((c & 1) == 1)
-		j++;
-	}
-}
-
+#include<stdio.h> 
 int	count_words(char const *s, char c)
 {
 	int	count;
@@ -48,8 +28,37 @@ int	count_words(char const *s, char c)
 	}
 	return (count);
 }
+int ft_quote(char *s, int quote, char ***result, int *x)
+{
+	int j;
+	int i;
 
-char	**ft_split(char const *s, char c)
+	i = *x;
+	j = 0;
+	if (*s == '\"' && quote)
+	{
+		s++;
+		j= 0;
+		while (s[j] != '\"')
+			j++;
+		(*result)[i++] = ft_substr(s, 0, j);
+		*x = i;
+		return (j + 1);
+	}
+	if (*s == '\'' && quote)
+	{
+		s++;
+		j= 0;
+		while (s[j] != '\'')
+			j++;
+		(*result)[i++] = ft_substr(s, 0, j);
+		*x = i;
+		return (j + 1);
+	}
+	*x= i;
+	return (j);
+}
+char	**ft_split2(char *s, char c, int quote)
 {
 	char	**result;
 	int		i;
@@ -63,15 +72,33 @@ char	**ft_split(char const *s, char c)
 	if (!result)
 		return (NULL);
 	i = 0;
+	j = 0;
 	while (i < len)
 	{
 		while (*s == c)
 			s++;
 		j = 0;
-		while (s[j] != c && s[j])
-			j++;
-		result[i++] = ft_substr(s, 0, j);
-		s += j;
+		if (s[j] == '\"' || s[j] == '\'')
+		{
+			s += (ft_quote(s, quote, &result, &i) + 1);
+			if (!(*s))
+				break;
+		}
+		else 
+		{
+			j = 0;
+			if (s[j] != c && s[j] && (s[j] != '\"' && s[j] != '\''))
+			{
+				while (s[j] != c && s[j] && (s[j] != '\"' && s[j] != '\''))
+					j++;
+				result[i++] = ft_substr(s, 0, j);
+			}
+			else 
+				j++;
+			if (s[j] == 0)
+				break;
+			s += j;
+		}
 	}
 	result[i] = NULL;
 	return (result);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/10/25 20:19:30 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/10/28 18:42:39 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,38 @@ int	check_quote(char *line)
 		}
 		else if (line[i] == '\"')
 		{
+			if (sign == 0)
+				sign = 2;
+			else if (sign == 2)
+				sign = 0;
+		}
+		i++;
+	}
+	return (sign);
+}
+int	check_quote1(t_lists *data)
+{
+	int	i;
+	int	sign;
+	char *line;
+
+	data->containquote = 0;
+	line = data->commandline;
+	sign = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'')
+		{
+			data->containquote = 1;
+			if (sign == 0)
+				sign = 1;
+			else if (sign == 1)
+				sign = 0;
+		}
+		else if (line[i] == '\"')
+		{
+			data->containquote = 1;
 			if (sign == 0)
 				sign = 2;
 			else if (sign == 2)

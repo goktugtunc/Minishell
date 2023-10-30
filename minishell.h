@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/26 00:21:54 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/10/28 14:58:36 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ typedef struct arguments{
 } argstruct;
 
 typedef struct s_lists{
-	argstruct	**argument;
+	argstruct	**argument;// its enough to be char **argument;
 	int			errorcontrol;
+	int			containquote;
 	char		*commandline;
+	char		*redirections;
 	char		**path;
 	char		**arguments;
+	char		**my_first_commends;
+	char		**my_second_commends;
+	char		**redirection;
 	char		*newstr;
 	char		*tempstr;
 	char		*username;
@@ -61,6 +66,7 @@ int		parse(char *command, t_lists *data);
 char	**copyenv(char **env);
 void	ifSendEOF(t_lists *data);
 int		check_quote(char *line);
+int	check_quote1(t_lists *data);
 
 #endif
 

@@ -6,7 +6,7 @@ objs = minishellmain.o
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(src)
 	make -C ./libft/
 	gcc -Wall -Werror -Wextra -lreadline $(src) libft/libft.a -o $(NAME)
 clean:
