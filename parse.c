@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/30 22:34:20 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/30 23:19:01 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,3 +197,140 @@
 //	print_twoDstr(data->my_second_commends);
 //}
 
+// !!! AŞAĞIDAKİ KODLAR YENİ EKLENMİŞ VE HENÜZ TEST EDİLİP HİÇ ÇALIŞTIRILMAMIŞTIR. YARIN DAHA DETAYLI İNCELEMESİ YAPILACAKTIR! BU PARSERIN TEMİZ OLDUĞUNU DÜŞÜNÜYORUM! !!!
+
+int	cifttirnakvarsa(t_lists *data, char *a, int i)
+{
+	int	j;
+
+	j = 0;
+	while (data->commandline[i] && data->commandline[i] != ' ' && data->commandline[i] != '<' && data->commandline[i] != '>')
+	{
+		while (data->commandline[i] != '\"' && data->commandline[i])
+			a[j++] = data->commandline[i++];
+		if (data->commandline[i] == '\"')
+			i++;
+		if (data->commandline[i] == ' ' || data->commandline[i] == '<' || data->commandline[i] == '>' || !data->commandline[i])
+			break ;
+		while (data->commandline[i] != ' ' && data->commandline[i] != '<' && data->commandline[i] != '>')
+		{
+			if (data->commandline[i] == '\'')
+				i = tektirnakvarsa(data, a, i);
+			else
+				a[j++] = data->commandline[i++];
+			if (data->commandline[i] == '\'')
+				i++;
+		}
+	}
+	a[j] = '\0';
+	return (i);
+}
+
+int	tektirnakvarsa(t_lists *data, char *a, int i)
+{
+	int	j;
+
+	j = 0;
+	while (data->commandline[i] && data->commandline[i] != ' ' && data->commandline[i] != '<' && data->commandline[i] != '>')
+	{
+		while (data->commandline[i] != '\'' && data->commandline[i])
+			a[j++] = data->commandline[i++];
+		if (data->commandline[i] == '\'')
+			i++;
+		if (data->commandline[i] == ' ' || data->commandline[i] == '<' || data->commandline[i] == '>' || !data->commandline[i])
+			break ;
+		while (data->commandline[i] != ' ' && data->commandline[i] != '<' && data->commandline[i] != '>')
+		{
+			if (data->commandline[i] == '\"')
+				i = cifttirnakvarsa(data, a, i);
+			else
+				a[j++] = data->commandline[i++];
+			if (data->commandline[i] == '\"')
+				i++;
+		}
+	}
+	a[j] = '\0';
+	return (i);
+}
+
+int	kucukturvarsa(t_lists *data, char *a, int i)
+{
+	if (data->commandline[i + 1] == '<')
+	{
+		a[0] = '<';
+		a[1] = '<';
+		a[2] = '\0';
+		return (i + 2);
+	}
+	else
+	{
+		a[0] = '<';
+		a[1] = '\0';
+		return (i + 1);
+	}
+	return (0);
+}
+
+int	buyukturvarsa(t_lists *data, char *a, int i)
+{
+	int	m;
+
+	m = 0;
+	if (data->commandline[i + 1] == '>')
+	{
+		a[0] = '>';
+		a[1] = '>';
+		a[2] = '\0';
+		m = 2;
+	}
+	else
+	{
+		a[0] = '>';
+		a[1] = '\0';
+		m = 1;
+	}
+	return (i + m);
+}
+
+int	elsedurumu(t_lists *data, char *a, int i)
+{
+	int		j;
+	char	*temp;
+
+	j = 0;
+	while (data->commandline[i] && data->commandline[i] != ' ' && data->commandline[i] != '<' && data->commandline[i] != '>')
+		a[j++] = data->commandline[i++];
+	return (i);
+}
+
+void	parser4(t_lists *data)
+{
+	int		i;
+	int		argi;
+	char	*a;
+
+	i = 0;
+	argi = 0;
+	data->commandline = ft_strtrim(data->commandline, ' ');
+	a = malloc(600);
+	while (data->commandline[i])
+	{
+		if (data->commandline[i] == '\"')
+		{
+			i = cifttirnakvarsa(data, a, i);
+		}
+		else if (data->commandline[i] == '\'')
+		{
+			i = tektirnakvarsa(data, a, i);
+		}
+		else if (data->commandline[i] == '<')
+			i = kucukturvarsa(data, a, i);
+		else if (data->commandline[i] == '>')
+			i = buyukturvarsa(data, a, i);
+		else
+		{
+			i = elsedurumu(data, a, i);
+		}
+		data->argument[argi++] = a;
+	}
+}
