@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 01:09:41 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/28 18:36:07 by amonem           ###   ########.fr       */
+/*   Updated: 2023/10/30 20:37:45 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include "../minishell.h"
 
 typedef struct s_list
 {

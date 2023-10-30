@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/10/28 18:42:39 by amonem           ###   ########.fr       */
+/*   Updated: 2023/10/30 20:35:46 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**copyenv(char **env)
 	return (copiedenv);
 }
 
-int	check_quote(char *line)
+int	check_quote(char *line, int control)
 {
 	int	i;
 	int	sign;
@@ -55,11 +55,12 @@ int	check_quote(char *line)
 	}
 	return (sign);
 }
+
 int	check_quote1(t_lists *data)
 {
-	int	i;
-	int	sign;
-	char *line;
+	int		i;
+	int		sign;
+	char	*line;
 
 	data->containquote = 0;
 	line = data->commandline;

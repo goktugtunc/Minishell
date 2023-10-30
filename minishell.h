@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/28 14:58:36 by amonem           ###   ########.fr       */
+/*   Updated: 2023/10/30 20:36:05 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include "libft/libft.h"
-# define True 1
-# define False 0
+# define TRUE 1
+# define FALSE 0
 
-typedef enum argmenttype{
+typedef enum argumenttype{
 	WORD,
 	INPUT_RDR,
 	OUTPUT_RDR,
@@ -29,19 +29,20 @@ typedef enum argmenttype{
 	DOUBLE_INPUT_RDR,
 	PIPE,
 	DOLLAR
-} argtype;
+}	t_argtype;
 
 typedef struct arguments{
 	char				*arg;
-	argtype				type;
+	t_argtype			type;
 	struct arguments	*next;
-} argstruct;
+}	t_argstruct;
 
 typedef struct s_lists{
-	argstruct	**argument;// its enough to be char **argument;
+	t_argstruct	**argument;// its enough to be char **argument;
 	int			errorcontrol;
 	int			containquote;
 	char		*commandline;
+	char		*templine;
 	char		*redirections;
 	char		**path;
 	char		**arguments;
@@ -65,8 +66,10 @@ int		lettercount(char *text, char letter);
 int		parse(char *command, t_lists *data);
 char	**copyenv(char **env);
 void	ifSendEOF(t_lists *data);
-int		check_quote(char *line);
-int	check_quote1(t_lists *data);
+int		check_quote(char *line, int control);
+int		check_quote1(t_lists *data);
+void	parse3(t_lists *data);
+void	print_twoDstr(char **str);
 
 #endif
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/30 14:10:16 by amonem           ###   ########.fr       */
+/*   Updated: 2023/10/30 22:10:21 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,49 +72,28 @@ int	checkifquot(t_lists *data)
 	 return (0);
 }
 
-void	parse3(t_lists *data)
-{
-	char	*holeline;
-	char	*firstpart;
-	char	*secondpart;
-	int	i;
-	
-	i = 0;
-	if (check_quote1(data) != 0)
-	{
-		printf("\033[31;4mMinishell: Command is invalid: %s\n\033[0m", data->commandline);
-		data->errorcontrol = 1;
-		//return (0);
-	}
-	holeline = ft_strtrim(data->commandline, " ");
-	while(holeline[i] && holeline[i] != '|' && holeline[i] != '<' && holeline[i] != '>')
-		i++;
-	firstpart = ft_substr(holeline, 0, i);
-	data->my_first_commends = ft_split2(firstpart, ' ', data->containquote);
-	if(holeline[i] == '|')
-		i++;
-	else if((holeline[i] == '<' && holeline[i + 1] == '<') || (holeline[i] == '>' && holeline[i + 1] == '>'))
-		i++;
-	
-	if(holeline[i] == '<' || holeline[i] == '>')
-		i++;
-	secondpart = ft_substr(holeline, i, ft_strlen(holeline) - i);
-	data->my_second_commends = ft_split2(secondpart, ' ', data->containquote);
-	print_twoDstr(data->my_first_commends);
-	print_twoDstr(data->my_second_commends);
-}
 
 void	startprogram(t_lists *data)
 {
-	while (True)
+	while (TRUE)
 	{
 		data->errorcontrol = 0;
 		data->commandline = readline(data->starttext);
-		if (data->commandline == NULL)//// what if the user entered nothing ?
+		if (data->commandline == NULL)
 			ifSendEOF(data);
+		if (check_quote(data->commandline, ft_strlen(data->commandline)) != 0)
+		{
+			while (check_quote(data->commandline, ft_strlen(data->commandline)))
+			{
+				data->templine = readline("> ");
+				data->commandline = ft_strjoin(data->commandline,
+						data->templine);
+				free(data->templine);
+			}
+			printf("*%s\n", data->commandline);
+		}
 		//parse(data->commandline, data);
 		parse3(data);
-
 		if (data->errorcontrol == 0)
 		{
 		}
