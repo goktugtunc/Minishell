@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/31 17:20:08 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 01:50:11 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,11 +336,11 @@ void	parser4(t_lists *data)
 		{
 			if (data->commandline[i] == '\"')
 			{
-				i = cifttirnakvarsa(data, a, i);
+				i = cifttirnakvarsa(data, a, i + 1);
 			}
 			else if (data->commandline[i] == '\'')
 			{
-				i = tektirnakvarsa(data, a, i);
+				i = tektirnakvarsa(data, a, i + 1);
 			}
 			else if (data->commandline[i] == '<')
 				i = kucukturvarsa(data, a, i);
