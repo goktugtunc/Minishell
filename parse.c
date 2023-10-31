@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/30 23:19:01 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/31 17:20:08 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,8 @@
 
 // !!! AŞAĞIDAKİ KODLAR YENİ EKLENMİŞ VE HENÜZ TEST EDİLİP HİÇ ÇALIŞTIRILMAMIŞTIR. YARIN DAHA DETAYLI İNCELEMESİ YAPILACAKTIR! BU PARSERIN TEMİZ OLDUĞUNU DÜŞÜNÜYORUM! !!!
 
+int	tektirnakvarsa(t_lists *data, char *a, int i);
+
 int	cifttirnakvarsa(t_lists *data, char *a, int i)
 {
 	int	j;
@@ -295,12 +297,24 @@ int	buyukturvarsa(t_lists *data, char *a, int i)
 int	elsedurumu(t_lists *data, char *a, int i)
 {
 	int		j;
-	char	*temp;
 
 	j = 0;
-	while (data->commandline[i] && data->commandline[i] != ' ' && data->commandline[i] != '<' && data->commandline[i] != '>')
+	while (data->commandline[i] && ((data->commandline[i] != ' ' && data->commandline[i] != '<' && data->commandline[i] != '>' && check_quote(data->commandline, i) == 0) || (check_quote(data->commandline, i) != 0)))
+	{
 		a[j++] = data->commandline[i++];
+	}
+	a[j] = '\0';
 	return (i);
+}
+
+void	copydataargument(t_lists *data, char *src, int argi)
+{
+	int	i;
+
+	i = -1;
+	data->arguments[argi] = ft_calloc(ft_strlen(src), sizeof(char));
+	while (src[++i])
+		data->arguments[argi][i] = src[i];
 }
 
 void	parser4(t_lists *data)
@@ -311,26 +325,38 @@ void	parser4(t_lists *data)
 
 	i = 0;
 	argi = 0;
-	data->commandline = ft_strtrim(data->commandline, ' ');
+	data->commandline = ft_strtrim(data->commandline, " ");
+	data->arguments = malloc(5 * sizeof(char *));
 	a = malloc(600);
 	while (data->commandline[i])
 	{
-		if (data->commandline[i] == '\"')
-		{
-			i = cifttirnakvarsa(data, a, i);
-		}
-		else if (data->commandline[i] == '\'')
-		{
-			i = tektirnakvarsa(data, a, i);
-		}
-		else if (data->commandline[i] == '<')
-			i = kucukturvarsa(data, a, i);
-		else if (data->commandline[i] == '>')
-			i = buyukturvarsa(data, a, i);
+		if (data->commandline[i] == ' ')
+			i++;
 		else
 		{
-			i = elsedurumu(data, a, i);
+			if (data->commandline[i] == '\"')
+			{
+				i = cifttirnakvarsa(data, a, i);
+			}
+			else if (data->commandline[i] == '\'')
+			{
+				i = tektirnakvarsa(data, a, i);
+			}
+			else if (data->commandline[i] == '<')
+				i = kucukturvarsa(data, a, i);
+			else if (data->commandline[i] == '>')
+				i = buyukturvarsa(data, a, i);
+			else
+			{
+				i = elsedurumu(data, a, i);
+				printf("%d\n", i);
+			}
+			copydataargument(data, a, argi);
+			argi++;
 		}
-		data->argument[argi++] = a;
 	}
+	data->arguments[argi] = NULL;
+	argi = 0;
+	while (data->arguments[argi] != NULL)
+		printf("%s\n", data->arguments[argi++]);
 }

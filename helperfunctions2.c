@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/10/30 20:35:46 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/31 16:39:00 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_quote(char *line, int control)
 
 	sign = 0;
 	i = 0;
-	while (line[i])
+	while (line[i] && i <= control)
 	{
 		if (line[i] == '\'')
 		{

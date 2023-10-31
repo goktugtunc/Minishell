@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/30 20:36:05 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/10/31 16:35:08 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ifSendEOF(t_lists *data);
 int		check_quote(char *line, int control);
 int		check_quote1(t_lists *data);
 void	parse3(t_lists *data);
+void	parser4(t_lists *data);
 void	print_twoDstr(char **str);
 
 #endif
