@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 11:56:55 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 15:15:47 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	startprogram(t_lists *data)
 {
+	t_parse *parts = NULL;
+
 	while (TRUE)
 	{
 		data->errorcontrol = 0;
@@ -32,6 +34,15 @@ void	startprogram(t_lists *data)
 			}
 		}
 		parser(data);
+		parts = lastparse(data);
+		print_twoDstr(parts[0].str);
+		printf("%s\n", parts[0].type);
+		print_twoDstr(parts[1].str);
+		printf("%s\n", parts[1].type);
+
+		print_twoDstr(parts[2].str);
+		printf("%s\n", parts[2].type);
+
 		if (data->errorcontrol == 0)
 		{
 		}
