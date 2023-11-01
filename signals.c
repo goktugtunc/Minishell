@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:16:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 21:23:51 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 22:05:18 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ifsendsigint(int signal)
 	(void)signal;
 }
 
-void	ifsendeof(t_lists *data)
+void	ifsendeof(void)
 {
-	printf("\r%sExit!\n", data->starttext);
+	printf("\r%sExit!\n", g_data->starttext);
 	exit(1);
 }

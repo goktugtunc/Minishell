@@ -6,19 +6,19 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 12:28:31 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 01:00:05 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	lessorgreatersign(t_lists *data, char *a, int i, int m)
+int	lessorgreatersign(char *a, int i, int m)
 {
 	a[1] = '\0';
 	a[2] = '\0';
-	if (data->commandline[i] == '<')
+	if (g_data->commandline[i] == '<')
 	{
-		if (data->commandline[i + 1] == '<')
+		if (g_data->commandline[i + 1] == '<')
 		{
 			a[0] = '<';
 			a[1] = '<';
@@ -29,7 +29,7 @@ int	lessorgreatersign(t_lists *data, char *a, int i, int m)
 	}
 	else
 	{
-		if (data->commandline[i + 1] == '>')
+		if (g_data->commandline[i + 1] == '>')
 		{
 			a[0] = '>';
 			a[1] = '>';
@@ -41,43 +41,44 @@ int	lessorgreatersign(t_lists *data, char *a, int i, int m)
 	return (i + m);
 }
 
-int	elsestatus(t_lists *data, char *a, int i)
+int	elsestatus(char *a, int i)
 {
 	int		j;
 
 	j = 0;
-	while (data->commandline[i] && ((data->commandline[i] != ' '
-				&& data->commandline[i] != '<' && data->commandline[i] != '>'
-				&& data->commandline[i] != '|'
-				&& check_quote(data->commandline, i) == 0)
-			|| (check_quote(data->commandline, i) != 0)))
+	while (g_data->commandline[i] && ((g_data->commandline[i] != ' '
+				&& g_data->commandline[i] != '<' && g_data->commandline[i] != '>'
+				&& g_data->commandline[i] != '|'
+				&& check_quote(g_data->commandline, i) == 0)
+			|| (check_quote(g_data->commandline, i) != 0)))
 	{
-		a[j++] = data->commandline[i++];
+		a[j++] = g_data->commandline[i++];
 	}
 	a[j] = '\0';
 	return (i);
 }
 
-int	parserv2(t_lists *data, char *a, int i, int argi)
+int	parserv2(char *a, int i, int argi)
 {
 	int	j;
 
 	j = 0;
-	if (data->commandline[i] == '\"')
-		i = ifmultiquote(data, a, i, &j);
-	else if (data->commandline[i] == '\'')
-		i = ifsinglequote(data, a, i, &j);
-	else if (data->commandline[i] == '<' || data->commandline[i] == '>')
-		i = lessorgreatersign(data, a, i, 1);
-	else if (data->commandline[i] == '|')
-		i = pipecontrol(data, a, i);
+	if (g_data->commandline[i] == '\"')
+		i = ifmultiquote(a, i, &j);
+	else if (g_data->commandline[i] == '\'')
+		i = ifsinglequote(a, i, &j);
+	else if (g_data->commandline[i] == '<' || g_data->commandline[i] == '>')
+		i = lessorgreatersign(a, i, 1);
+	else if (g_data->commandline[i] == '|')
+		i = pipecontrol(a, i);
 	else
-		i = elsestatus(data, a, i);
-	data->arguments[argi] = ft_strdup(a);
+		i = elsestatus(a, i);
+	g_data->arguments[argi] = ft_strdup(a);
+	free(a);
 	return (i);
 }
 
-void	parser(t_lists *data)
+void	parser(void)
 {
 	int		i;
 	int		argi;
@@ -85,15 +86,18 @@ void	parser(t_lists *data)
 
 	i = 0;
 	argi = 0;
-	data->commandline = ft_strtrim(data->commandline, " ");
-	data->arguments = malloc(ft_strlen(data->commandline) * sizeof(char *) + 1);
-	a = malloc(ft_strlen(data->commandline) + 1);
-	while (data->commandline[i])
+	g_data->commandline = ft_strtrim2(g_data->commandline, " ");
+	g_data->arguments = malloc(ft_strlen(g_data->commandline) * sizeof(char *) + 1);
+	while (g_data->commandline[i])
 	{
-		if (data->commandline[i] == ' ')
+		a = malloc(ft_strlen(g_data->commandline) + 1);
+		if (g_data->commandline[i] == ' ')
 			i++;
 		else
-			i = parserv2(data, a, i, argi++);
+			i = parserv2(a, i, argi++);
 	}
-	data->arguments[argi] = NULL;
+	g_data->arguments[argi] = NULL;
+	i = 0;
+	while (g_data->arguments[i])
+		printf("%s\n", g_data->arguments[i++]);
 }
