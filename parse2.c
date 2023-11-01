@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:38:50 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 10:16:10 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:17:54 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	parserlongcontroller(t_lists *data, int i)
 		&& data->commandline[i] != '<' && data->commandline[i] != '>');
 }
 
-int	cifttirnakvarsa(t_lists *data, char *a, int i, int *j)
+int	ifmultiquote(t_lists *data, char *a, int i, int *j)
 {
 	while (parserlongcontroller(data, i))
 	{
@@ -35,7 +35,7 @@ int	cifttirnakvarsa(t_lists *data, char *a, int i, int *j)
 		while (parserlongcontroller(data, i) && data->commandline[i] != '\"')
 		{
 			if (data->commandline[i] == '\'')
-				i = tektirnakvarsa(data, a, i, j);
+				i = ifsinglequote(data, a, i, j);
 			else
 				a[(*j)++] = data->commandline[i++];
 		}
@@ -44,7 +44,7 @@ int	cifttirnakvarsa(t_lists *data, char *a, int i, int *j)
 	return (i);
 }
 
-int	tektirnakvarsa(t_lists *data, char *a, int i, int *j)
+int	ifsinglequote(t_lists *data, char *a, int i, int *j)
 {
 	while (parserlongcontroller(data, i))
 	{
@@ -61,7 +61,7 @@ int	tektirnakvarsa(t_lists *data, char *a, int i, int *j)
 		while (parserlongcontroller(data, i) && data->commandline[i] != '\'')
 		{
 			if (data->commandline[i] == '\"')
-				i = cifttirnakvarsa(data, a, i, j);
+				i = ifmultiquote(data, a, i, j);
 			else
 				a[(*j)++] = data->commandline[i++];
 		}

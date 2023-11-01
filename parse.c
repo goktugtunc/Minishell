@@ -6,13 +6,13 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 10:05:34 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:20:37 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	kucukturvarsa(t_lists *data, char *a, int i, int m)
+int	lessorgreatersign(t_lists *data, char *a, int i, int m)
 {
 	a[1] = '\0';
 	a[2] = '\0';
@@ -41,7 +41,7 @@ int	kucukturvarsa(t_lists *data, char *a, int i, int m)
 	return (i + m);
 }
 
-int	elsedurumu(t_lists *data, char *a, int i)
+int	elsestatus(t_lists *data, char *a, int i)
 {
 	int		j;
 
@@ -63,13 +63,13 @@ int	parserv2(t_lists *data, char *a, int i, int argi)
 
 	j = 0;
 	if (data->commandline[i] == '\"')
-		i = cifttirnakvarsa(data, a, i, &j);
+		i = ifmultiquote(data, a, i, &j);
 	else if (data->commandline[i] == '\'')
-		i = tektirnakvarsa(data, a, i, &j);
+		i = ifsinglequote(data, a, i, &j);
 	else if (data->commandline[i] == '<' || data->commandline[i] == '>')
-		i = kucukturvarsa(data, a, i, 1);
+		i = lessorgreatersign(data, a, i, 1);
 	else
-		i = elsedurumu(data, a, i);
+		i = elsestatus(data, a, i);
 	data->arguments[argi] = ft_strdup(a);
 	return (i);
 }
@@ -93,7 +93,4 @@ void	parser(t_lists *data)
 			i = parserv2(data, a, i, argi++);
 	}
 	data->arguments[argi] = NULL;
-	i = 0;
-	while (data->arguments[i])
-		printf("%s\n", data->arguments[i++]);
 }

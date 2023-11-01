@@ -10,17 +10,17 @@ extra = ft_lst*.c
 all: ${NAME}
 
 ${NAME}:
-	${CC} ${flag} ${functions}
-	ar rc ${NAME} ${objs}
+	@${CC} ${flag} ${functions}
+	@ar rc ${NAME} ${objs}
 
 bonus:
-	${CC} ${flag} ${functions} ${extra}
-	ar rc ${NAME} ${objs}
+	@${CC} ${flag} ${functions} ${extra}
+	@ar rc ${NAME} ${objs}
 
 clean:
-	rm -f ${objs}
+	@rm -f ${objs}
 
 fclean: clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
 
 re: fclean all
