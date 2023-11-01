@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/31 16:35:16 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 09:36:36 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,8 @@ void	startprogram(t_lists *data)
 						data->templine);
 				free(data->templine);
 			}
-			printf("*%s\n", data->commandline);
 		}
-		//parse(data->commandline, data);
-		parser4(data);
+		parser(data);
 		if (data->errorcontrol == 0)
 		{
 		}

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/31 16:35:08 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:04:48 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ char	**copyenv(char **env);
 void	ifSendEOF(t_lists *data);
 int		check_quote(char *line, int control);
 int		check_quote1(t_lists *data);
-void	parse3(t_lists *data);
-void	parser4(t_lists *data);
+void	parser(t_lists *data);
 void	print_twoDstr(char **str);
+int		parserlongcontroller(t_lists *data, int i);
+int		cifttirnakvarsa(t_lists *data, char *a, int i, int *j);
+int		tektirnakvarsa(t_lists *data, char *a, int i, int *j);
 
 #endif
 

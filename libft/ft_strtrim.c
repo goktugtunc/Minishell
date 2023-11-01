@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42istanbul.com.tr>  +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 00:27:39 by gotunc            #+#    #+#             */
-/*   Updated: 2023/07/12 00:27:41 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 09:32:41 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char const *set)
 {
 	size_t	i;
+	char	*returnvalue;
 
 	if (!s1 || !set)
 		return (0);
@@ -23,5 +24,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	i = ft_strlen(s1);
 	while (i && ft_strchr(set, s1[i]))
 		i--;
-	return (ft_substr(s1, 0, i + 1));
+	returnvalue = ft_strdup(ft_substr(s1, 0, i + 1));
+	free(s1);
+	return (returnvalue);
 }
