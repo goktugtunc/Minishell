@@ -36,7 +36,7 @@ int countfrompars(t_lists *data)
 	return (count);
 }
 
-t_parse *lastparse(t_lists *data)
+t_parse	*lastparse(t_lists *data)
 {
 	t_parse	*last;
 	char	*str;
