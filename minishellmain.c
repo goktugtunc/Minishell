@@ -6,71 +6,11 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 09:36:36 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:56:55 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_twoDstr(char **str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		printf("%s\n", str[i]);
-		i++;
-	}
-}
-int	count_words_firstpart(char const *s)
-{
-	int	count;
-
-	count = 0;
-	while (*s && *s != '|' && *s != '<')
-	{
-		while (*s == ' ')
-			s++;
-		if (*s)
-			count++;
-		while (*s && *s != ' ' && *s != '|' && *s != '<' && *s != '>')
-			s++;
-	}
-	return (count);
-}
-int	checkifquot(t_lists *data)
-{
-	char *str;
-	int i;
-	int checkquot;
-	int checkapostroph;
-
-	checkquot = 0;
-	i = 0;
-	checkapostroph = 0;
-	str = ft_strtrim(data->commandline, " ");
-	while(str[i])
-	{
-		if (str[i] == '\"')
-		{
-			while(str[i])
-			{
-				if (str[i] == '\"')
-				i++;
-			}
-		}
-		else if (str[i] == '\'')
-			checkapostroph++;
-		i++;
-	}
-	// ft_strtrim(data->commandline, " ");
-	// if (ft_strchr(str, '\''))
-	// 	return (1);
-	// if (ft_strchr(str, '\"'))
-	// 	return (1);
-	 return (0);
-}
 
 
 void	startprogram(t_lists *data)

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 10:20:37 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 12:28:31 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	elsestatus(t_lists *data, char *a, int i)
 	j = 0;
 	while (data->commandline[i] && ((data->commandline[i] != ' '
 				&& data->commandline[i] != '<' && data->commandline[i] != '>'
+				&& data->commandline[i] != '|'
 				&& check_quote(data->commandline, i) == 0)
 			|| (check_quote(data->commandline, i) != 0)))
 	{
@@ -68,6 +69,8 @@ int	parserv2(t_lists *data, char *a, int i, int argi)
 		i = ifsinglequote(data, a, i, &j);
 	else if (data->commandline[i] == '<' || data->commandline[i] == '>')
 		i = lessorgreatersign(data, a, i, 1);
+	else if (data->commandline[i] == '|')
+		i = pipecontrol(data, a, i);
 	else
 		i = elsestatus(data, a, i);
 	data->arguments[argi] = ft_strdup(a);

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/10/31 20:22:51 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:40:12 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	findstarttext(t_lists *data, char *pcname)
 	data->starttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
 	data->starttext = ft_strjoin(data->starttext, "@");
 	data->starttext = ft_strjoin(data->starttext, pcname);
-	data->starttext = ft_strjoin(data->starttext, " : ");
+	data->starttext = ft_strjoin(data->starttext, " ~ ");
 	data->starttext = ft_strjoin(data->starttext, "\033[0m");
 }
 

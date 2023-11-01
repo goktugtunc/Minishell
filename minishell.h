@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 10:20:55 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 12:13:29 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	print_twoDstr(char **str);
 int		parserlongcontroller(t_lists *data, int i);
 int		ifmultiquote(t_lists *data, char *a, int i, int *j);
 int		ifsinglequote(t_lists *data, char *a, int i, int *j);
+int		pipecontrol(t_lists *data, char *a, int i);
 
 #endif
 
