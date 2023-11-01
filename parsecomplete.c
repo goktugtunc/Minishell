@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsecomplete.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/02 01:07:52 by gotunc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	words_of_parts(char **argu)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	count = 0;
 	i = 0;
-	while(argu[i])
+	while (argu[i])
 	{
 		if (argu[i][0] == '|' || argu[i][0] == '<' || argu[i][0] == '>')
 			return (count);
@@ -17,7 +29,7 @@ int	words_of_parts(char **argu)
 	return (count);
 }
 
-char **towDcopy(char **src)
+char	**towdcopy(char **src)
 {
 	char	**dest;
 	int		i;
@@ -29,16 +41,16 @@ char **towDcopy(char **src)
 	else
 		words = 1;
 	dest = (char **)malloc(sizeof(char **) * words + 1);
-	while(i < words)
+	while (i < words)
 	{
-		dest[i] = ft_strdup(src[i]); 
+		dest[i] = ft_strdup(src[i]);
 		i++;
 	}
 	dest[i] = NULL;
 	return (dest);
 }
 
-int countfrompars(t_lists *data)
+int	countfrompars(void)
 {
 	char	**str;
 	int		i;
@@ -48,8 +60,8 @@ int countfrompars(t_lists *data)
 	tru = 1;
 	count = 0;
 	i = 0;
-	str = data->arguments;
-	while(str[i])
+	str = g_data->arguments;
+	while (str[i])
 	{
 		if ((str[i][0] == '|') || (str[i][0] == '>' || str[i][0] == '<'))
 		{
@@ -61,13 +73,12 @@ int countfrompars(t_lists *data)
 			tru = 0;
 			count++;
 		}
-
 		i++;
-	}	
+	}
 	return (count);
 }
 
-t_parse *lastparse(t_lists *data)
+t_parse	*lastparse(void)
 {
 	t_parse	*last = NULL;
 	char	**str;
@@ -78,21 +89,21 @@ t_parse *lastparse(t_lists *data)
 	tru = 1;
 	j = 0;
 	i = 0;
-	str = data->arguments;
-	last = (t_parse *)malloc(sizeof(t_parse) * countfrompars(data));
+	str = g_data->arguments;
+	last = (t_parse *)malloc(sizeof(t_parse) * countfrompars());
 	while (str[i])
 	{
 
 		if ((str[i][0] == '|') || (str[i][0] == '>' || str[i][0] == '<'))
 		{
 			tru = 1;
-			last[j].str = towDcopy(&str[i]);
+			last[j].str = towdcopy(&str[i]);
 			last[j++].type = ft_strdup("pipe");
 		}
 		else if (tru)
 		{
 			tru = 0;
-			last[j].str = towDcopy(&str[i]);
+			last[j].str = towdcopy(&str[i]);
 			last[j++].type = ft_strdup("part");
 		}
 

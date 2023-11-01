@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahsezer <42istanbul.com.tr>                +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:45:45 by ahsezer           #+#    #+#             */
-/*   Updated: 2023/07/14 11:56:37 by amonem           ###   ########.tr       */
+/*   Updated: 2023/11/02 00:51:08 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static int	part_counter(char const *s, char c)
 	return (i);
 }
 
-static void	strs(char **str_list, const char *s, char c)
+static void	strs(char **str_list, char *s, char c)
 {
 	char		**tab_ptr;
-	const char	*temp;
+	char		*temp;
 
 	tab_ptr = str_list;
 	while (*s)
@@ -52,7 +52,7 @@ static void	strs(char **str_list, const char *s, char c)
 	*tab_ptr = NULL;
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**str_list;
 	int		len;

@@ -6,74 +6,74 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:38:50 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 12:22:17 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 22:04:19 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parserlongcontroller(t_lists *data, int i)
+int	parserlongcontroller(int i)
 {
-	return (data->commandline[i] && data->commandline[i] != ' '
-		&& data->commandline[i] != '<' && data->commandline[i] != '>'
-		&& data->commandline[i] != '|');
+	return (g_data->commandline[i] && g_data->commandline[i] != ' '
+		&& g_data->commandline[i] != '<' && g_data->commandline[i] != '>'
+		&& g_data->commandline[i] != '|');
 }
 
-int	pipecontrol(t_lists *data, char *a, int i)
+int	pipecontrol(char *a, int i)
 {
-	a[0] = data->commandline[i];
+	a[0] = g_data->commandline[i];
 	a[1] = '\0';
 	return (++i);
 }
 
-int	ifmultiquote(t_lists *data, char *a, int i, int *j)
+int	ifmultiquote(char *a, int i, int *j)
 {
-	while (parserlongcontroller(data, i))
+	while (parserlongcontroller(i))
 	{
-		if (data->commandline[i] == '\"')
+		if (g_data->commandline[i] == '\"')
 		{
-			a[(*j)++] = data->commandline[i++];
-			while (data->commandline[i] != '\"' && data->commandline[i])
-				a[(*j)++] = data->commandline[i++];
-			a[(*j)++] = data->commandline[i++];
+			a[(*j)++] = g_data->commandline[i++];
+			while (g_data->commandline[i] != '\"' && g_data->commandline[i])
+				a[(*j)++] = g_data->commandline[i++];
+			a[(*j)++] = g_data->commandline[i++];
 		}
-		if (data->commandline[i] == ' ' || data->commandline[i] == '<'
-			|| data->commandline[i] == '>' || !data->commandline[i]
-			|| data->commandline[i] == '|')
+		if (g_data->commandline[i] == ' ' || g_data->commandline[i] == '<'
+			|| g_data->commandline[i] == '>' || !g_data->commandline[i]
+			|| g_data->commandline[i] == '|')
 			break ;
-		while (parserlongcontroller(data, i) && data->commandline[i] != '\"')
+		while (parserlongcontroller(i) && g_data->commandline[i] != '\"')
 		{
-			if (data->commandline[i] == '\'')
-				i = ifsinglequote(data, a, i, j);
+			if (g_data->commandline[i] == '\'')
+				i = ifsinglequote(a, i, j);
 			else
-				a[(*j)++] = data->commandline[i++];
+				a[(*j)++] = g_data->commandline[i++];
 		}
 	}
 	a[*j] = '\0';
 	return (i);
 }
 
-int	ifsinglequote(t_lists *data, char *a, int i, int *j)
+int	ifsinglequote(char *a, int i, int *j)
 {
-	while (parserlongcontroller(data, i))
+	while (parserlongcontroller(i))
 	{
-		if (data->commandline[i] == '\'')
+		if (g_data->commandline[i] == '\'')
 		{
-			a[(*j)++] = data->commandline[i++];
-			while (data->commandline[i] != '\'' && data->commandline[i])
-				a[(*j)++] = data->commandline[i++];
-			a[(*j)++] = data->commandline[i++];
+			a[(*j)++] = g_data->commandline[i++];
+			while (g_data->commandline[i] != '\'' && g_data->commandline[i])
+				a[(*j)++] = g_data->commandline[i++];
+			a[(*j)++] = g_data->commandline[i++];
 		}
-		if (data->commandline[i] == ' ' || data->commandline[i] == '<'
-			|| data->commandline[i] == '>' || !data->commandline[i]
-			|| data->commandline[i] == '|')
+		if (g_data->commandline[i] == ' ' || g_data->commandline[i] == '<'
+			|| g_data->commandline[i] == '>' || !g_data->commandline[i]
+			|| g_data->commandline[i] == '|')
 			break ;
-		while (parserlongcontroller(data, i) && data->commandline[i] != '\'')
+		while (parserlongcontroller(i) && g_data->commandline[i] != '\'')
 		{
-			if (data->commandline[i] == '\"')
-				i = ifmultiquote(data, a, i, j);
+			if (g_data->commandline[i] == '\"')
+				i = ifmultiquote(a, i, j);
 			else
-				a[(*j)++] = data->commandline[i++];
+				a[(*j)++] = g_data->commandline[i++];
 		}
 	}
 	a[*j] = '\0';

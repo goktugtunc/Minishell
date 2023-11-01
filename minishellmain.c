@@ -3,47 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 15:15:47 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/02 01:00:40 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void	startprogram(t_lists *data)
+void	startprogram(void)
 {
-	t_parse *parts = NULL;
-
 	while (TRUE)
 	{
-		data->errorcontrol = 0;
-		data->commandline = readline(data->starttext);
-		if (data->commandline == NULL)
-			ifSendEOF(data);
-		if (check_quote(data->commandline, ft_strlen(data->commandline)) != 0)
+		g_data->errorcontrol = 0;
+		g_data->commandline = readline(g_data->starttext);
+		if (g_data->commandline == NULL)
+			ifsendeof();
+		if (check_quote(g_data->commandline, ft_strlen(g_data->commandline)) != 0)
 		{
-			while (check_quote(data->commandline, ft_strlen(data->commandline)))
+			while (check_quote(g_data->commandline, ft_strlen(g_data->commandline)))
 			{
-				data->templine = readline("> ");
-				data->commandline = ft_strjoin(data->commandline,
-						data->templine);
-				free(data->templine);
+				g_data->templine = readline("> ");
+				g_data->commandline = ft_strjoin(g_data->commandline,
+						g_data->templine);
+				free(g_data->templine);
 			}
 		}
-		parser(data);
-		parts = lastparse(data);
-		print_twoDstr(parts[0].str);
-		printf("%s\n", parts[0].type);
-		print_twoDstr(parts[1].str);
-		printf("%s\n", parts[1].type);
-
-		print_twoDstr(parts[2].str);
-		printf("%s\n", parts[2].type);
-
-		if (data->errorcontrol == 0)
+		parser();
+		free(g_data->arguments);
+		g_data->parts = lastparse();
+		if (g_data->errorcontrol == 0)
 		{
 		}
 	}
@@ -51,12 +41,10 @@ void	startprogram(t_lists *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_lists	*data;
-
-	data = malloc(sizeof(t_lists));
+	g_data = malloc(sizeof(t_data));
 	signal(SIGINT, ifsendsigint);
-	initializefunction(data, envp, argc, argv);
-	startprogram(data);
+	initializefunction(envp, argc, argv);
+	startprogram();
 	return (0);
 }
 

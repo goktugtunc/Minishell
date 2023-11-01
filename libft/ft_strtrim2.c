@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 13:52:47 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 00:49:05 by gotunc           ###   ########.fr       */
+/*   Created: 2023/11/02 00:58:12 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/02 00:58:55 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_strtrim2(char *s1, char *set)
 {
-	char	*rtn;
 	size_t	i;
+	char	*str;
 
-	if (!s)
+	if (!s1 || !set)
 		return (0);
-	if (ft_strlen(s) < start)
-		return (ft_strdup(""));
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	i = 0;
-	rtn = ft_calloc(len + 1, sizeof(char));
-	if (!rtn)
-		return (NULL);
-	rtn[len] = 0;
-	while (i < len)
-		rtn[i++] = s[start++];
-	return (rtn);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	i = ft_strlen(s1);
+	while (i && ft_strchr(set, s1[i]))
+		i--;
+	str = ft_substr(s1, 0, i + 1);
+	free(g_data->commandline);
+	return (str);
 }
