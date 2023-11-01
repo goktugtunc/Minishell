@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 12:13:29 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 14:50:07 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ typedef enum argumenttype{
 	PIPE,
 	DOLLAR
 }	t_argtype;
+
+typedef struct s_parse
+{
+	char    **str;
+	char    *type;
+}   t_parse;
 
 typedef struct arguments{
 	char				*arg;
@@ -73,6 +79,7 @@ int		parserlongcontroller(t_lists *data, int i);
 int		ifmultiquote(t_lists *data, char *a, int i, int *j);
 int		ifsinglequote(t_lists *data, char *a, int i, int *j);
 int		pipecontrol(t_lists *data, char *a, int i);
+t_parse	*lastparse(t_lists *data);
 
 #endif
 
