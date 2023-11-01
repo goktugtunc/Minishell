@@ -6,12 +6,11 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 11:56:55 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 21:49:02 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	startprogram(t_lists *data)
 {
@@ -20,7 +19,7 @@ void	startprogram(t_lists *data)
 		data->errorcontrol = 0;
 		data->commandline = readline(data->starttext);
 		if (data->commandline == NULL)
-			ifSendEOF(data);
+			ifsendeof(data);
 		if (check_quote(data->commandline, ft_strlen(data->commandline)) != 0)
 		{
 			while (check_quote(data->commandline, ft_strlen(data->commandline)))

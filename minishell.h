@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 12:13:29 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 21:49:31 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,11 @@ void	findstarttext(t_lists *data, char *pcname);
 void	initializefunction(t_lists *data, char **envp, int argc, char **argv);
 void	ifsendsigint(int signal);
 void	ft_error(char *a);
-int		lettercount(char *text, char letter);
 char	**copyenv(char **env);
-void	ifSendEOF(t_lists *data);
+void	ifsendeof(t_lists *data);
 int		check_quote(char *line, int control);
-int		check_quote1(t_lists *data);
 void	parser(t_lists *data);
-void	print_twoDstr(char **str);
+void	print_twodstr(char **str);
 int		parserlongcontroller(t_lists *data, int i);
 int		ifmultiquote(t_lists *data, char *a, int i, int *j);
 int		ifsinglequote(t_lists *data, char *a, int i, int *j);

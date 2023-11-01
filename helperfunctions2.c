@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/01 11:56:09 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/01 21:26:30 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,40 +56,7 @@ int	check_quote(char *line, int control)
 	return (sign);
 }
 
-int	check_quote1(t_lists *data)
-{
-	int		i;
-	int		sign;
-	char	*line;
-
-	data->containquote = 0;
-	line = data->commandline;
-	sign = 0;
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'')
-		{
-			data->containquote = 1;
-			if (sign == 0)
-				sign = 1;
-			else if (sign == 1)
-				sign = 0;
-		}
-		else if (line[i] == '\"')
-		{
-			data->containquote = 1;
-			if (sign == 0)
-				sign = 2;
-			else if (sign == 2)
-				sign = 0;
-		}
-		i++;
-	}
-	return (sign);
-}
-
-void	print_twoDstr(char **str)
+void	print_twodstr(char **str)
 {
 	int	i;
 
