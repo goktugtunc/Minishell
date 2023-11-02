@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 01:07:52 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 09:59:24 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,13 @@ int	countfrompars(void)
 
 t_parse	*lastparse(void)
 {
-	t_parse	*last = NULL;
+	t_parse	*last;
 	char	**str;
 	int		i;
 	int		j;
 	int		tru;
 
+	last = NULL;
 	tru = 1;
 	j = 0;
 	i = 0;
