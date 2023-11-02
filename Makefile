@@ -1,8 +1,6 @@
 NAME = minishell
 
-src = minishellmain.c helperfunctions.c helperfunctions2.c controls.c signals.c parse.c parse2.c parsecomplete.c path.c
-
-objs = minishellmain.o
+src = minishellmain.c helperfunctions/helperfunctions.c helperfunctions/helperfunctions2.c controls.c signals.c parse/parse.c parse/parse2.c parse/parsecomplete.c path.c
 
 all: $(NAME)
 
