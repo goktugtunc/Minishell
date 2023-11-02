@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 23:06:44 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:21:17 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include "libft/libft.h"
 # define TRUE 1
@@ -52,6 +53,7 @@ typedef struct s_data{
 	char		*templine;
 	char		*redirections;
 	char		**path;
+	char		*foundedpath;
 	char		**arguments;
 	char		**my_first_commends;
 	char		**my_second_commends;
@@ -68,6 +70,7 @@ t_data			*g_data;
 
 char	*getpcname(void);
 void	findstarttext(char *pcname);
+int		findpath(char *searchedpath);
 void	initializefunction(char **envp, int argc, char **argv);
 void	ifsendsigint(int signal);
 void	ft_error(char *a);

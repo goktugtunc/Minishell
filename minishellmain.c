@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 11:34:52 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:26:13 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	startprogram(void)
 		//add_history(g_data->commandline); geçmişe kullanılan komutu ekler ama sıkıntıları var
 		parser();
 		g_data->parts = lastparse();
-		print_twodstr(g_data->parts[0].str);
-		printf("\n%s\n", g_data->parts[0].type);
+		// find path ekledim bu sayede çalışacak komutun hangi yolda olduğunu
+		// ve böyle bir komutun olup olmadığını bulabiliriz
 		free(g_data->arguments);
 		if (g_data->errorcontrol == 0)
 		{
