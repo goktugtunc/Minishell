@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:52:17 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 23:24:14 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:45:00 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,16 @@ void	initializefunction(char **envp, int argc, char **argv)
 	findstarttext(pcname);
 	g_data->path = ft_split(getenv("PATH"), ':');
 	g_data->envp = copyenv(envp);
+}
+
+void	freeendwhile(void)
+{
+	int	i;
+
+	i = 0;
+	free(g_data->commandline);
+	while (g_data->arguments[i])
+		free(g_data->arguments[i++]);
+	free(g_data->arguments);
+	free(g_data->foundedpath);
 }

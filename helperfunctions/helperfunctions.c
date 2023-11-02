@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 14:29:10 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:17:10 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ void	findstarttext(char *pcname)
 	g_data->starttext = ft_strjoin(g_data->starttext, pcname);
 	g_data->starttext = ft_strjoin(g_data->starttext, " ~ ");
 	g_data->starttext = ft_strjoin(g_data->starttext, "\033[0m");
+}
+
+void	quoteerror(void)
+{
+	if (check_quote(g_data->commandline,
+			ft_strlen(g_data->commandline)) != 0)
+	{
+		printf("\033[31;4m%sQuote Error!\n\033[0m",
+			ft_strtrim(g_data->starttext, "\033[320m"));
+		free(g_data->commandline);
+		g_data->errorstatus = 1;
+	}
 }
 
 void	ft_error(char *a)

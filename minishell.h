@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 14:21:17 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:17:42 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,14 @@ typedef struct arguments{
 typedef struct s_data{
 	t_argstruct	**argument;// its enough to be char **argument;
 	t_parse		*parts;
-	int			errorcontrol;
-	int			containquote;
 	char		*commandline;
 	char		*templine;
-	char		*redirections;
 	char		**path;
 	char		*foundedpath;
 	char		**arguments;
-	char		**my_first_commends;
-	char		**my_second_commends;
-	char		**redirection;
-	char		*newstr;
-	char		*tempstr;
-	char		*username;
-	int			commandcount;
 	char		*starttext;
 	char		**envp;
+	int			errorstatus;
 }	t_data;
 
 t_data			*g_data;
@@ -84,6 +75,8 @@ int		ifmultiquote(char *a, int i, int *j);
 int		ifsinglequote(char *a, int i, int *j);
 int		pipecontrol(char *a, int i);
 t_parse	*lastparse(void);
+void	freeendwhile(void);
+void	quoteerror(void);
 
 #endif
 
