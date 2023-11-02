@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 01:00:05 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 09:52:03 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	elsestatus(char *a, int i)
 
 	j = 0;
 	while (g_data->commandline[i] && ((g_data->commandline[i] != ' '
-				&& g_data->commandline[i] != '<' && g_data->commandline[i] != '>'
+				&& g_data->commandline[i] != '<'
+				&& g_data->commandline[i] != '>'
 				&& g_data->commandline[i] != '|'
 				&& check_quote(g_data->commandline, i) == 0)
 			|| (check_quote(g_data->commandline, i) != 0)))
@@ -87,7 +88,8 @@ void	parser(void)
 	i = 0;
 	argi = 0;
 	g_data->commandline = ft_strtrim2(g_data->commandline, " ");
-	g_data->arguments = malloc(ft_strlen(g_data->commandline) * sizeof(char *) + 1);
+	g_data->arguments = malloc(
+			ft_strlen(g_data->commandline) * sizeof(char *) + 1);
 	while (g_data->commandline[i])
 	{
 		a = malloc(ft_strlen(g_data->commandline) + 1);
