@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/02 14:29:17 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/03 20:22:16 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ void	print_twodstr(char **str)
 		printf("%s\n", str[i]);
 		i++;
 	}
+}
+
+int	commandpointerlen(char **d)
+{
+	int	i;
+
+	i = 0;
+	while (d[i])
+		i++;
+	return (i);
 }

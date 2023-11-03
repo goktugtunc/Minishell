@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 15:17:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/03 23:17:42 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data{
 	char		**path;
 	char		*foundedpath;
 	char		**arguments;
+	char		*simplestarttext;
 	char		*starttext;
 	char		**envp;
 	int			errorstatus;
@@ -77,6 +78,11 @@ int		pipecontrol(char *a, int i);
 t_parse	*lastparse(void);
 void	freeendwhile(void);
 void	quoteerror(void);
+int		commandpointerlen(char **d);
+void	cdcommand(char **a);
+int		findpathindex(char *searchedpath);
+int		findenvpindex(char *searchedenvp, int searchindex);
+int		lastarg(char **a);
 
 #endif
 
