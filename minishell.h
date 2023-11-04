@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/03 23:17:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/04 02:56:51 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	freeendwhile(void);
 void	quoteerror(void);
 int		commandpointerlen(char **d);
 void	cdcommand(char **a);
+void	pwdcommand(void);
 int		findpathindex(char *searchedpath);
 int		findenvpindex(char *searchedenvp, int searchindex);
 int		lastarg(char **a);

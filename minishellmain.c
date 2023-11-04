@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/03 20:36:01 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/04 02:59:45 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	decisionmechanism(void)
 		cdcommand(g_data->parts[0].str);
 	//else if (ft_strcmp(g_data->parts[0].str[0], "echo") == 0)
 	//	echocommand(g_data->parts[0].str);
-	//else if (ft_strcmp(g_data->parts[0].str[0], "env") == 0)
+	//else if (ft_strcmp(g_data->parts[0].str[0], "env") == 0) // goktug tarafından yapılacak
 	//	envcommand(g_data->parts[0].str);
 	//else if (ft_strcmp(g_data->parts[0].str[0], "exit") == 0)
 	//	exitcommand(g_data->parts[0].str);
-	//else if (ft_strcmp(g_data->parts[0].str[0], "export") == 0)
+	//else if (ft_strcmp(g_data->parts[0].str[0], "export") == 0) // goktug tarafından yapılacak
 	//	exportcommand(g_data->parts[0].str);
-	//else if (ft_strcmp(g_data->parts[0].str[0], "pwd") == 0)
-	//	pwdcommand(g_data->parts[0].str);
-	//else if (ft_strcmp(g_data->parts[0].str[0], "unset") == 0)
+	else if (ft_strcmp(g_data->parts[0].str[0], "pwd") == 0)
+		pwdcommand();
+	//else if (ft_strcmp(g_data->parts[0].str[0], "unset") == 0) // goktug tarafından yapılacak
 	//	unsetcommand(g_data->parts[0].str);
 	//else
 	//	normalcommands(g_data->parts[0].str);
