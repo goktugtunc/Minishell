@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/04 02:56:51 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/04 11:22:24 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data{
 	char		*simplestarttext;
 	char		*starttext;
 	char		**envp;
+	char		**exportp;
 	int			errorstatus;
 }	t_data;
 
@@ -84,6 +85,8 @@ void	pwdcommand(void);
 int		findpathindex(char *searchedpath);
 int		findenvpindex(char *searchedenvp, int searchindex);
 int		lastarg(char **a);
+void	envcommand(char **str);
+void	exportcommand(char **str);
 
 #endif
 
