@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/04 11:21:53 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/04 03:46:12 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	startprogram(void)
 			ifsendeof();
 		quoteerror();
 		//add_history(g_data->commandline); geçmişe kullanılan komutu ekler ama sıkıntıları var
-		if (g_data->errorstatus == 0)
+		if (g_data->errorstatus == 0 && g_data->commandline[0] != '\0')
 		{
 			parser();
 			g_data->parts = lastparse();
