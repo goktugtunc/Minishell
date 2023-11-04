@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:13:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/04 03:47:11 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/04 15:52:47 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 /*
 	TODO
 	Exportla ekleyip sıraladığında bazen garbage değer atıyor.
-	Sıralama doğru ama fonksiyon ilk çalıştığında ve büyük harf verildiğinde
-	çalışıyor ama direkt o anki fonksiyonun çalışışında o çıktıda girilen değeri vermiyor.
-	Tekrar export denildiğinde çalışıyor.
 	Muhtemelen NULL ataması ile ilgili.
 */
 
@@ -29,10 +26,11 @@ void	sortexport(void)
 
 	i = 0;
 	j = 0;
-	while (g_data->exportp[i])
+	printf("***%d***\n", g_data->exportlen);
+	while (i < g_data->exportlen)
 	{
 		j = 0;
-		while (g_data->exportp[j])
+		while (j < g_data->exportlen)
 		{
 			if (ft_strcmp(g_data->exportp[i], g_data->exportp[j]) < 0)
 			{
@@ -50,6 +48,7 @@ void	exportcommand(char **str) // fonksiyonda string i sıralayacak bir algoritm
 {
 	int	i;
 
+	printf("***%d***\n", g_data->exportlen);
 	i = 0;
 	if (commandpointerlen(str) != 1)
 	{
@@ -58,16 +57,24 @@ void	exportcommand(char **str) // fonksiyonda string i sıralayacak bir algoritm
 		{
 			if (ft_strchr(str[i], '='))
 			{
-				g_data->envp[commandpointerlen(g_data->envp) + 1] = NULL;
+				// g_data->envp[commandpointerlen(g_data->envp) + 1] = NULL;
 				g_data->envp[commandpointerlen(g_data->envp)] = ft_strdup(str[i]);
 			}
-			g_data->exportp[commandpointerlen(g_data->exportp) + 1] = NULL;
-			g_data->exportp[commandpointerlen(g_data->exportp)] = ft_strdup(str[i]);
+			g_data->exportp[g_data->exportlen + 1] = NULL;
+			g_data->exportp[g_data->exportlen] = ft_strdup(str[i]);
+			g_data->exportlen++;
 			i++;
 		}
 	}
+	i = 0;
+	while (i < g_data->exportlen)
+	{
+		printf("%s\n", g_data->exportp[i]);
+		i++;
+	}
 	sortexport();
-	while (i < commandpointerlen(g_data->exportp))
+	i = 0;
+	while (i < g_data->exportlen)
 	{
 		printf("declare -x %s\n", g_data->exportp[i]);
 		i++;

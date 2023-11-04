@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/04 11:22:24 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/04 15:41:00 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_data{
 	char		*starttext;
 	char		**envp;
 	char		**exportp;
+	int			exportlen;
 	int			errorstatus;
 }	t_data;
 
