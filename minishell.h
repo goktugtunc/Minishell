@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 23:06:44 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/05 19:14:15 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <unistd.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "libft/libft.h"
 # define TRUE 1
 # define FALSE 0
@@ -46,28 +48,24 @@ typedef struct arguments{
 typedef struct s_data{
 	t_argstruct	**argument;// its enough to be char **argument;
 	t_parse		*parts;
-	int			errorcontrol;
-	int			containquote;
 	char		*commandline;
 	char		*templine;
-	char		*redirections;
 	char		**path;
+	char		*foundedpath;
 	char		**arguments;
-	char		**my_first_commends;
-	char		**my_second_commends;
-	char		**redirection;
-	char		*newstr;
-	char		*tempstr;
-	char		*username;
-	int			commandcount;
+	char		*simplestarttext;
 	char		*starttext;
 	char		**envp;
+	char		**exportp;
+	int			errorstatus;
+	int			commandcount;
 }	t_data;
 
 t_data			*g_data;
 
 char	*getpcname(void);
 void	findstarttext(char *pcname);
+int		findpath(char *searchedpath);
 void	initializefunction(char **envp, int argc, char **argv);
 void	ifsendsigint(int signal);
 void	ft_error(char *a);
@@ -81,6 +79,16 @@ int		ifmultiquote(char *a, int i, int *j);
 int		ifsinglequote(char *a, int i, int *j);
 int		pipecontrol(char *a, int i);
 t_parse	*lastparse(void);
+void	freeendwhile(void);
+void	quoteerror(void);
+int		commandpointerlen(char **d);
+void	cdcommand(char **a);
+void	pwdcommand(void);
+int		findpathindex(char *searchedpath);
+int		findenvpindex(char *searchedenvp, int searchindex);
+int		lastarg(char **a);
+void	envcommand(char **str);
+void	exportcommand(char **str);
 
 #endif
 
