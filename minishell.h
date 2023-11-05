@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/04 15:41:00 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/05 05:48:06 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int		findenvpindex(char *searchedenvp, int searchindex);
 int		lastarg(char **a);
 void	envcommand(char **str);
 void	exportcommand(char **str);
+char	**adddoublepointer(char **dp, char *add);
+char	**removedoublepointerarg(char **dp, int	i);
 
 #endif
 
