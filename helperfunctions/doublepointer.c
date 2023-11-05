@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 04:57:39 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/05 05:44:48 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/05 12:51:00 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**adddoublepointer(char **dp, char *add)
 		free(dp[i]);
 		i++;
 	}
+	free(dp[i]);
 	returndp[i] = ft_strdup(add);
 	returndp[i + 1] = NULL;
 	free(dp);
@@ -42,16 +43,15 @@ char	**removedoublepointerarg(char **dp, int	i)
 	j = 0;
 	while (dp[j])
 	{
-		if (j == i)
+		if (j != i)
 		{
-			free(dp[j]);
-			j++;
+			returndp[rdpi] = ft_strdup(dp[j]);
+			rdpi++;
 		}
-		returndp[rdpi] = ft_strdup(dp[j]);
 		free(dp[j]);
-		rdpi++;
 		j++;
 	}
+	free(dp[j]);
 	returndp[rdpi] = NULL;
 	free(dp);
 	return (returndp);

@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:13:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/05 07:01:01 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/05 14:02:17 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /*
 	TODO
-	isupdate fonksiyonunda envp de değer silmeye çalıştığımda segment alıyor.
-	o fonksiyon genel olarak hatalı.
-	muhtemelen if else koşullarıyla alakalı.
+	segment hatası çözüldü.
+	Parser eklenecek.
+	= ile bir şey girildikten sonra aynı şeyi = siz girince yine ekliyor ancak hiçbir şey yapmamalı.
 */
 
 void	sortexport(void)
@@ -48,18 +48,18 @@ void	isupdate(char **str, int j)
 {
 	int	i;
 
-	i = 0;
+	i = commandpointerlen(g_data->exportp);
 	if (!ft_strchr(str[j], '='))
 	{
-		while (g_data->exportp[i])
+		while (--i != -1)
 		{
 			if (ft_strcmp(g_data->exportp[i], str[j]) == 0)
 				g_data->exportp = removedoublepointerarg(g_data->exportp, i);
-			i++;
 		}
 		return ;
 	}
-	while (g_data->exportp[i])
+	i = commandpointerlen(g_data->exportp);
+	while (--i != -1)
 	{
 		if (ft_strchr(g_data->exportp[i], '='))
 		{
@@ -67,16 +67,14 @@ void	isupdate(char **str, int j)
 				g_data->exportp = removedoublepointerarg(g_data->exportp, i);
 		}
 		else
-			if (ft_strcmp(ft_split(str[j], '=')[0], g_data->exportp[i]))
+			if (ft_strcmp(ft_split(str[j], '=')[0], g_data->exportp[i]) == 0)
 				g_data->exportp = removedoublepointerarg(g_data->exportp, i);
-		i++;
 	}
-	i = 0;
-	while (g_data->envp[i])
+	i = commandpointerlen(g_data->envp);
+	while (--i != -1)
 	{
 		if (ft_strcmp(ft_split(str[j], '=')[0], ft_split(g_data->envp[i], '=')[0]) == 0)
 			g_data->envp = removedoublepointerarg(g_data->envp, i);
-		i++;
 	}
 }
 
