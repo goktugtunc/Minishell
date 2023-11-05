@@ -6,7 +6,7 @@
 /*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/05 19:14:15 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/05 19:43:23 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ int		findenvpindex(char *searchedenvp, int searchindex);
 int		lastarg(char **a);
 void	envcommand(char **str);
 void	exportcommand(char **str);
+void	pipecommand(void);
+void	ft_chiledforpipe(void);
+void	pipecommand(void);
+void	ft_chiledforpipe(void);
 
 #endif
 
