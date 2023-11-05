@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/01 21:26:30 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/04 17:34:15 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**copyenv(char **env)
 {
@@ -66,4 +66,14 @@ void	print_twodstr(char **str)
 		printf("%s\n", str[i]);
 		i++;
 	}
+}
+
+int	commandpointerlen(char **d)
+{
+	int	i;
+
+	i = 0;
+	while (d[i])
+		i++;
+	return (i);
 }

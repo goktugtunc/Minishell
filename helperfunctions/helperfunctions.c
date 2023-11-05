@@ -6,11 +6,21 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 23:24:38 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/03 23:27:40 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
+
+int	lastarg(char **a)
+{
+	int	i;
+
+	i = 0;
+	while (a[i])
+		i++;
+	return (i - 1);
+}
 
 char	*getpcname(void)
 {
@@ -41,11 +51,30 @@ char	*getpcname(void)
 
 void	findstarttext(char *pcname)
 {
-	g_data->starttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
-	g_data->starttext = ft_strjoin(g_data->starttext, "@");
-	g_data->starttext = ft_strjoin(g_data->starttext, pcname);
-	g_data->starttext = ft_strjoin(g_data->starttext, " ~ ");
-	g_data->starttext = ft_strjoin(g_data->starttext, "\033[0m");
+	char	**pwd;
+
+	pwd = ft_split(getcwd(NULL, 0), '/');
+	g_data->simplestarttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
+	g_data->simplestarttext = ft_strjoin(g_data->simplestarttext, "@");
+	g_data->simplestarttext = ft_strjoin(g_data->simplestarttext, pcname);
+	g_data->starttext = ft_strjoin2(g_data->simplestarttext, " ");
+	if (ft_strcmp(getcwd(NULL, 0), getenv("HOME")) == 0)
+		g_data->starttext = ft_strjoin(g_data->starttext, "~");
+	else
+		g_data->starttext = ft_strjoin(g_data->starttext, pwd[lastarg(pwd)]);
+	g_data->starttext = ft_strjoin(g_data->starttext, " % \033[0m");
+}
+
+void	quoteerror(void)
+{
+	if (check_quote(g_data->commandline,
+			ft_strlen(g_data->commandline)) != 0)
+	{
+		printf("\033[31;4m%sQuote Error!\n\033[0m",
+			ft_strtrim(g_data->starttext, "\033[320m"));
+		free(g_data->commandline);
+		g_data->errorstatus = 1;
+	}
 }
 
 void	ft_error(char *a)

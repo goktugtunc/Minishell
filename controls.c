@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:52:17 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/01 23:24:14 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/04 15:43:03 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,18 @@ void	initializefunction(char **envp, int argc, char **argv)
 	findstarttext(pcname);
 	g_data->path = ft_split(getenv("PATH"), ':');
 	g_data->envp = copyenv(envp);
+	g_data->exportp = copyenv(envp);
+	g_data->exportlen = lastarg(g_data->exportp) + 1;
+}
+
+void	freeendwhile(void)
+{
+	int	i;
+
+	i = 0;
+	free(g_data->commandline);
+	while (g_data->arguments[i])
+		free(g_data->arguments[i++]);
+	free(g_data->arguments);
+	free(g_data->foundedpath);
 }

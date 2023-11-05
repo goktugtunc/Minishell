@@ -6,11 +6,11 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 09:52:03 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:29:43 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	lessorgreatersign(char *a, int i, int m)
 {
@@ -99,7 +99,4 @@ void	parser(void)
 			i = parserv2(a, i, argi++);
 	}
 	g_data->arguments[argi] = NULL;
-	i = 0;
-	while (g_data->arguments[i])
-		printf("%s\n", g_data->arguments[i++]);
 }
