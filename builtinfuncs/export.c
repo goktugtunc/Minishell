@@ -6,7 +6,7 @@
 /*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:13:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/05 14:02:17 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/05 14:16:06 by goktugtunc       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,30 @@
 
 /*
 	TODO
-	segment hatası çözüldü.
 	Parser eklenecek.
-	= ile bir şey girildikten sonra aynı şeyi = siz girince yine ekliyor ancak hiçbir şey yapmamalı.
+	normları çözülecek.
+	Onun dışında fonksiyonları bitti.
 */
+
+int	isthere(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (g_data->envp[i])
+	{
+		if (ft_strcmp(ft_split(g_data->envp[i], '=')[0], str) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	sortexport(void)
 {
-	int	i;
-	int	j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
 	j = 0;
@@ -88,12 +102,13 @@ void	exportcommand(char **str) // fonksiyonda string i sıralayacak bir algoritm
 		i = 1;
 		while (str[i])
 		{
-			isupdate(str, i);
-			if (ft_strchr(str[i], '='))
+			if (!isthere(str[i]))
 			{
-				g_data->envp = adddoublepointer(g_data->envp, str[i]);
+				isupdate(str, i);
+				if (ft_strchr(str[i], '='))
+					g_data->envp = adddoublepointer(g_data->envp, str[i]);
+				g_data->exportp = adddoublepointer(g_data->exportp, str[i]);
 			}
-			g_data->exportp = adddoublepointer(g_data->exportp, str[i]);
 			i++;
 		}
 	}
