@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecomplete.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 14:29:56 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/06 21:40:55 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	countfrompars(void)
 		}
 		i++;
 	}
+	g_data->commandcount = count;
 	return (count);
 }
 

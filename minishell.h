@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/05 05:48:06 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/06 21:36:26 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "libft/libft.h"
 # define TRUE 1
 # define FALSE 0
@@ -56,8 +57,9 @@ typedef struct s_data{
 	char		*starttext;
 	char		**envp;
 	char		**exportp;
-	int			exportlen;
 	int			errorstatus;
+	int			exportlen;
+	int			commandcount;
 }	t_data;
 
 t_data			*g_data;
@@ -90,7 +92,12 @@ void	envcommand(char **str);
 void	exportcommand(char **str);
 char	**adddoublepointer(char **dp, char *add);
 char	**removedoublepointerarg(char **dp, int	i);
-
+void	pipecommand(void);
+void	ft_chiledforpipe(void);
+void	echocommand(char **str);
+void	ft_chiled(char **str);
+char *get_the_path(char **env, char *str);
+void	decisionmechanism(char **str);
 #endif
 
 //fork pipe fd[0] ve fd[1] öğren.
