@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/06 21:37:46 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/07 01:00:13 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	decisionmechanism(char **str)
 	//else if (ft_strcmp(str[0], "exit") == 0)
 	//	exitcommand(str);
 	else if (ft_strcmp(str[0], "export") == 0)
-		exportcommand(str);
+		exportcommand(str, 0, 0);
 	else if (ft_strcmp(str[0], "pwd") == 0)
 		pwdcommand();
 	else

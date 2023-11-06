@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/06 21:36:26 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/07 01:00:38 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,16 @@ int		findpathindex(char *searchedpath);
 int		findenvpindex(char *searchedenvp, int searchindex);
 int		lastarg(char **a);
 void	envcommand(char **str);
-void	exportcommand(char **str);
+void	exportcommand(char **str, int i, int error);
 char	**adddoublepointer(char **dp, char *add);
-char	**removedoublepointerarg(char **dp, int	i);
+char	**removedoublepointerarg(char **dp, int i);
 void	pipecommand(void);
 void	ft_chiledforpipe(void);
 void	echocommand(char **str);
 void	ft_chiled(char **str);
-char *get_the_path(char **env, char *str);
+char	*get_the_path(char **env, char *str);
 void	decisionmechanism(char **str);
+int		exportparser(char *str);
 #endif
 
 //fork pipe fd[0] ve fd[1] öğren.
