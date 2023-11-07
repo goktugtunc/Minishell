@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 01:33:44 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 19:27:25 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,22 @@ int	countfrompars(void)
 	return (count);
 }
 
+char	*lastparse2(char *str)
+{
+	if (ft_strcmp(str, "|"))
+		return (ft_strdup("pipe"));
+	else if (ft_strcmp(str, "<"))
+		return (ft_strdup("simpleinput"));
+	else if (ft_strcmp(str, "<<"))
+		return (ft_strdup("multipleinput"));
+	else if (ft_strcmp(str, ">"))
+		return (ft_strdup("simpleoutput"));
+	else if (ft_strcmp(str, ">>"))
+		return (ft_strdup("multipleoutput"));
+	return (NULL);
+}
+
+
 t_parse	*lastparse(void)
 {
 	t_parse	*last;
@@ -87,7 +103,6 @@ t_parse	*lastparse(void)
 	int		j;
 	int		tru;
 
-	last = NULL;
 	tru = 1;
 	j = 0;
 	i = -1;
@@ -95,16 +110,21 @@ t_parse	*lastparse(void)
 	last = (t_parse *)malloc(sizeof(t_parse) * countfrompars());
 	while (str[++i])
 	{
-		if ((str[i][0] == '|') || (str[i][0] == '>' || str[i][0] == '<'))
+		if (str[i][0] == '|' || str[i][0] == '>' || str[i][0] == '<')
 		{
 			tru = 1;
 			last[j].str = towdcopy(&str[i]);
-			last[j++].type = ft_strdup("pipe");
+			last[j].type = lastparse2(str[i]);
+			printf("%s\n", last[j].type);
+			j++;
 		}
-		else if (tru == 1 && --tru == 0)
+		else if (tru == 1)
 		{
+			tru = 0;
 			last[j].str = towdcopy(&str[i]);
-			last[j++].type = ft_strdup("part");
+			last[j].type = ft_strdup("word");
+			printf("%s\n", last[j].type);
+			j++;
 		}
 	}
 	return (last);

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 03:15:49 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 19:20:53 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,7 @@ typedef struct s_parse
 	char	*type;
 }	t_parse;
 
-typedef enum argumenttype{
-	WORD,
-	INPUT_RDR,
-	OUTPUT_RDR,
-	DOUBLE_OUTPUT_RDR,
-	DOUBLE_INPUT_RDR,
-	PIPE,
-	DOLLAR
-}	t_argtype;
-
-typedef struct arguments{
-	char				*arg;
-	t_argtype			type;
-	struct arguments	*next;
-}	t_argstruct;
-
 typedef struct s_data{
-	t_argstruct	**argument;
 	t_parse		*parts;
 	char		*commandline;
 	char		*templine;
