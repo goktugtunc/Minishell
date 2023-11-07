@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 02:22:53 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 03:15:21 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	decisionmechanism(char **str)
 		pwdcommand();
 	else if (ft_strcmp(str[0], "unset") == 0)
 		unsetcommand(str);
-	//else if (ft_strcmp(str[0], "exit") == 0)
-	//	exitcommand(str);
+	else if (ft_strcmp(str[0], "exit") == 0)
+		exitcommand();
 	else
 		ft_chiled(str);
 }
 
 void	startprogram(void)
 {
-	while (TRUE)
+	while (1)
 	{
 		g_data->errorstatus = 0;
 		g_data->commandline = readline(g_data->starttext);

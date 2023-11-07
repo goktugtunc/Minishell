@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/03 23:27:40 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 03:05:43 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ char	*getpcname(void)
 	pipe(fd);
 	id = fork();
 	if (id == 0)
-	{/////// closing fd;
+	{
 		dup2(fd[1], STDOUT_FILENO);
 		execve("/usr/sbin/scutil",
 			ft_split("scutil --get ComputerName", ' '), NULL);
 	}
 	else
-	{////////closing fd;
+	{
 		wait(NULL);
 		bytesread = read(fd[0], pcname, sizeof(pcname));
 		if (bytesread == -1)

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 01:54:00 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 03:15:49 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
-# define TRUE 1
-# define FALSE 0
 
 typedef struct s_parse
 {
@@ -46,7 +44,7 @@ typedef struct arguments{
 }	t_argstruct;
 
 typedef struct s_data{
-	t_argstruct	**argument;// its enough to be char **argument;
+	t_argstruct	**argument;
 	t_parse		*parts;
 	char		*commandline;
 	char		*templine;
@@ -101,7 +99,6 @@ void	decisionmechanism(char **str);
 int		exportparser(char *str);
 int		findexportindex(char *searchedenvp, int searchindex);
 void	unsetcommand(char **str);
+void	exitcommand(void);
 
 #endif
-
-//fork pipe fd[0] ve fd[1] öğren.

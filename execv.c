@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execv.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/07 03:11:43 by gotunc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	count_of_str(char **argu)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	count = 0;
 	i = 0;
-	while(argu[i])
+	while (argu[i])
 	{
 		i++;
 	}
 	return (i);
 }
 
-char **ft_towDcopy(char **src)
+char	**ft_towdcopy(char **src)
 {
 	char	**dest;
 	int		i;
@@ -23,19 +35,19 @@ char **ft_towDcopy(char **src)
 	i = 0;
 	words = count_of_str(src);
 	dest = (char **)malloc(sizeof(char **) * words + 1);
-	while(i < words)
+	while (i < words)
 	{
-		dest[i] = ft_strdup(src[i]); 
+		dest[i] = ft_strdup(src[i]);
 		i++;
 	}
 	dest[i] = NULL;
 	return (dest);
 }
 
-char *get_the_path(char **env, char *str)
+char	*get_the_path(char **env, char *str)
 {
-	int i;
-	char *check;
+	int		i;
+	char	*check;
 
 	i = 0;
 	(void)env;
@@ -55,18 +67,18 @@ char *get_the_path(char **env, char *str)
 
 void	ft_chiled(char **str)
 {
-	int chiled;
+	int	chiled;
+
 	chiled = fork();
 	if (chiled == 0)
+	{
+		if (execve(get_the_path(g_data->envp, str[0]), str, g_data->envp) == -1)
 		{
-			if (execve(get_the_path(g_data->envp, str[0]), str, g_data->envp) == -1)
-			{
-				printf("-bash: %s: command not found\n", str[0]);
-				exit (0);
-			}
-			//
+			printf("-bash: %s: command not found\n", str[0]);
+			exit (0);
 		}
-		wait(NULL);
+	}
+	wait(NULL);
 }
 
 void	echocommand(char **str)
