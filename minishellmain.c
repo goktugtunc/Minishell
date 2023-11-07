@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 18:24:46 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 19:59:38 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	startprogram(void)
 		if (g_data->errorstatus == 0 && g_data->commandline[0] != '\0')
 		{
 			parser();
-			g_data->parts = lastparse();
+			g_data->parts = lastparse(g_data->arguments, 1);
 			if (g_data->commandcount > 1)
 			{
 				ft_chiledforpipe();

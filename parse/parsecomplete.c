@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 19:27:25 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 22:23:39 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,32 +81,27 @@ int	countfrompars(void)
 
 char	*lastparse2(char *str)
 {
-	if (ft_strcmp(str, "|"))
+	if (!ft_strcmp(str, "|"))
 		return (ft_strdup("pipe"));
-	else if (ft_strcmp(str, "<"))
+	else if (!ft_strcmp(str, "<"))
 		return (ft_strdup("simpleinput"));
-	else if (ft_strcmp(str, "<<"))
+	else if (!ft_strcmp(str, "<<"))
 		return (ft_strdup("multipleinput"));
-	else if (ft_strcmp(str, ">"))
+	else if (!ft_strcmp(str, ">"))
 		return (ft_strdup("simpleoutput"));
-	else if (ft_strcmp(str, ">>"))
+	else if (!ft_strcmp(str, ">>"))
 		return (ft_strdup("multipleoutput"));
 	return (NULL);
 }
 
-
-t_parse	*lastparse(void)
+t_parse	*lastparse(char **str, int tru)
 {
 	t_parse	*last;
-	char	**str;
 	int		i;
 	int		j;
-	int		tru;
 
-	tru = 1;
 	j = 0;
 	i = -1;
-	str = g_data->arguments;
 	last = (t_parse *)malloc(sizeof(t_parse) * countfrompars());
 	while (str[++i])
 	{
@@ -115,7 +110,6 @@ t_parse	*lastparse(void)
 			tru = 1;
 			last[j].str = towdcopy(&str[i]);
 			last[j].type = lastparse2(str[i]);
-			printf("%s\n", last[j].type);
 			j++;
 		}
 		else if (tru == 1)
@@ -123,7 +117,6 @@ t_parse	*lastparse(void)
 			tru = 0;
 			last[j].str = towdcopy(&str[i]);
 			last[j].type = ft_strdup("word");
-			printf("%s\n", last[j].type);
 			j++;
 		}
 	}
