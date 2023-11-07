@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 01:00:13 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 02:22:53 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,16 @@ void	decisionmechanism(char **str)
 		echocommand(str);
 	else if (ft_strcmp(str[0], "env") == 0)
 		envcommand(str);
-	//else if (ft_strcmp(str[0], "exit") == 0)
-	//	exitcommand(str);
 	else if (ft_strcmp(str[0], "export") == 0)
 		exportcommand(str, 0, 0);
 	else if (ft_strcmp(str[0], "pwd") == 0)
 		pwdcommand();
+	else if (ft_strcmp(str[0], "unset") == 0)
+		unsetcommand(str);
+	//else if (ft_strcmp(str[0], "exit") == 0)
+	//	exitcommand(str);
 	else
 		ft_chiled(str);
-	//else if (ft_strcmp(str[0], "unset") == 0) // goktug tarafından yapılacak
-	//	unsetcommand(str);
-	//else
-	//	normalcommands(str);
 }
 
 void	startprogram(void)
@@ -53,7 +51,7 @@ void	startprogram(void)
 			{
 				ft_chiledforpipe();
 			}
-			else if(g_data->commandline)
+			else if (g_data->commandline)
 			{
 				decisionmechanism(g_data->parts[0].str);
 			}

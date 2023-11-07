@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 01:00:38 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/07 01:54:00 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	ft_chiled(char **str);
 char	*get_the_path(char **env, char *str);
 void	decisionmechanism(char **str);
 int		exportparser(char *str);
+int		findexportindex(char *searchedenvp, int searchindex);
+void	unsetcommand(char **str);
+
 #endif
 
 //fork pipe fd[0] ve fd[1] öğren.

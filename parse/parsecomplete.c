@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecomplete.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/06 21:40:55 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/07 01:33:44 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,26 +90,22 @@ t_parse	*lastparse(void)
 	last = NULL;
 	tru = 1;
 	j = 0;
-	i = 0;
+	i = -1;
 	str = g_data->arguments;
 	last = (t_parse *)malloc(sizeof(t_parse) * countfrompars());
-	while (str[i])
+	while (str[++i])
 	{
-
 		if ((str[i][0] == '|') || (str[i][0] == '>' || str[i][0] == '<'))
 		{
 			tru = 1;
 			last[j].str = towdcopy(&str[i]);
 			last[j++].type = ft_strdup("pipe");
 		}
-		else if (tru)
+		else if (tru == 1 && --tru == 0)
 		{
-			tru = 0;
 			last[j].str = towdcopy(&str[i]);
 			last[j++].type = ft_strdup("part");
 		}
-
-		i++;
 	}
 	return (last);
 }
