@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 00:58:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/02 00:58:55 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:25:08 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ char	*ft_strtrim2(char *s1, char *set)
 	while (i && ft_strchr(set, s1[i]))
 		i--;
 	str = ft_substr(s1, 0, i + 1);
-	free(g_data->commandline);
+	free(s1);
 	return (str);
 }

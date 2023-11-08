@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 18:48:09 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/08 23:40:57 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void	unsetcommand(char **str);
 void	exitcommand(void);
 char	*simpleinputcommand1(int i);
 char	*simpleoutputcommand1(int i);
+void	transformdollar(t_data *data);
 
 #endif
