@@ -1,4 +1,4 @@
-SRCS = minishellmain.c helperfunctions/helperfunctions.c helperfunctions/helperfunctions2.c controls.c signals.c parse/parse.c parse/parse2.c parse/parsecomplete.c path.c builtinfuncs/cd.c builtinfuncs/pwd.c builtinfuncs/env.c builtinfuncs/export.c helperfunctions/doublepointer.c pipp.c execv.c builtinfuncs/unset.c builtinfuncs/exit.c
+SRCS = minishellmain.c helperfunctions/helperfunctions.c helperfunctions/helperfunctions2.c controls.c signals.c parse/parse.c parse/parse2.c parse/parsecomplete.c path.c builtinfuncs/cd.c builtinfuncs/pwd.c builtinfuncs/env.c builtinfuncs/export.c helperfunctions/doublepointer.c pipp.c execv.c builtinfuncs/unset.c builtinfuncs/exit.c inputandoutput/inputandoutput.c
 
 CC = @gcc
 NAME = minishell

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 19:59:24 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:48:09 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -68,6 +69,7 @@ void	cdcommand(char **a);
 void	pwdcommand(void);
 int		findpathindex(char *searchedpath);
 int		findenvpindex(char *searchedenvp, int searchindex);
+int		findenvpindex2(char *searchedenvp);
 int		lastarg(char **a);
 void	envcommand(char **str);
 void	exportcommand(char **str, int i, int error);
@@ -83,5 +85,7 @@ int		exportparser(char *str);
 int		findexportindex(char *searchedenvp, int searchindex);
 void	unsetcommand(char **str);
 void	exitcommand(void);
+char	*simpleinputcommand1(int i);
+char	*simpleoutputcommand1(int i);
 
 #endif

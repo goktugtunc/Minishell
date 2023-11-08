@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 04:57:39 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/07 00:51:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/08 11:31:06 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,18 @@ int	exportparser(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int	findenvpindex2(char *searchedenvp)
+{
+	int	i;
+
+	i = 0;
+	while (g_data->envp[i])
+	{
+		if (ft_strcmp(ft_split(g_data->envp[i], '=')[0], searchedenvp) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
 }

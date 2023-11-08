@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 22:23:39 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/08 12:59:23 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ t_parse	*lastparse(char **str, int tru)
 			j++;
 		}
 	}
+	last[j].type = NULL;
 	return (last);
 }
