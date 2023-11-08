@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 23:51:28 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:51:56 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,8 @@ void	startprogram(void)
 		{
 			parser();
 			transformdollar(g_data); // burada dolar işlemlerini yapıyorum ancak şuanda doğru çalışmıyor. ft_strlen kadar yollamaktansa yeni bir fonksiyon ile stringin eşittirden öncekinin tamamıyla kıyaslamam lazım. $$ ve $? işaretlerini kontrol etmeliyim.
-			printf("%s\n", g_data->arguments[1]);
-			g_data->parts = lastparse(g_data->arguments, 1);
-			commandfinder(); // Bu fonksiyonda teker teker argümanları pipe input ya da output olma durumuna göre yönlendireceğim.
+			g_data->parts = lastparse(g_data->arguments, 1, -1);
+			//commandfinder(); // Bu fonksiyonda teker teker argümanları pipe input ya da output olma durumuna göre yönlendireceğim.
 			if (g_data->commandcount > 1)
 			{
 				ft_chiledforpipe();

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:04:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 23:47:19 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:47:33 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	transformdollar2(t_data *data, char *temp, int i, int j)
 		{
 			m = j + 1;
 			while (!ft_isdigit(data->arguments[i][j + 1])
-					&& (ft_isalnum(data->arguments[i][m]) || data->arguments[i][m] == '_')
+					&& (ft_isalnum(data->arguments[i][m])
+						|| data->arguments[i][m] == '_')
 					&& data->arguments[i][m])
 				m++;
 			temp = dollarfill(data, i, j, m);
@@ -101,7 +102,8 @@ void	transformdollar(t_data *data)
 		if (data->arguments[i][0] != '\'')
 		{
 			if (data->arguments[i][0] == '\"'
-				|| data->arguments[i][ft_strlen(data->arguments[i]) - 1] == '\"')
+				|| data->arguments[i]
+				[ft_strlen(data->arguments[i]) - 1] == '\"')
 			{
 				data->arguments[i] = ft_strtrim2(data->arguments[i], "\"");
 				quote = 1;

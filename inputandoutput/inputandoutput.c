@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 16:59:52 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 18:53:18 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:53:51 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*simpleinputcommand1(int i)
 	fd = open(g_data->parts[i + 1].str[0], O_RDWR);
 	if (fd == -1)
 	{
-		printf("%s:\033[0m \033[31;4m%s: No such file or directory\033[0m\n", g_data->simplestarttext, g_data->parts[i + 1].str[0]);
+		printf("%s:\033[0m \033[31;4m%s: No such file or directory\033[0m\n",
+			g_data->simplestarttext, g_data->parts[i + 1].str[0]);
 	}
 	else
 		close(fd);

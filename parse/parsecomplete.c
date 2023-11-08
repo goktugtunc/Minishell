@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 12:59:23 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:51:09 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**towdcopy(char **src)
 		words = words_of_parts(src);
 	else
 		words = 1;
-	dest = (char **)malloc(sizeof(char **) * words + 1);
+	dest = (char **)malloc(sizeof(char *) * (words + 1));
 	while (i < words)
 	{
 		dest[i] = ft_strdup(src[i]);
@@ -94,15 +94,13 @@ char	*lastparse2(char *str)
 	return (NULL);
 }
 
-t_parse	*lastparse(char **str, int tru)
+t_parse	*lastparse(char **str, int tru, int i)
 {
 	t_parse	*last;
-	int		i;
 	int		j;
 
 	j = 0;
-	i = -1;
-	last = (t_parse *)malloc(sizeof(t_parse) * countfrompars());
+	last = (t_parse *)malloc(sizeof(t_parse) * (countfrompars() + 1));
 	while (str[++i])
 	{
 		if (str[i][0] == '|' || str[i][0] == '>' || str[i][0] == '<')

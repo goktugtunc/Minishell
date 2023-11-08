@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 23:40:57 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:51:32 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		parserlongcontroller(int i);
 int		ifmultiquote(char *a, int i, int *j);
 int		ifsinglequote(char *a, int i, int *j);
 int		pipecontrol(char *a, int i);
-t_parse	*lastparse(char **str, int tru);
+t_parse	*lastparse(char **str, int tru, int i);
 void	freeendwhile(void);
 void	quoteerror(void);
 int		commandpointerlen(char **d);
