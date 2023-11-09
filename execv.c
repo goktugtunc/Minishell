@@ -34,24 +34,19 @@ char **ft_towDcopy(char **src)
 
 char *get_the_path(char **env, char *str)
 {
-	char **splited_path;
 	int i;
 	char *check;
 
 	i = 0;
-	while (env[i])
+	(void)env;
+	while (g_data->path[i])
 	{
-		if (ft_strncmp(env[i] ,"PATH", 4) == 0)
-			splited_path = ft_towDcopy(ft_split(env[i] + 5, ':'));
-		i++;
-	}
-	i = 0;
-	while (splited_path[i])
-	{
-		check = ft_strjoin(splited_path[i], "/");
+		check = ft_strjoin(g_data->path[i], "/");
 		check = ft_strjoin(check, str);
-		if (access(check, F_OK | X_OK) == 0)
+		if (access(check, F_OK) == 0)
 			return (check);
+		else if (access(str, X_OK) == 0)
+			return (str);
 		free(check);
 		i++;
 	}
@@ -61,6 +56,7 @@ char *get_the_path(char **env, char *str)
 void	ft_chiled(char **str)
 {
 	int chiled;
+	
 	chiled = fork();
 	if (chiled == 0)
 		{
@@ -69,12 +65,17 @@ void	ft_chiled(char **str)
 				printf("-bash: %s: command not found\n", str[0]);
 				exit (0);
 			}
-			//
 		}
 		wait(NULL);
 }
 
 void	echocommand(char **str)
 {
-	print_twodstr(&str[1]);
+	if (ft_strcmp(str[1], "-n") == 0)
+		print_twodstr(&str[2]);
+	else
+	{
+		print_twodstr(&str[1]);
+		printf("\n");
+	}
 }

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void pipecommand(void)
+void pipecommand(char **s1, char **s2, int i, int j)
 {
 	int fds[2];
 	int chiled;
@@ -10,23 +10,30 @@ void pipecommand(void)
 	{
 		close(fds[0]);
 		dup2(fds[1], 1);
-		decisionmechanism(g_data->parts[0].str);
-		exit(0);			
+		decisionmechanism(s1);
+		close(fds[1]);
+		exit(0);
 	}
-	dup2(fds[0], 0);
 	close(fds[1]);
-	if (execve(get_the_path(g_data->envp, g_data->parts[2].str[0]), g_data->parts[2].str, g_data->envp) == -1)
-	{
-		printf("-bash: %s: command not found\n", g_data->parts[2].str[0]);
-		exit (0);
-	}	
+	wait(NULL);
+	dup2(fds[0], 0);
+	if (i > 1)
+		pipecommand(g_data->parts[j + 2].str, g_data->parts[j + 4].str, i - 2, j + 2);
+	else
+		decisionmechanism(s2);
+	close(fds[0]);
+	exit(0);
 }
 
-void	ft_chiledforpipe(void)
+void	ft_chiledforpipe(void)//////should give variable inside to index it 
 {
 	int chiled;
+
 	chiled = fork();
 	if (chiled == 0)
-			pipecommand();	
-		wait(NULL);
+	{
+		pipecommand(g_data->parts[0].str, g_data->parts[2].str, g_data->commandcount - 2, 0);
+	}
+	wait(NULL);
 }
+

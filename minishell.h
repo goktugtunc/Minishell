@@ -6,7 +6,7 @@
 /*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/05 19:43:23 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/09 20:36:17 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -58,6 +59,7 @@ typedef struct s_data{
 	char		**envp;
 	char		**exportp;
 	int			errorstatus;
+	int			exportlen;
 	int			commandcount;
 }	t_data;
 
@@ -89,10 +91,17 @@ int		findenvpindex(char *searchedenvp, int searchindex);
 int		lastarg(char **a);
 void	envcommand(char **str);
 void	exportcommand(char **str);
-void	pipecommand(void);
+char	**adddoublepointer(char **dp, char *add);
+char	**removedoublepointerarg(char **dp, int	i);
+void pipecommand(char **s1, char **s2, int i, int j);
 void	ft_chiledforpipe(void);
-void	pipecommand(void);
-void	ft_chiledforpipe(void);
+void	echocommand(char **str);
+void	ft_chiled(char **str);
+char *get_the_path(char **env, char *str);
+void	decisionmechanism(char **str);
+void	ft_dorequire(void);
+void ft_odd_right_redirection(void);
+void ft_odd_left_redirection(void);
 
 #endif
 
