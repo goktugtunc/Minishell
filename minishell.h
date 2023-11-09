@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/09 00:51:32 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:57:56 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/ioctl.h>
 # include "libft/libft.h"
 
 typedef struct s_parse
@@ -88,5 +89,6 @@ void	exitcommand(void);
 char	*simpleinputcommand1(int i);
 char	*simpleoutputcommand1(int i);
 void	transformdollar(t_data *data);
+void	ifsendsigquit(int signal);
 
 #endif

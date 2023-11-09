@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/09 00:51:56 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:37:16 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	g_data = malloc(sizeof(t_data));
 	signal(SIGINT, ifsendsigint);
+	signal(SIGQUIT, ifsendsigquit);
 	initializefunction(envp, argc, argv);
 	startprogram();
 	return (0);
