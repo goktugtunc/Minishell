@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:10:23 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 04:37:37 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:59:10 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,32 @@ int	echonflagcontroller(char *str)
 		return (1);
 	}
 	return (0);
+}
+
+void	goheredoc(char **str) // HEREDOC echo veya ls gibi şeyleri yazdırırken sıkıntı çıkarıyor düzeltilecek.
+{
+	char	*temp;
+	char	*returnval;
+
+	temp = NULL;
+	returnval = NULL;
+	while (1)
+	{
+		temp = readline("> ");
+		if (ft_strcmp(str[0], temp))
+		{
+			if (!returnval)
+				returnval = ft_strdup(temp);
+			else
+			{
+				returnval = ft_strjoin(returnval, "\n");
+				returnval = ft_strjoin(returnval, temp);
+			}
+			free(temp);
+		}
+		else
+			break ;
+	}
+	free(str[0]);
+	str[0] = returnval;
 }
