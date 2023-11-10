@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipp.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/07 03:07:22 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/10 19:55:00 by amonem           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void pipecommand(char **s1, char **s2, int i, int j)
+int	pipecommand(char **s1, char **s2, int i)
 {
-	int fds[2];
-	int chiled;
+	int	fds[2];
+	int	chiled;
+
 	pipe(fds);
 	chiled = fork();
 	if (chiled == 0)
@@ -11,6 +24,8 @@ void pipecommand(char **s1, char **s2, int i, int j)
 		close(fds[0]);
 		dup2(fds[1], 1);
 		decisionmechanism(s1);
+
+		//commandfinder();
 		close(fds[1]);
 		exit(0);
 	}
@@ -18,22 +33,42 @@ void pipecommand(char **s1, char **s2, int i, int j)
 	wait(NULL);
 	dup2(fds[0], 0);
 	if (i > 1)
-		pipecommand(g_data->parts[j + 2].str, g_data->parts[j + 4].str, i - 2, j + 2);
+	{
+		g_data->j += 2;
+		pipecommand(g_data->parts[g_data->j].str,
+			g_data->parts[g_data->j + 2].str, i - 2);
+	}
 	else
 		decisionmechanism(s2);
 	close(fds[0]);
-	exit(0);
+	return (g_data->j);
 }
 
-void	ft_chiledforpipe(void)//////should give variable inside to index it 
+int	ft_chiledforpipe(char **str1, char **str2)
 {
-	int chiled;
+	int		chiled;
+	char	*temp;
+	int		fds[2];
 
+	g_data->j = 0;
+	pipe(fds);
 	chiled = fork();
 	if (chiled == 0)
 	{
-		pipecommand(g_data->parts[0].str, g_data->parts[2].str, g_data->commandcount - 2, 0);
+		close(fds[0]);
+		g_data->j = pipecommand(str1, str2, g_data->commandcount - 2);
+		temp = ft_itoa(g_data->j);
+		write(fds[1], temp, ft_strlen(temp));
+		close(fds[1]);
+		free(temp);
+		exit(0);
 	}
 	wait(NULL);
+	temp = malloc(10);
+	read(fds[0], temp, 999);
+	g_data->j = ft_atoi(temp);
+	close(fds[0]);
+	close(fds[1]);
+	free(temp);
+	return (g_data->j);
 }
-

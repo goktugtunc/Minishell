@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   inputandoutput.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 10:52:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 22:01:28 by gotunc           ###   ########.fr       */
+/*   Created: 2023/11/08 16:59:52 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/09 00:53:51 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	envcommand(char **str)
+char	*simpleinputcommand1(int i)
 {
-	int	i;
+	int	fd;
 
-	i = 0;
-	while (i < commandpointerlen(g_data->envp))
+	fd = open(g_data->parts[i + 1].str[0], O_RDWR);
+	if (fd == -1)
 	{
-		printf("%s\n", g_data->envp[i]);
-		i++;
+		printf("%s:\033[0m \033[31;4m%s: No such file or directory\033[0m\n",
+			g_data->simplestarttext, g_data->parts[i + 1].str[0]);
 	}
-	i = 1;
-	while (i < commandpointerlen(str))
-	{
-		if (ft_strchr(str[i], '='))
-		{
-			printf("%s\n", str[i]);
-		}
-		else
-		{
-			perror(ft_strjoin2("env: ", str[i]));
-			return ;
-		}
-		i++;
-	}
+	else
+		close(fd);
+	return (NULL);
+}
+
+char	*simpleoutputcommand1(int i)
+{
+	int	fd;
+
+	fd = open(g_data->parts[i + 1].str[0], O_RDWR | O_CREAT | O_TRUNC, 0777);
+	close(fd);
+	return (NULL);
 }

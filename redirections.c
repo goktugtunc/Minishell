@@ -1,34 +1,52 @@
 #include "minishell.h"
 
-void ft_odd_right_redirection(void)
+void	ft_odd_right_redirection(char *str, int i)
 {
 	int	fd;
-	int chiled;
+	int	chiled;
 
-
-	fd = open(g_data->parts[2].str[0], O_CREAT | O_WRONLY, 0777);
+	fd = open(str, O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	chiled = fork();
 	if (chiled == 0)
 	{
 		dup2(fd, 1);
-		ft_dorequire();
+		decisionmechanism(g_data->parts[i].str);
 		close(fd);
 		exit(0);
 	}
 	wait(NULL);
 }
 
-void ft_odd_left_redirection(void)
+void ft_odd_left_redirection(char *str, int i)
 {
 	int	fd;
 	int chiled;
 
 
-	fd = open(g_data->parts[1].str[0], O_CREAT | O_RDONLY, 0777);
+	fd = open(str, O_RDWR, 0777);
 	chiled = fork();
 	if (chiled == 0)
 	{
-		dup2(1, fd);
+		dup2(fd, 0);
+		decisionmechanism(g_data->parts[i].str);
+		exit(0);
+	}
+	wait(NULL);
+}
+
+void	ft_multiple_right_redirection(char *str, int i)
+{
+	int	fd;
+	int	chiled;
+
+	fd = open(str, O_CREAT | O_WRONLY | O_APPEND, 0777);
+	chiled = fork();
+	if (chiled == 0)
+	{
+		dup2(fd, 1);
+		decisionmechanism(g_data->parts[i].str);
+		close(fd);
+		exit(0);
 	}
 	wait(NULL);
 }

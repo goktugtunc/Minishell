@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doublepointer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 04:57:39 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/05 12:51:00 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/10 01:39:56 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ char	**adddoublepointer(char **dp, char *add)
 	return (returndp);
 }
 
-char	**removedoublepointerarg(char **dp, int	i)
+char	**removedoublepointerarg(char **dp, int i)
 {
-	char **returndp;
-	int	j;
-	int	rdpi;
+	int		j;
+	int		rdpi;
+	char	**returndp;
 
 	returndp = malloc(sizeof(char *) * commandpointerlen(dp));
 	rdpi = 0;
@@ -55,4 +55,34 @@ char	**removedoublepointerarg(char **dp, int	i)
 	returndp[rdpi] = NULL;
 	free(dp);
 	return (returndp);
+}
+
+int	exportparser(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return (0);
+	if (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	findenvpindex2(char *searchedenvp)
+{
+	int	i;
+
+	i = 0;
+	while (g_data->envp[i])
+	{
+		if (ft_strcmp(ft_split(g_data->envp[i], '=')[0], searchedenvp) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
