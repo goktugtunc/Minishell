@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/04 17:34:15 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/10 04:45:38 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,19 @@ int	check_quote(char *line, int control)
 	return (sign);
 }
 
-void	print_twodstr(char **str)
+void	print_twodstr(char **str, int flagcontrol)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		printf("%s\n", str[i]);
+		printf("%s", str[i]);
+		if (str[i + 1])
+			printf(" ");
 		i++;
+		if (!str[i] && flagcontrol == 0)
+			printf("\n");
 	}
 }
 

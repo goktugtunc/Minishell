@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 04:14:30 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 04:42:55 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**copyenv(char **env);
 void	ifsendeof(void);
 int		check_quote(char *line, int control);
 void	parser(void);
-void	print_twodstr(char **str);
+void	print_twodstr(char **str, int flagcontrol);
 int		parserlongcontroller(int i);
 int		ifmultiquote(char *a, int i, int *j);
 int		ifsinglequote(char *a, int i, int *j);
@@ -102,5 +102,6 @@ void	ft_odd_left_redirection(void);
 void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
+int		echonflagcontroller(char *str);
 
 #endif

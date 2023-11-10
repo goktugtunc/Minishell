@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:04:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 04:18:57 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 04:23:06 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	transformdollar2(t_data *data, char *temp, int i, int j)
 					m++;
 			}
 			temp = dollarfill(data, i, j, m);
-			//printf("%s\n", temp);
 			data->arguments[i] = addstring(data->arguments[i], j, m, temp);
 			j = m;
 		}

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:10:23 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 03:41:22 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 04:37:37 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,21 @@ void	removequotes(t_data *data)
 	free(data->arguments);
 	returnvalue[i] = NULL;
 	data->arguments = returnvalue;
+}
+
+int	echonflagcontroller(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+	{
+		while (str[++i])
+		{
+			if (str[i] != 'n')
+				return (0);
+		}
+		return (1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 03:11:43 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 04:41:36 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,10 @@ void	ft_chiled(char **str)
 
 void	echocommand(char **str)
 {
-	print_twodstr(&str[1]);
+	if (echonflagcontroller(str[1]) == 1)
+		print_twodstr(&str[2], 1);
+	else
+	{
+		print_twodstr(&str[1], 0);
+	}
 }
