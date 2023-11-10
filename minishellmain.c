@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 11:40:45 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 17:29:16 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	commandfinder(void)
 					ft_chiledforpipe(g_data->parts[i].str, g_data->parts[i + 2].str);
 					i += g_data->j;
 				}
-				else if (!ft_strcmp(g_data->parts[i + 1].type, "multipleinput") && !ft_strcmp(g_data->parts[i + 2].type, "word"))
-					goheredoc(g_data->parts[i + 2].str);
+				//else if (!ft_strcmp(g_data->parts[i + 1].type, "multipleinput") && !ft_strcmp(g_data->parts[i + 2].type, "word"))
+					//goheredoc(g_data->parts[i + 2].str);
 				else if (!ft_strcmp(g_data->parts[i + 1].type, "simpleoutput") && !ft_strcmp(g_data->parts[i + 2].type, "word"))
 					ft_odd_right_redirection(g_data->parts[i + 2].str[0]);
 				i += 3;
@@ -151,6 +151,7 @@ void	startprogram(void)
 		{
 			parser();
 			transformdollar(g_data);
+			findwildcard(g_data);
 			removequotes(g_data);
 			g_data->parts = lastparse(g_data->arguments, 1, -1);
 			commandfinder(); // Bu fonksiyonda teker teker argümanları pipe input ya da output olma durumuna göre yönlendireceğim.

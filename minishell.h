@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 11:30:23 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:51:37 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
-void	goheredoc(char **str);
+//void	goheredoc(char **str);
+void	findwildcard(t_data *data);
 
 #endif
