@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/09 13:37:16 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 03:45:46 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ void	decisionmechanism(char **str)
 		ft_chiled(str);
 }
 
+//void	ft_dorequire(void)
+//{
+//	if (g_data->commandcount > 1 && ft_strcmp(g_data->parts[1].str[0], "|") == 0)
+//	{
+//		ft_chiledforpipe(g_data->parts[0].str, g_data->parts[2].str);
+//	}
+//	else if(g_data->commandline)
+//	{
+//		decisionmechanism(g_data->parts[0].str);
+//	}
+//}
+
 void	commandfinder(void)
 {
 	int	i;
@@ -45,18 +57,27 @@ void	commandfinder(void)
 			{
 				if (!ft_strcmp(g_data->parts[i + 1].type, "pipe") && !ft_strcmp(g_data->parts[i + 2].type, "word"))
 				{
+					ft_chiledforpipe(g_data->parts[i].str, g_data->parts[i + 2].str);
+					i += g_data->j;
+					//printf("**%d\n", g_data->j);
 				}
 				else if (!ft_strcmp(g_data->parts[i + 1].type, "multipleinput") && !ft_strcmp(g_data->parts[i + 2].str[0], "EOM"))
 				{
 				}
+				else if (!ft_strcmp(g_data->parts[i + 1].type, "simpleoutput") && !ft_strcmp(g_data->parts[i + 2].type, "word"))
+					ft_odd_right_redirection(g_data->parts[i + 2].str[0]);
 				i += 3;
 			}
 			else if (g_data->parts[i + 1].type)
 			{
+				if (g_data->parts[i + 2].type)
+				{
+				}
 				i += 2;
 			}
 			else
 			{
+				decisionmechanism(g_data->parts[i].str);
 				i++;
 			}
 		}
@@ -131,17 +152,20 @@ void	startprogram(void)
 		if (g_data->errorstatus == 0 && g_data->commandline[0] != '\0')
 		{
 			parser();
-			transformdollar(g_data); // burada dolar işlemlerini yapıyorum ancak şuanda doğru çalışmıyor. ft_strlen kadar yollamaktansa yeni bir fonksiyon ile stringin eşittirden öncekinin tamamıyla kıyaslamam lazım. $$ ve $? işaretlerini kontrol etmeliyim.
+			transformdollar(g_data);
+			removequotes(g_data);
 			g_data->parts = lastparse(g_data->arguments, 1, -1);
-			//commandfinder(); // Bu fonksiyonda teker teker argümanları pipe input ya da output olma durumuna göre yönlendireceğim.
-			if (g_data->commandcount > 1)
-			{
-				ft_chiledforpipe();
-			}
-			else if (g_data->commandline)
-			{
-				decisionmechanism(g_data->parts[0].str);
-			}
+			commandfinder(); // Bu fonksiyonda teker teker argümanları pipe input ya da output olma durumuna göre yönlendireceğim.
+			//if (g_data->commandcount > 1 && ft_strcmp(g_data->parts[1].str[0], ">") == 0)
+			//{
+			//	ft_odd_right_redirection();
+			//}
+			//if (1)
+			//{
+			//	ft_odd_left_redirection();
+			//}
+			//else
+			//	ft_dorequire();
 			freeendwhile();
 		}
 	}

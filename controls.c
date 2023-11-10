@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goktugtunc <goktugtunc@student.42.fr>      +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:52:17 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/04 15:43:03 by goktugtunc       ###   ########.fr       */
+/*   Updated: 2023/11/10 04:15:01 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	initializefunction(char **envp, int argc, char **argv)
 	g_data->envp = copyenv(envp);
 	g_data->exportp = copyenv(envp);
 	g_data->exportlen = lastarg(g_data->exportp) + 1;
+	g_data->exitstatus = 0;
 }
 
 void	freeendwhile(void)

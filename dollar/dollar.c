@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:04:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/09 00:47:33 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 04:18:57 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*addstring(char *str, int startindex, int endindex, char *addstr)
 	thirdstr[i] = 0;
 	if (findenvpindex2(addstr + 1) != -1)
 		temp = ft_split(g_data->envp[findenvpindex2(addstr + 1)], '=')[1];
+	else if (!ft_strcmp(addstr, "$?"))
+		temp = ft_itoa(g_data->exitstatus);
 	else
 		temp = ft_strdup("\0");
 	free(str);
@@ -64,12 +66,22 @@ void	transformdollar2(t_data *data, char *temp, int i, int j)
 		if (data->arguments[i][j] == '$')
 		{
 			m = j + 1;
-			while (!ft_isdigit(data->arguments[i][j + 1])
-					&& (ft_isalnum(data->arguments[i][m])
-						|| data->arguments[i][m] == '_')
-					&& data->arguments[i][m])
+			if (data->arguments[i][m] == '?')
 				m++;
+			else if (ft_isdigit(data->arguments[i][m])
+				|| (!ft_isalnum(data->arguments[i][m])
+					&& data->arguments[i][m] != ' '))
+				m++;
+			else
+			{
+				while (!ft_isdigit(data->arguments[i][j + 1])
+						&& (ft_isalnum(data->arguments[i][m])
+							|| data->arguments[i][m] == '_')
+						&& data->arguments[i][m])
+					m++;
+			}
 			temp = dollarfill(data, i, j, m);
+			//printf("%s\n", temp);
 			data->arguments[i] = addstring(data->arguments[i], j, m, temp);
 			j = m;
 		}

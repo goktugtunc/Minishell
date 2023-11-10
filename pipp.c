@@ -6,13 +6,13 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:07:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 03:08:20 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/10 01:27:11 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pipecommand(void)
+int	pipecommand(char **s1, char **s2, int i)
 {
 	int	fds[2];
 	int	chiled;
@@ -23,25 +23,50 @@ void	pipecommand(void)
 	{
 		close(fds[0]);
 		dup2(fds[1], 1);
-		decisionmechanism(g_data->parts[0].str);
+		decisionmechanism(s1);
+		close(fds[1]);
 		exit(0);
 	}
-	dup2(fds[0], 0);
 	close(fds[1]);
-	if (execve(get_the_path(g_data->envp, g_data->parts[2].str[0]),
-			g_data->parts[2].str, g_data->envp) == -1)
+	wait(NULL);
+	dup2(fds[0], 0);
+	if (i > 1)
 	{
-		printf("-bash: %s: command not found\n", g_data->parts[2].str[0]);
-		exit (0);
+		g_data->j += 2;
+		pipecommand(g_data->parts[g_data->j].str,
+			g_data->parts[g_data->j + 2].str, i - 2);
 	}
+	else
+		decisionmechanism(s2);
+	close(fds[0]);
+	return (g_data->j);
 }
 
-void	ft_chiledforpipe(void)
+int	ft_chiledforpipe(char **str1, char **str2)
 {
-	int	chiled;
+	int		chiled;
+	char	*temp;
+	int		fds[2];
 
+	g_data->j = 0;
+	pipe(fds);
 	chiled = fork();
 	if (chiled == 0)
-		pipecommand();
+	{
+		close(fds[0]);
+		g_data->j = pipecommand(str1, str2, g_data->commandcount - 2);
+		temp = ft_itoa(g_data->j);
+		write(fds[1], temp, ft_strlen(temp));
+		close(fds[1]);
+		free(temp);
+		exit(0);
+	}
 	wait(NULL);
+	temp = malloc(10);
+	read(fds[0], temp, 999);
+	g_data->j = ft_atoi(temp);
+	close(fds[0]);
+	close(fds[1]);
+	free(temp);
+	return (g_data->j);
 }
