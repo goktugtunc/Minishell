@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execv.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 04:41:36 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/13 11:23:38 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void	ft_chiled(char **str)
 	{
 		if (execve(get_the_path(g_data->envp, str[0]), str, g_data->envp) == -1)
 		{
-			printf("-bash: %s: command not found\n", str[0]);
+			dup2(g_data->fderr, 1);
+			if (str[0][0])
+				printf("-bash: %s: command not found\n", str[0]);
 			exit (0);
 		}
 	}
@@ -83,10 +85,13 @@ void	ft_chiled(char **str)
 
 void	echocommand(char **str)
 {
-	if (echonflagcontroller(str[1]) == 1)
-		print_twodstr(&str[2], 1);
-	else
+	if (str[1])
 	{
-		print_twodstr(&str[1], 0);
+		if (echonflagcontroller(str[1]) == 1)
+			print_twodstr(&str[2], 1);
+		else
+			print_twodstr(&str[1], 0);
 	}
+	else
+		printf("\n");
 }
