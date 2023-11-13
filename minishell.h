@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 16:51:37 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/12 21:25:20 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_data{
 	int			errorstatus;
 	int			exportlen;
 	int			commandcount;
-	int			j;
+	int			fderr;
 }	t_data;
 
 t_data			*g_data;
@@ -79,9 +79,7 @@ void	exportcommand(char **str, int i, int error);
 char	**adddoublepointer(char **dp, char *add);
 char	**removedoublepointerarg(char **dp, int i);
 void	echocommand(char **str);
-void	ft_chiled(char **str);
 char	*get_the_path(char **env, char *str);
-void	decisionmechanism(char **str);
 int		exportparser(char *str);
 int		findexportindex(char *searchedenvp, int searchindex);
 void	unsetcommand(char **str);
@@ -90,20 +88,20 @@ char	*simpleinputcommand1(int i);
 char	*simpleoutputcommand1(int i);
 void	transformdollar(t_data *data);
 void	ifsendsigquit(int signal);
-int		pipecommand(char **s1, char **s2, int i);
-int		ft_chiledforpipe(char **str1, char **str2);
+void	pipecommand(t_parse *part1, t_parse *part2, int i);
+void	ft_chiledforpipe(t_parse *part1, t_parse *part2);
 void	echocommand(char **str);
 void	ft_chiled(char **str);
 char	*get_the_path(char **env, char *str);
 void	decisionmechanism(char **str);
 void	ft_dorequire(void);
-void	ft_odd_right_redirection(char *str);
-void	ft_odd_left_redirection(void);
+void	ft_odd_right_redirection(char *str, int i);
+void	ft_odd_left_redirection(char *str, int i);
 void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
-//void	goheredoc(char **str);
-void	findwildcard(t_data *data);
+void	ft_multiple_right_redirection(char *str, int i);
+void	commandfinderother(t_parse *parts);
 
 #endif

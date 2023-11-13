@@ -3,16 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   pipp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:07:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 01:27:11 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/12 21:16:34 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pipecommand(char **s1, char **s2, int i)
+int	pass_pipe(t_parse *part)
+{
+	int	i;
+
+	i = 0;
+	while (ft_strcmp(part[i].type , "pipe") && part[i].type)
+	{
+		i++;
+	}
+	i++;
+	return (i);
+}
+
+void	pipecommand(t_parse *part1, t_parse *part2, int i)
 {
 	int	fds[2];
 	int	chiled;
@@ -23,7 +36,7 @@ int	pipecommand(char **s1, char **s2, int i)
 	{
 		close(fds[0]);
 		dup2(fds[1], 1);
-		decisionmechanism(s1);
+		commandfinderother(part1);
 		close(fds[1]);
 		exit(0);
 	}
@@ -31,42 +44,21 @@ int	pipecommand(char **s1, char **s2, int i)
 	wait(NULL);
 	dup2(fds[0], 0);
 	if (i > 1)
-	{
-		g_data->j += 2;
-		pipecommand(g_data->parts[g_data->j].str,
-			g_data->parts[g_data->j + 2].str, i - 2);
-	}
+		pipecommand(part1 + pass_pipe(part1), part2 + pass_pipe(part2), i - 2);
 	else
-		decisionmechanism(s2);
+		commandfinderother(part2);
 	close(fds[0]);
-	return (g_data->j);
 }
 
-int	ft_chiledforpipe(char **str1, char **str2)
+void	ft_chiledforpipe(t_parse *part1, t_parse *part2)
 {
 	int		chiled;
-	char	*temp;
-	int		fds[2];
 
-	g_data->j = 0;
-	pipe(fds);
 	chiled = fork();
 	if (chiled == 0)
 	{
-		close(fds[0]);
-		g_data->j = pipecommand(str1, str2, g_data->commandcount - 2);
-		temp = ft_itoa(g_data->j);
-		write(fds[1], temp, ft_strlen(temp));
-		close(fds[1]);
-		free(temp);
+		pipecommand(part1, part2, g_data->commandcount - 2);
 		exit(0);
 	}
 	wait(NULL);
-	temp = malloc(10);
-	read(fds[0], temp, 999);
-	g_data->j = ft_atoi(temp);
-	close(fds[0]);
-	close(fds[1]);
-	free(temp);
-	return (g_data->j);
 }
