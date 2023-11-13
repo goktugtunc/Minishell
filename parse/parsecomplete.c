@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecomplete.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/13 21:30:05 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:16:41 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**towdcopy(char **src)
 	return (dest);
 }
 
-int	countfrompars(void)
+int	countfrompars(t_data *data)
 {
 	char	**str;
 	int		i;
@@ -63,18 +63,18 @@ int	countfrompars(void)
 	tru = 1;
 	count = 0;
 	i = 0;
-	str = g_data->arguments;
-	g_data->commandcount = 0;
+	str = data->arguments;
+	data->commandcount = 0;
 	while (str[i])
 	{
 		if ((str[i][0] == '|') || (str[i][0] == '>' || str[i][0] == '<'))
 		{
 			if (str[i][0] == '|')
-				g_data->commandcount++;
+				data->commandcount++;
 			else if (str[i + 1])
 			{
 				i++;
-				g_data->commandcount--;
+				data->commandcount--;
 			}
 			tru = 1;
 			count++;
@@ -83,7 +83,7 @@ int	countfrompars(void)
 		{
 			tru = 0;
 			count++;
-			g_data->commandcount++;
+			data->commandcount++;
 		}
 		i++;
 	}
@@ -105,13 +105,13 @@ char	*lastparse2(char *str)
 	return (NULL);
 }
 
-t_parse	*lastparse(char **str, int tru, int i)
+t_parse	*lastparse(char **str, int tru, int i, t_data *data)
 {
 	t_parse	*last;
 	int		j;
 
 	j = 0;
-	last = (t_parse *)malloc(sizeof(t_parse) * (countfrompars() + 1));
+	last = (t_parse *)malloc(sizeof(t_parse) * (countfrompars(data) + 1));
 	while (str[++i])
 	{
 		if (str[i][0] == '|' || str[i][0] == '>' || str[i][0] == '<')

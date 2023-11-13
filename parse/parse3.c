@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim2.c                                      :+:      :+:    :+:   */
+/*   parse3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 00:58:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:57:47 by gotunc           ###   ########.fr       */
+/*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/14 00:43:29 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strtrim2(char *s1, char *set)
-{
-	size_t	i;
-	char	*str;
+//void	parse2(t_data *data)
+//{
+//	int	i;
 
-	if (!s1 || !set)
-		return (0);
-	while (*s1 && ft_strchr(set, *s1))
-		s1++;
-	i = ft_strlen(s1);
-	while (i && ft_strchr(set, s1[i]))
-		i--;
-	str = ft_substr(s1, 0, i + 1);
-	free(s1);
-	return (str);
-}
+//	i = 0;
+//	while (data->arguments[i])
+//	{
+//		if (!ft_strcmp(data->arguments[i], "|") && i == commandpointerlen(data->arguments))
+//			ifpipeisend();
+//	}
+//}

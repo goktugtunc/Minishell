@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/12 21:25:20 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:59:12 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,58 +50,57 @@ typedef struct s_data{
 t_data			*g_data;
 
 char	*getpcname(void);
-void	findstarttext(char *pcname);
-int		findpath(char *searchedpath);
-void	initializefunction(char **envp, int argc, char **argv);
+void	findstarttext(char *pcname, t_data *data);
+int		findpath(char *searchedpath, t_data *data);
+void	initializefunction(char **envp, int argc, char **argv, t_data *data);
 void	ifsendsigint(int signal);
 void	ft_error(char *a);
 char	**copyenv(char **env);
-void	ifsendeof(void);
+void	ifsendeof(t_data *data);
 int		check_quote(char *line, int control);
-void	parser(void);
+void	parser(t_data *data);
 void	print_twodstr(char **str, int flagcontrol);
-int		parserlongcontroller(int i);
-int		ifmultiquote(char *a, int i, int *j);
-int		ifsinglequote(char *a, int i, int *j);
-int		pipecontrol(char *a, int i);
-t_parse	*lastparse(char **str, int tru, int i);
-void	freeendwhile(void);
-void	quoteerror(void);
+int		parserlongcontroller(int i, t_data *data);
+int		ifmultiquote(char *a, int i, int *j, t_data *data);
+int		ifsinglequote(char *a, int i, int *j, t_data *data);
+int		pipecontrol(char *a, int i, t_data *data);
+t_parse	*lastparse(char **str, int tru, int i, t_data *data);
+void	freeendwhile(t_data *data);
+void	quoteerror(t_data *data);
 int		commandpointerlen(char **d);
-void	cdcommand(char **a);
-void	pwdcommand(void);
-int		findpathindex(char *searchedpath);
-int		findenvpindex(char *searchedenvp, int searchindex);
-int		findenvpindex2(char *searchedenvp);
+void	cdcommand(char **a, t_data *data);
+void	pwdcommand(t_data *data);
+int		findpathindex(char *searchedpath, t_data *data);
+int		findenvpindex(char *searchedenvp, int searchindex, t_data *data);
+int		findenvpindex2(char *searchedenvp, t_data *data);
 int		lastarg(char **a);
-void	envcommand(char **str);
-void	exportcommand(char **str, int i, int error);
+void	envcommand(char **str, t_data *data);
+void	exportcommand(char **str, int i, int error, t_data *data);
 char	**adddoublepointer(char **dp, char *add);
 char	**removedoublepointerarg(char **dp, int i);
 void	echocommand(char **str);
-char	*get_the_path(char **env, char *str);
+char	*get_the_path(char **env, char *str, t_data *data);
 int		exportparser(char *str);
-int		findexportindex(char *searchedenvp, int searchindex);
-void	unsetcommand(char **str);
+int		findexportindex(char *searchedexportp, int searchindex, t_data *data);
+void	unsetcommand(char **str, t_data *data);
 void	exitcommand(void);
-char	*simpleinputcommand1(int i);
-char	*simpleoutputcommand1(int i);
+char	*simpleinputcommand1(int i, t_data *data);
+char	*simpleoutputcommand1(int i, t_data *data);
 void	transformdollar(t_data *data);
 void	ifsendsigquit(int signal);
-void	pipecommand(t_parse *part1, t_parse *part2, int i);
-void	ft_chiledforpipe(t_parse *part1, t_parse *part2);
+void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data);
+void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data);
 void	echocommand(char **str);
-void	ft_chiled(char **str);
-char	*get_the_path(char **env, char *str);
-void	decisionmechanism(char **str);
+void	ft_chiled(char **str, t_data *data);
+void	decisionmechanism(char **str, t_data *data);
 void	ft_dorequire(void);
-void	ft_odd_right_redirection(char *str, int i);
-void	ft_odd_left_redirection(char *str, int i);
+void	ft_odd_right_redirection(char *str, int i, t_data *data);
+void	ft_odd_left_redirection(char *str, int i, t_data *data);
 void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
-void	ft_multiple_right_redirection(char *str, int i);
-void	commandfinderother(t_parse *parts);
+void	ft_multiple_right_redirection(char *str, int i, t_data *data);
+void	commandfinderother(t_parse *parts, t_data *data);
 
 #endif

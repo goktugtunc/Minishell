@@ -6,25 +6,25 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:40:26 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 02:21:14 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:10:45 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	findpath(char *searchedpath)
+int	findpath(char *searchedpath, t_data *data)
 {
 	int		i;
 	char	*foundedpath;
 
 	i = 0;
-	while (g_data->path[i])
+	while (data->path[i])
 	{
-		foundedpath = ft_strjoin2(g_data->path[i], "/");
+		foundedpath = ft_strjoin2(data->path[i], "/");
 		foundedpath = ft_strjoin(foundedpath, searchedpath);
 		if (access(foundedpath, F_OK) == 0)
 		{
-			g_data->foundedpath = foundedpath;
+			data->foundedpath = foundedpath;
 			return (1);
 		}
 		i++;
@@ -33,42 +33,42 @@ int	findpath(char *searchedpath)
 	return (0);
 }
 
-int	findpathindex(char *searchedpath)
+int	findpathindex(char *searchedpath, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (g_data->path[i])
+	while (data->path[i])
 	{
-		if (ft_strcmp(g_data->path[i], searchedpath))
+		if (!ft_strcmp(data->path[i], searchedpath))
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-int	findenvpindex(char *searchedenvp, int searchindex)
+int	findenvpindex(char *searchedenvp, int searchindex, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (g_data->envp[i])
+	while (data->envp[i])
 	{
-		if (ft_strncmp(g_data->envp[i], searchedenvp, searchindex) == 0)
+		if (ft_strncmp(data->envp[i], searchedenvp, searchindex) == 0)
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-int	findexportindex(char *searchedexportp, int searchindex)
+int	findexportindex(char *searchedexportp, int searchindex, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (g_data->exportp[i])
+	while (data->exportp[i])
 	{
-		if (ft_strncmp(g_data->exportp[i], searchedexportp, searchindex) == 0)
+		if (ft_strncmp(data->exportp[i], searchedexportp, searchindex) == 0)
 			return (i);
 		i++;
 	}

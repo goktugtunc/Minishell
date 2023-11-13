@@ -18,7 +18,7 @@ $(READLINE):
 	cd readline-8.2 && make install
 
 $(NAME):
-	$(CC)  -o $(NAME) $(CFLAGS) -L${PWD}/readline/lib  -I${PWD}/readline/include/ -lreadline libft/libft.a $(SRCS)
+	$(CC) -o $(NAME) $(CFLAGS) -L${PWD}/readline/lib  -I${PWD}/readline/include/ -lreadline libft/libft.a $(SRCS)
 
 fclean: clean
 	$(RM) $(NAME)

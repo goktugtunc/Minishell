@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:04:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/10 04:23:06 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:13:56 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*dollarfill(t_data *data, int m, int startindex, int endindex)
 	return (temp);
 }
 
-char	*addstring(char *str, int startindex, int endindex, char *addstr)
+char	*addstring(char *str, int startindex, int endindex, char *addstr, t_data *data)
 {
 	char	*firststr;
 	char	*temp;
@@ -46,10 +46,10 @@ char	*addstring(char *str, int startindex, int endindex, char *addstr)
 	while (str[endindex])
 		thirdstr[i++] = str[endindex++];
 	thirdstr[i] = 0;
-	if (findenvpindex2(addstr + 1) != -1)
-		temp = ft_split(g_data->envp[findenvpindex2(addstr + 1)], '=')[1];
+	if (findenvpindex2(addstr + 1, data) != -1)
+		temp = ft_split(data->envp[findenvpindex2(addstr + 1, data)], '=')[1];
 	else if (!ft_strcmp(addstr, "$?"))
-		temp = ft_itoa(g_data->exitstatus);
+		temp = ft_itoa(data->exitstatus);
 	else
 		temp = ft_strdup("\0");
 	free(str);
@@ -81,7 +81,7 @@ void	transformdollar2(t_data *data, char *temp, int i, int j)
 					m++;
 			}
 			temp = dollarfill(data, i, j, m);
-			data->arguments[i] = addstring(data->arguments[i], j, m, temp);
+			data->arguments[i] = addstring(data->arguments[i], j, m, temp, data);
 			j = m;
 		}
 		j++;

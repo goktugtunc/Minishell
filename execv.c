@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execv.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/13 11:23:38 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:27:06 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ char	**ft_towdcopy(char **src)
 	return (dest);
 }
 
-char	*get_the_path(char **env, char *str)
+char	*get_the_path(char **env, char *str, t_data *data)
 {
 	int		i;
 	char	*check;
 
 	i = 0;
 	(void)env;
-	while (g_data->path[i])
+	while (data->path[i])
 	{
-		check = ft_strjoin(g_data->path[i], "/");
+		check = ft_strjoin(data->path[i], "/");
 		check = ft_strjoin(check, str);
 		if (access(check, F_OK) == 0)
 			return (check);
@@ -65,16 +65,17 @@ char	*get_the_path(char **env, char *str)
 	return (NULL);
 }
 
-void	ft_chiled(char **str)
+void	ft_chiled(char **str, t_data *data)
 {
 	int	chiled;
 
 	chiled = fork();
 	if (chiled == 0)
 	{
-		if (execve(get_the_path(g_data->envp, str[0]), str, g_data->envp) == -1)
+		if (execve(get_the_path(data->envp, str[0], data),
+				str, data->envp) == -1)
 		{
-			dup2(g_data->fderr, 1);
+			dup2(data->fderr, 1);
 			if (str[0][0])
 				printf("-bash: %s: command not found\n", str[0]);
 			exit (0);
