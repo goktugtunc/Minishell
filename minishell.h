@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:59:12 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 01:54:15 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	echocommand(char **str);
 void	ft_chiled(char **str, t_data *data);
 void	decisionmechanism(char **str, t_data *data);
 void	ft_dorequire(void);
-void	ft_odd_right_redirection(char *str, int i, t_data *data);
-void	ft_odd_left_redirection(char *str, int i, t_data *data);
+void	ft_odd_right_redirection(t_parse *part, int i, t_data *data);
+void	ft_odd_left_redirection(t_parse *part, int i, t_data *data);
 void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
-void	ft_multiple_right_redirection(char *str, int i, t_data *data);
+void	ft_multiple_right_redirection(t_parse *part, int i, t_data *data);
 void	commandfinderother(t_parse *parts, t_data *data);
 
 #endif

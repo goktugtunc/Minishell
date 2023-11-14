@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:58:52 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 02:27:26 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,12 @@ void	commandfinderpipe(t_data *data)
 		if ((!ft_strcmp(data->parts[i + 1].type, "simpleoutput") ||
 			!ft_strcmp(data->parts[i + 1].type, "simpleinput") ||
 			!ft_strcmp(data->parts[i + 1].type, "multipleoutput")))
-			tru = 0;
+			tru = 1;
 		i++;
 	}
 	if (!ft_strcmp(data->parts[i].type, "pipe") && data->parts[i + 1].type)
 	{
-		if (tru == 0)
+		if (tru == 1)
 			ft_chiledforpipe(&(data->parts[0]), &(data->parts[i + 1]), data);
 		else
 			ft_chiledforpipe(&(data->parts[i - 1]), &(data->parts[i + 1]), data);
@@ -179,7 +179,7 @@ int	find_inout(t_parse *parts)
 		&& ft_strcmp(parts[i].type, "simpleinput"))
 	{
 		i++;
-		if (!parts[i].type)
+		if (!parts[i].type || !ft_strcmp(parts[i].type, "pipe"))
 			return (-1);
 	}
 	return (i);
@@ -215,33 +215,36 @@ void	commandfinderother(t_parse *parts, t_data *data)
 	i = find_inout(parts);
 	if (i == 0)
 		command = 1;
-	if (i != -1 && (parts[i].type) && parts[i + 1].type &&  !ft_strcmp(parts[i].str[1], "word"))
+	if (i != -1 && (!ft_strcmp(parts[i].type, "simpleinput") ||
+		!ft_strcmp(parts[i].type, "simpleoutput") ||
+		!ft_strcmp(parts[i].type, "multipleoutput")) && parts[i + 1].type && !parts[i].str[1])
 	{
-		if (!ft_strcmp(parts[i].type, "multipleoutput") && !ft_strcmp(parts[i + 1].type, "word"))
-			ft_multiple_right_redirection(parts[i + 1].str[0], command, data);
-		else if (!ft_strcmp(parts[i].type, "simpleoutput") && !ft_strcmp(parts[i + 1].type, "word"))
-			ft_odd_right_redirection(parts[i + 1].str[0], command, data);
-		else if (!ft_strcmp(parts[i].type, "simpleinput") && !ft_strcmp(parts[i + 1].type, "word"))
-			ft_odd_left_redirection(parts[i + 1].str[0], command, data);
+		if (!ft_strcmp(parts[i + 1].type, "simpleoutput"))
+			printf("bash: syntax error near unexpected token `>'\n");
+		if (!ft_strcmp(parts[i + 1].type, "simpleinput"))
+			printf("bash: syntax error near unexpected token `<'\n");
+		if (!ft_strcmp(parts[i + 1].type, "multipleoutput"))
+			printf("bash: syntax error near unexpected token `>>'\n");
+		if (!ft_strcmp(parts[i + 1].type, "multipleinput"))
+			printf("bash: syntax error near unexpected token `<<'\n");
 	}
-	else if (i != -1 && (!ft_strcmp(parts[i].type, "simpleinput")
-			|| !ft_strcmp(parts[i].type, "simpleoutput")
-			|| !ft_strcmp(parts[i].type, "multipleoutput"))
-		&& parts[i + 1].type)
+	if (i != -1 && (parts[i].str[0]) && parts[i].str[1]) //
 	{
-		if (!ft_strcmp(parts[i + 1].type, "simpleoutput")
-			|| !ft_strcmp(parts[i + 1].type, "simpleinput")
-			|| !ft_strcmp(parts[i + 1].type, "multipleoutput")
-			|| !ft_strcmp(parts[i + 1].type, "multipleinput"))
-			printf("bash: syntax error near unexpected token `%s'\n", parts[i + 1].str[0]);
+		if (!ft_strcmp(parts[i].type, "multipleoutput"))
+			ft_multiple_right_redirection(&(parts[i]), command, data);
+		else if (!ft_strcmp(parts[i].type, "simpleoutput"))
+			ft_odd_right_redirection(&(parts[i]), command, data);
+		else if (!ft_strcmp(parts[i].type, "simpleinput"))
+			ft_odd_left_redirection(&(parts[i]), command, data);
 	}
-	else if (i != -1 && (!ft_strcmp(parts[i].type, "simpleinput")
-			|| !ft_strcmp(parts[i].type, "simpleoutput")
-			|| !ft_strcmp(parts[i].type, "multipleoutput"))
-		&& !parts[i + 1].type)
+	else if (i != -1 && (!ft_strcmp(parts[i].type, "simpleinput") ||
+		!ft_strcmp(parts[i].type, "simpleoutput") ||
+		!ft_strcmp(parts[i].type, "multipleoutput")) && !parts[i + 1].type)
 		printf("bash: syntax error near unexpected token `newline'\n");
 	else
+	{
 		decisionmechanism(parts[0].str, data);
+	}
 }
 
 
