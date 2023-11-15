@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecomplete.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 02:00:12 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:16:41 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**towdcopy(char **src)
 	 //&& src[0][0] != '<' && src[0][0] != '>' 
 	if (src[0][0] && src[0][0] != '|' && src[0][0] != '<' && src[0][0] != '>')
 		words = words_of_parts(src);
-	else if((src[0][0] == '<' || src[0][0] == '>') && src[1] && src[1][0] != '<' && src[1][0] != '>' )
+	else if((src[0][0] == '<' || src[0][0] == '>') && src[1])
 		words = 2;
 	else
 		words = 1;
@@ -128,8 +128,7 @@ t_parse	*lastparse(char **str, int tru, int i, t_data *data)
 			last[j].type = ft_strdup("word");
 			j++;
 		}
-		if ((str[i][0] == '>' || str[i][0] == '<') && str[i + 1] && str[i + 1][0] != '<' &&
-			str[i + 1][0] != '>')
+		if ((str[i][0] == '>' || str[i][0] == '<') && str[i + 1])
 			i++;
 	}
 	last[j].type = NULL;

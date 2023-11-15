@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:58:27 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/16 02:04:17 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	parser(t_data *data)
 	argi = 0;
 	free(data->commandline);
 	data->commandline = ft_strtrim(temp, " ");
+	ifendispipe(data);
 	data->arguments = malloc(
 			ft_strlen(data->commandline) * sizeof(char *) + 1);
 	while (data->commandline[i])
@@ -102,4 +103,5 @@ void	parser(t_data *data)
 			i = parserv2(a, i, argi++, data);
 	}
 	data->arguments[argi] = NULL;
+	ifdoubleinput(data);
 }

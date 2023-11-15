@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 01:54:15 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/16 02:06:19 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		findpathindex(char *searchedpath, t_data *data);
 int		findenvpindex(char *searchedenvp, int searchindex, t_data *data);
 int		findenvpindex2(char *searchedenvp, t_data *data);
 int		lastarg(char **a);
-void	envcommand(char **str, t_data *data);
+void	envcommand(t_data *data);
 void	exportcommand(char **str, int i, int error, t_data *data);
 char	**adddoublepointer(char **dp, char *add);
 char	**removedoublepointerarg(char **dp, int i);
@@ -94,13 +94,15 @@ void	echocommand(char **str);
 void	ft_chiled(char **str, t_data *data);
 void	decisionmechanism(char **str, t_data *data);
 void	ft_dorequire(void);
-void	ft_odd_right_redirection(t_parse *part, int i, t_data *data);
-void	ft_odd_left_redirection(t_parse *part, int i, t_data *data);
+void	ft_odd_right_redirection(char *str, int i, t_data *data);
+void	ft_odd_left_redirection(char *str, int i, t_data *data);
 void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
-void	ft_multiple_right_redirection(t_parse *part, int i, t_data *data);
+void	ft_multiple_right_redirection(char *str, int i, t_data *data);
 void	commandfinderother(t_parse *parts, t_data *data);
+void	ifendispipe(t_data *data);
+void	ifdoubleinput(t_data *data);
 
 #endif
