@@ -1,6 +1,6 @@
 SRCS = minishellmain.c helperfunctions/helperfunctions.c helperfunctions/helperfunctions2.c controls.c signals.c parse/parse.c parse/parse2.c parse/parsecomplete.c path.c builtinfuncs/cd.c\
 		builtinfuncs/pwd.c builtinfuncs/env.c builtinfuncs/export.c helperfunctions/doublepointer.c pipp.c execv.c builtinfuncs/unset.c builtinfuncs/exit.c inputandoutput/inputandoutput.c\
-		dollar/dollar.c redirections.c helperfunctions/helperfunctions3.c
+		dollar/dollar.c redirections.c helperfunctions/helperfunctions3.c parse/parse3.c
 
 CC = @gcc
 NAME = minishell
@@ -18,7 +18,7 @@ $(READLINE):
 	cd readline-8.2 && make install
 
 $(NAME):
-	$(CC)  -o $(NAME) $(CFLAGS) -L${PWD}/readline/lib  -I${PWD}/readline/include/ -lreadline libft/libft.a $(SRCS)
+	$(CC) -o $(NAME) $(CFLAGS) -L${PWD}/readline/lib  -I${PWD}/readline/include/ -lreadline libft/libft.a $(SRCS)
 
 fclean: clean
 	$(RM) $(NAME)

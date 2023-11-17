@@ -1,0 +1,25 @@
+total 280
+-rw-r--r--   1 amonem  2023_istanbul   1071 16 Kas 17:46 LICENSE
+-rw-r--r--   1 amonem  2023_istanbul    986 16 Kas 17:46 Makefile
+-rw-r--r--   1 amonem  2023_istanbul     11 16 Kas 17:46 README.md
+-rw-r--r--   1 amonem  2023_istanbul     11 17 Kas 20:16 a.txt
+drwxr-xr-x   8 amonem  2023_istanbul    272 16 Kas 17:46 builtinfuncs
+-rw-r--r--   1 amonem  2023_istanbul   1519 16 Kas 17:46 controls.c
+-rw-r--r--   1 amonem  2023_istanbul     18 16 Kas 17:52 deneme
+drwxr-xr-x   3 amonem  2023_istanbul    102 16 Kas 17:46 dollar
+-rw-r--r--   1 amonem  2023_istanbul   2140 16 Kas 17:46 execv.c
+drwxr-xr-x   6 amonem  2023_istanbul    204 16 Kas 17:46 helperfunctions
+drwxr-xr-x   3 amonem  2023_istanbul    102 16 Kas 17:46 inputandoutput
+-rw-r--r--   1 amonem  2023_istanbul     51 16 Kas 17:46 leaks.sh
+drwxr-xr-x  86 amonem  2023_istanbul   2924 16 Kas 17:46 libft
+-rwxr-xr-x   1 amonem  2023_istanbul  72448 17 Kas 20:32 minishell
+-rw-r--r--   1 amonem  2023_istanbul   4313 17 Kas 20:10 minishell.h
+-rw-r--r--   1 amonem  2023_istanbul  10128 17 Kas 20:32 minishellmain.c
+drwxr-xr-x   6 amonem  2023_istanbul    204 16 Kas 17:46 parse
+-rw-r--r--   1 amonem  2023_istanbul   1918 16 Kas 17:46 path.c
+-rw-r--r--   1 amonem  2023_istanbul   1852 17 Kas 19:45 pipp.c
+drwxr-xr-x   6 amonem  2023_istanbul    204 16 Kas 17:47 readline
+-rw-r--r--   1 amonem  2023_istanbul   1223 17 Kas 20:00 redirections.c
+-rw-r--r--   1 amonem  2023_istanbul   1233 16 Kas 17:46 signals.c
+-rw-r--r--   1 amonem  2023_istanbul      0 17 Kas 20:16 t.txt
+-rw-r--r--   1 amonem  2023_istanbul      0 17 Kas 20:32 z.txt

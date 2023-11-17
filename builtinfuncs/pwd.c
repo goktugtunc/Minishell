@@ -6,13 +6,14 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 23:53:45 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/04 02:58:27 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:36:33 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	pwdcommand(void)
+void	pwdcommand(t_data *data)
 {
-	printf("%s\n", ft_split(g_data->envp[findenvpindex("PWD=", 4)], '=')[1]);
+	printf("%s\n",
+		ft_split(data->envp[findenvpindex("PWD=", 4, data)], '=')[1]);
 }

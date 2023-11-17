@@ -6,38 +6,38 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 20:20:24 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/03 23:52:01 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:29:57 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	makepwd(char *oldpwd, char *newpwd)
+void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 {
 	int		oldpwdindex;
 	int		pwdindex;
 	char	**newstarttext;
 
-	oldpwdindex = findenvpindex("OLDPWD=", 7);
-	pwdindex = findenvpindex("PWD=", 4);
-	free(g_data->envp[oldpwdindex]);
-	free(g_data->envp[pwdindex]);
-	g_data->envp[oldpwdindex] = ft_strjoin2("OLDPWD=", oldpwd);
-	g_data->envp[pwdindex] = ft_strjoin2("PWD=", newpwd);
-	free(g_data->starttext);
+	oldpwdindex = findenvpindex("OLDPWD=", 7, data);
+	pwdindex = findenvpindex("PWD=", 4, data);
+	free(data->envp[oldpwdindex]);
+	free(data->envp[pwdindex]);
+	data->envp[oldpwdindex] = ft_strjoin2("OLDPWD=", oldpwd);
+	data->envp[pwdindex] = ft_strjoin2("PWD=", newpwd);
+	free(data->starttext);
 	if (ft_strcmp(getcwd(NULL, 0), getenv("HOME")) == 0)
-		g_data->starttext = ft_strjoin2(g_data->simplestarttext, " ~ \033[0m");
+		data->starttext = ft_strjoin2(data->simplestarttext, " ~ \033[0m");
 	else
 	{
-		newstarttext = ft_split(g_data->envp[pwdindex], '/');
-		g_data->starttext = ft_strjoin2(g_data->simplestarttext, " ");
-		g_data->starttext = ft_strjoin(g_data->starttext,
+		newstarttext = ft_split(data->envp[pwdindex], '/');
+		data->starttext = ft_strjoin2(data->simplestarttext, " ");
+		data->starttext = ft_strjoin(data->starttext,
 				newstarttext[lastarg(newstarttext)]);
-		g_data->starttext = ft_strjoin(g_data->starttext, " % \033[0m");
+		data->starttext = ft_strjoin(data->starttext, " % \033[0m");
 	}
 }
 
-void	cdcommand(char **a)
+void	cdcommand(char **a, t_data *data)
 {
 	int		i;
 	char	*pwd;
@@ -47,7 +47,7 @@ void	cdcommand(char **a)
 	if (i == 1 || (i == 2 && ft_strcmp(a[1], "~") == 0))
 	{
 		chdir(getenv("HOME"));
-		makepwd(pwd, getcwd(NULL, 0));
+		makepwd(pwd, getcwd(NULL, 0), data);
 	}
 	else
 	{
@@ -56,6 +56,6 @@ void	cdcommand(char **a)
 			perror(a[1]);
 		}
 		else
-			makepwd(pwd, getcwd(NULL, 0));
+			makepwd(pwd, getcwd(NULL, 0), data);
 	}
 }

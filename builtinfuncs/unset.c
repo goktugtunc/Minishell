@@ -6,13 +6,13 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 01:24:07 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/07 02:23:30 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:34:59 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	unsetcommand(char **str)
+void	unsetcommand(char **str, t_data *data)
 {
 	int	i;
 
@@ -26,14 +26,14 @@ void	unsetcommand(char **str)
 	{
 		if (exportparser(str[i]))
 		{
-			if (findenvpindex(str[i], ft_strlen(str[i])) != -1)
+			if (findenvpindex(str[i], ft_strlen(str[i]), data) != -1)
 			{
-				g_data->envp = removedoublepointerarg(g_data->envp,
-						findenvpindex(str[i], ft_strlen(str[i])));
+				data->envp = removedoublepointerarg(data->envp,
+						findenvpindex(str[i], ft_strlen(str[i]), data));
 			}
-			if (findexportindex(str[i], ft_strlen(str[i])) != -1)
-				g_data->exportp = removedoublepointerarg(g_data->exportp,
-						findexportindex(str[i], ft_strlen(str[i])));
+			if (findexportindex(str[i], ft_strlen(str[i]), data) != -1)
+				data->exportp = removedoublepointerarg(data->exportp,
+						findexportindex(str[i], ft_strlen(str[i]), data));
 		}
 		else
 			printf("bash: unset: `%s': not a valid identifier\n", str[i]);

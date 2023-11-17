@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/08 21:41:34 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/15 22:43:32 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,31 @@ char	*getpcname(void)
 	return (pcname);
 }
 
-void	findstarttext(char *pcname)
+void	findstarttext(char *pcname, t_data *data)
 {
 	char	**pwd;
 
 	pwd = ft_split(getcwd(NULL, 0), '/');
-	g_data->simplestarttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
-	g_data->simplestarttext = ft_strjoin(g_data->simplestarttext, "@");
-	g_data->simplestarttext = ft_strjoin(g_data->simplestarttext, pcname);
-	g_data->starttext = ft_strjoin2(g_data->simplestarttext, " ");
+	data->simplestarttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
+	data->simplestarttext = ft_strjoin(data->simplestarttext, "@");
+	data->simplestarttext = ft_strjoin(data->simplestarttext, pcname);
+	data->starttext = ft_strjoin2(data->simplestarttext, " ");
 	if (ft_strcmp(getcwd(NULL, 0), getenv("HOME")) == 0)
-		g_data->starttext = ft_strjoin(g_data->starttext, "~");
+		data->starttext = ft_strjoin(data->starttext, "~");
 	else
-		g_data->starttext = ft_strjoin(g_data->starttext, pwd[lastarg(pwd)]);
-	g_data->starttext = ft_strjoin(g_data->starttext, " % \033[0m");
+		data->starttext = ft_strjoin(data->starttext, pwd[lastarg(pwd)]);
+	data->starttext = ft_strjoin(data->starttext, " % \033[0m");
 }
 
-void	quoteerror(void)
+void	quoteerror(t_data *data)
 {
-	if (check_quote(g_data->commandline,
-			ft_strlen(g_data->commandline)) != 0)
+	if (check_quote(data->commandline,
+			ft_strlen(data->commandline)) != 0)
 	{
 		printf("\033[31;4m%sQuote Error!\n\033[0m",
-			ft_strtrim(g_data->starttext, "\033[320m"));
-		free(g_data->commandline);
-		g_data->errorstatus = 1;
+			ft_strtrim(data->starttext, "\033[320m"));
+		free(data->commandline);
+		data->errorstatus = 1;
 	}
 }
 

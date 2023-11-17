@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:16:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/09 14:07:52 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:59:20 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	ifsendsigint(int signal)
 	(void)signal;
 }
 
-void	ifsendeof(void)
+void	ifsendeof(t_data *data)
 {
 	printf("\033[K");
 	printf("\033[1A");
-	printf("%sexit\n", g_data->starttext);
+	printf("%sexit\n", data->starttext);
 	exit(1);
 }
