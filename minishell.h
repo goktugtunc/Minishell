@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/17 16:40:09 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 01:47:58 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,21 @@
 # include <sys/ioctl.h>
 # include "libft/libft.h"
 
+typedef struct s_red{
+	char	*str;
+	char	*type;
+}	t_red;
+
 typedef struct s_parse
 {
 	char	**str;
 	char	*type;
+	t_red	*red;
 }	t_parse;
 
 typedef struct s_data{
 	t_parse		*parts;
+	t_red		*red;
 	int			exitstatus;
 	char		*commandline;
 	char		*templine;
@@ -45,7 +52,7 @@ typedef struct s_data{
 	int			exportlen;
 	int			commandcount;
 	int			fderr;
-	int			parsererrorcode;
+	int			pipe_pos;
 }	t_data;
 
 t_data			*g_data;
@@ -95,17 +102,20 @@ void	echocommand(char **str);
 void	ft_chiled(char **str, t_data *data);
 void	decisionmechanism(char **str, t_data *data);
 void	ft_dorequire(void);
-void	ft_odd_right_redirection(char *str, int i, t_data *data);
-void	ft_odd_left_redirection(char *str, int i, t_data *data);
+void	ft_odd_right_redirection(char *str, t_data *data, t_parse *part);
+void	ft_odd_left_redirection(char *str, t_data *data, t_parse *part);
 void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
-void	ft_multiple_right_redirection(char *str, int i, t_data *data);
+void	ft_multiple_right_redirection(char *str, t_data *data, t_parse *part);
+void	ft_multiple_left_redirection(char *str, t_data *data, t_parse *part);
 void	commandfinderother(t_parse *parts, t_data *data);
-int		ifendispipe(t_data *data);
+void	ifendispipe(t_data *data);
 void	ifdoubleinput(t_data *data);
-void	preparewhile(t_data *data);
-void	freedoublepointer(char **str);
+void	print2d(char **str);
+void	ft_input_all(t_parse *part, t_data *data);
+void	ft_output_all(t_parse *part, t_data *data);
+int		check_redir(char **str);
 
 #endif

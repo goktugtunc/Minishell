@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_odd_right_redirection(char *str, int i, t_data *data)
+void	ft_odd_right_redirection(char *str, t_data *data, t_parse *part)
 {
 	int	fd;
 	int	chiled;
@@ -11,14 +11,14 @@ void	ft_odd_right_redirection(char *str, int i, t_data *data)
 	if (chiled == 0)
 	{
 		dup2(fd, 1);
-		decisionmechanism(&(data->parts[i].str[i]), data);
+		ft_input_all(part, data);
 		close(fd);
 		exit(0);
 	}
 	wait(NULL);
 }
 
-void ft_odd_left_redirection(char *str, int i, t_data *data)
+void ft_odd_left_redirection(char *str, t_data *data, t_parse *part)
 {
 	int	fd;
 	int	chiled;
@@ -29,13 +29,13 @@ void ft_odd_left_redirection(char *str, int i, t_data *data)
 	if (chiled == 0)
 	{
 		dup2(fd, 0);
-		decisionmechanism(&(data->parts[i].str[i]), data);
+		commandfinderother(part, data);
 		exit(0);
 	}
 	wait(NULL);
 }
 
-void	ft_multiple_right_redirection(char *str, int i, t_data *data)
+void	ft_multiple_right_redirection(char *str, t_data *data, t_parse *part)
 {
 	int	fd;
 	int	chiled;
@@ -46,7 +46,25 @@ void	ft_multiple_right_redirection(char *str, int i, t_data *data)
 	if (chiled == 0)
 	{
 		dup2(fd, 1);
-		decisionmechanism(&(data->parts[i].str[i]), data);
+		ft_input_all(part, data);
+		close(fd);
+		exit(0);
+	}
+	wait(NULL);
+}
+
+void	ft_multiple_left_redirection(char *str, t_data *data, t_parse *part)
+{
+	int	fd;
+	int	chiled;
+
+	data->fderr = dup(1);
+	fd = open(str, O_CREAT | O_WRONLY | O_APPEND, 0777);
+	chiled = fork();
+	if (chiled == 0)
+	{
+		dup2(fd, 0);
+		commandfinderother(part, data);
 		close(fd);
 		exit(0);
 	}

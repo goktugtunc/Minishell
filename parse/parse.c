@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/17 01:42:58 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/16 02:04:17 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,10 @@ int	elsestatus(char *a, int i, t_data *data)
 	return (i);
 }
 
-int	parserv2(int i, int argi, t_data *data)
+int	parserv2(char *a, int i, int argi, t_data *data)
 {
-	int		j;
-	char	*a;
+	int	j;
 
-	a = malloc(ft_strlen(data->commandline) + 1);
 	j = 0;
 	if (data->commandline[i] == '\"')
 		i = ifmultiquote(a, i, &j, data);
@@ -85,6 +83,7 @@ void	parser(t_data *data)
 {
 	int		i;
 	int		argi;
+	char	*a;
 	char	*temp;
 
 	temp = ft_strdup(data->commandline);
@@ -92,21 +91,17 @@ void	parser(t_data *data)
 	argi = 0;
 	free(data->commandline);
 	data->commandline = ft_strtrim(temp, " ");
-	if (ifendispipe(data) == 1)
-		data->parsererrorcode = 3;
-	if (data->parsererrorcode == 0)
+	ifendispipe(data);
+	data->arguments = malloc(
+			ft_strlen(data->commandline) * sizeof(char *) + 1);
+	while (data->commandline[i])
 	{
-		data->arguments = malloc(
-				ft_strlen(data->commandline) * sizeof(char *) + 1);
-		while (data->commandline[i])
-		{
-			if (data->commandline[i] == ' ')
-				i++;
-			else
-				i = parserv2(i, argi++, data);
-		}
-		data->arguments[argi] = NULL;
-		ifdoubleinput(data);
+		a = malloc(ft_strlen(data->commandline) + 1);
+		if (data->commandline[i] == ' ')
+			i++;
+		else
+			i = parserv2(a, i, argi++, data);
 	}
-	free(temp);
+	data->arguments[argi] = NULL;
+	ifdoubleinput(data);
 }
