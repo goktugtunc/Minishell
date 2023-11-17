@@ -6,13 +6,13 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/16 02:41:56 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/17 01:39:15 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ifendispipe(t_data *data)
+int	ifendispipe(t_data *data)
 {
 	int		i;
 	char	*temp;
@@ -23,9 +23,9 @@ void	ifendispipe(t_data *data)
 		i++;
 	while (data->commandline[i - 1] == '|')
 	{
-		if (temp)
-			free(temp);
 		temp = readline("> ");
+		if (temp == NULL)
+			return (1);
 		data->commandline = ft_strjoin(data->commandline, " ");
 		data->commandline = ft_strjoin(data->commandline, temp);
 		free(temp);
@@ -34,7 +34,10 @@ void	ifendispipe(t_data *data)
 		data->commandline = ft_strdup(temp);
 		while (data->commandline[i])
 			i++;
+		if (temp)
+			free(temp);
 	}
+	return (0);
 }
 
 void	ifdoubleinput2(t_data *data, int i)

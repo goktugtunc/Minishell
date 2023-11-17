@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/16 02:06:19 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/17 16:40:09 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_data{
 	int			exportlen;
 	int			commandcount;
 	int			fderr;
+	int			parsererrorcode;
 }	t_data;
 
 t_data			*g_data;
@@ -102,7 +103,9 @@ void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
 void	ft_multiple_right_redirection(char *str, int i, t_data *data);
 void	commandfinderother(t_parse *parts, t_data *data);
-void	ifendispipe(t_data *data);
+int		ifendispipe(t_data *data);
 void	ifdoubleinput(t_data *data);
+void	preparewhile(t_data *data);
+void	freedoublepointer(char **str);
 
 #endif

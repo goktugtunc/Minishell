@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:10:23 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/13 22:52:03 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/17 18:28:43 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,3 +168,45 @@ int	echonflagcontroller(char *str)
 //	free(str[0]);
 //	str[0] = returnval;
 //}
+
+void	preparewhile(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	data->parsererrorcode = 0;
+	if (data->commandline && data->commandline[0])
+	{
+		write(1, "1", 1);
+		while (data->arguments[i])
+			free(data->arguments[i++]);
+		free(data->arguments[i]);
+		free(data->arguments);
+		free(data->commandline);
+		i = 0;
+		while (data->parts[i].type != NULL)
+		{
+			while (data->parts[i].str[j])
+				free(data->parts[i].str[j++]);
+			free(data->parts[i].str[j]);
+			free(data->parts[i].type);
+			i++;
+			j = 0;
+		}
+		free(data->parts->str);
+		free(data->parts);
+	}
+}
+
+void	freedoublepointer(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		free(str[i++]);
+	free(str[i]);
+	free(str);
+}

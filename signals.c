@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:16:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:59:20 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/16 21:07:39 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,5 @@ void	ifsendeof(t_data *data)
 	printf("%sexit\n", data->starttext);
 	exit(1);
 }
+
+// 36Z-1 36Z 36G 49Z

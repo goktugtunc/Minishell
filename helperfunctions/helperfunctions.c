@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/15 22:43:32 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/16 21:32:30 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ char	*getpcname(void)
 	int		fd[2];
 	pid_t	id;
 	int		bytesread;
+	char	**temp;
 
+	temp = ft_split("scutil --get ComputerName", ' ');
 	pcname = malloc(256 * sizeof(char));
 	pipe(fd);
 	id = fork();
 	if (id == 0)
 	{
 		dup2(fd[1], STDOUT_FILENO);
-		execve("/usr/sbin/scutil",
-			ft_split("scutil --get ComputerName", ' '), NULL);
+		execve("/usr/sbin/scutil", temp, NULL);
 	}
 	else
 	{
@@ -45,6 +46,7 @@ char	*getpcname(void)
 		if (bytesread == -1)
 			ft_error("File read error!");
 		pcname[bytesread] = '\0';
+		freedoublepointer(temp);
 	}
 	return (pcname);
 }
@@ -52,17 +54,29 @@ char	*getpcname(void)
 void	findstarttext(char *pcname, t_data *data)
 {
 	char	**pwd;
+	char	*temp;
+	int		i;
 
-	pwd = ft_split(getcwd(NULL, 0), '/');
+	i = 0;
+	temp = getcwd(NULL, 0);
+	pwd = ft_split(temp, '/');
+	free(temp);
 	data->simplestarttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
 	data->simplestarttext = ft_strjoin(data->simplestarttext, "@");
 	data->simplestarttext = ft_strjoin(data->simplestarttext, pcname);
 	data->starttext = ft_strjoin2(data->simplestarttext, " ");
-	if (ft_strcmp(getcwd(NULL, 0), getenv("HOME")) == 0)
+	temp = getcwd(NULL, 0);
+	if (ft_strcmp(temp, getenv("HOME")) == 0)
 		data->starttext = ft_strjoin(data->starttext, "~");
 	else
 		data->starttext = ft_strjoin(data->starttext, pwd[lastarg(pwd)]);
 	data->starttext = ft_strjoin(data->starttext, " % \033[0m");
+	while (pwd[i])
+		free(pwd[i++]);
+	free(pwd[i]);
+	free(pwd);
+	free(temp);
+	free(pcname);
 }
 
 void	quoteerror(t_data *data)

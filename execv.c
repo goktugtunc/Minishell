@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:27:06 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/17 02:21:00 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_the_path(char **env, char *str, t_data *data)
 	(void)env;
 	while (data->path[i])
 	{
-		check = ft_strjoin(data->path[i], "/");
+		check = ft_strjoin2(data->path[i], "/");
 		check = ft_strjoin(check, str);
 		if (access(check, F_OK) == 0)
 			return (check);
@@ -67,12 +67,14 @@ char	*get_the_path(char **env, char *str, t_data *data)
 
 void	ft_chiled(char **str, t_data *data)
 {
-	int	chiled;
+	int		chiled;
+	char	*temp;
 
 	chiled = fork();
 	if (chiled == 0)
 	{
-		if (execve(get_the_path(data->envp, str[0], data),
+		temp = get_the_path(data->envp, str[0], data);
+		if (execve(temp,
 				str, data->envp) == -1)
 		{
 			dup2(data->fderr, 1);
