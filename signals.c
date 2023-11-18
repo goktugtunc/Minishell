@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:16:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:30:53 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 00:47:37 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	ifsendsigquit(int signal)
 {
-	rl_redisplay(); // control 4 basıldığında yazı çıkmamasını sağlamalıyım.
+	//rl_redisplay(); // control 4 basıldığında yazı çıkmamasını sağlamalıyım.
 	(void)signal;
-	return ;
+	rl_redisplay();
+	//return ;
 }
 
 void	ifsendsigint(int signal)

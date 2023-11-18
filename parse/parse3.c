@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 00:16:14 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:55:22 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ int	ifdoubleinput2(t_data *data, int i)
 			return (1);
 		if (ft_strcmp(data->arguments[i], temp))
 		{
-			if (temp2[0] != '\0')
-				temp2 = ft_strjoin(temp2, "\n");
 			temp2 = ft_strjoin(temp2, temp);
+			temp2 = ft_strjoin(temp2, "\n");
 		}
 	}
 	free(data->arguments[i]);

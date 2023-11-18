@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:28:15 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 00:55:22 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 /*
 	exitstatus ayarlanacak - $? denildiğinde çıkacak değer
 	signal fonksiyonları ayarlanacak
-	<< işareti yapılacak
-	birden fazla output olduğunda kullanılmayan outputlar dosya oluşturmalı
 */
 
 void	commandfinderv2(t_data *data)
@@ -43,7 +41,7 @@ void	commandfinderv2(t_data *data)
 void	startprogram2(t_data *data)
 {
 	data->errorstatus = 0;
-	data->commandline = readline(data->starttext);
+	data->commandline = readline("minishell");
 	if (data->commandline == NULL)
 		ifsendeof(data);
 	if (data->commandline[0])

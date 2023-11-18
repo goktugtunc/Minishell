@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions6.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 13:42:59 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:25:04 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 18:51:02 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_input_all(t_parse *part, t_data *data)
 		{
 			if (part->red[i].str[0] == '<' && part->red[i].str[1] == '<')
 			{
-				ft_multiple_left_redirection(&(part->red[i].str[1]),
+				ft_multiple_left_redirection(&(part->red[i].str[2]),
 					data, part);
 				return ;
 			}
@@ -98,6 +98,20 @@ void	ft_input_all(t_parse *part, t_data *data)
 	}
 	decisionmechanism(part[0].str, data);
 }
+void	ft_sub_output(t_parse *part, int i)
+{
+	int fd;
+
+	while(i + 1)
+	{
+		if (part->red[i].str[0] == '>' && part->red[i].str[1] == '>')
+			fd = open(&(part->red[i].str[2]), O_CREAT, 0777);
+		else if (part->red[i].str[0] == '>')
+			fd = open(&(part->red[i].str[1]), O_CREAT, 0777);
+		i--;
+		close(fd);
+	}
+}
 
 void	ft_output_all(t_parse *part, t_data *data)
 {
@@ -110,12 +124,14 @@ void	ft_output_all(t_parse *part, t_data *data)
 		{
 			if (part->red[i].str[0] == '>' && part->red[i].str[1] == '>')
 			{
-				ft_multiple_right_redirection(&(part->red[i].str[1]),
+				ft_sub_output(part, i - 1);
+				ft_multiple_right_redirection(&(part->red[i].str[2]),
 					data, part);
 				return ;
 			}
 			else if (part->red[i].str[0] == '>')
 			{
+				ft_sub_output(part, i - 1);
 				ft_odd_right_redirection(&(part->red[i].str[1]), data, part);
 				return ;
 			}

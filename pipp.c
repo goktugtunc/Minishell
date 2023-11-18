@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:07:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:13:44 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 21:22:26 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data)
 	int	chiled;
 
 	pipe(fds);
+	data->fderr = dup(1);
 	chiled = fork();
 	if (chiled == -1)
 		exit (1);
 	if (chiled == 0)
 	{
 		close(fds[0]);
-		data->fderr = dup(1);
 		dup2(fds[1], 1);
 		ft_output_all(part1, data);
 		close(fds[1]);

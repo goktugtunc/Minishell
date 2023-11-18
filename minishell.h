@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:07:29 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 18:52:17 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ void	commandfinderpipe(t_data *data);
 int		count_redir(char **str);
 char	**with_out_redir(char **str, int x);
 int		words_of_parts_outredir(char **argu);
+void	ft_sub_output(t_parse *part, int i);
 
 #endif
