@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:33:05 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:08:18 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 	signal fonksiyonları ayarlanacak
 	fork error kontrolleri yapılacak
 	<< işareti yapılacak
-	<< < kontrolü yapılacak
 	birden fazla output olduğunda kullanılmayan outputlar dosya oluşturmalı
 */
 
@@ -62,20 +61,17 @@ void	startprogram(t_data *data)
 		startprogram2(data);
 		if (data->errorstatus == 0 && data->commandline[0])
 		{
-			parser(data);
 			data->parts = NULL;
+			parser(data);
 			if (data->parsererrorcode == 0)
 			{
-				if (errorcontrol(data, 0))
-				{
-					transformdollar(data, 0);
-					data->exitstatus = 127;
-					removequotes(data);
-					data->parts = lastparse(data->arguments, 1, -1, data);
-					commandfinderv2(data);
-				}
+				transformdollar(data, 0);
+				data->exitstatus = 127;
+				removequotes(data);
+				data->parts = lastparse(data->arguments, 1, -1, data);
+				commandfinderv2(data);
 			}
-			else
+			else if (data->parsererrorcode != 3)
 			{
 				printf("> bash: syntax error: unexpected end of file\n");
 				data->exitstatus = 258;

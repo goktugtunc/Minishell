@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 00:13:59 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:03:29 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,10 @@ void	parser(t_data *data)
 				i = parserv2(i, argi++, data);
 		}
 		data->arguments[argi] = NULL;
-		if (ifdoubleinput(data))
-			data->parsererrorcode = 2;
+		errorcontrol(data, 0);
+		if (data->parsererrorcode == 0)
+			if (ifdoubleinput(data))
+				data->parsererrorcode = 2;
 	}
 	free(temp);
 }

@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:20:33 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:07:29 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	commandfinderother(t_parse *parts, t_data *data);
 int		ifendispipe(t_data *data);
 void	preparewhile(t_data *data);
 void	freedoublepointer(char **str);
-int		errorcontrol(t_data *data, int err);
+void	errorcontrol(t_data *data, int err);
 int		iscommandinbuiltin(char *s);
 void	decisionmechanism(char **str, t_data *data);
 void	commandfinderv2(t_data *data);
