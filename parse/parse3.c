@@ -6,13 +6,13 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/16 02:41:56 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 00:16:14 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ifendispipe(t_data *data)
+int	ifendispipe(t_data *data)
 {
 	int		i;
 	char	*temp;
@@ -23,9 +23,9 @@ void	ifendispipe(t_data *data)
 		i++;
 	while (data->commandline[i - 1] == '|')
 	{
-		if (temp)
-			free(temp);
 		temp = readline("> ");
+		if (temp == NULL)
+			return (1);
 		data->commandline = ft_strjoin(data->commandline, " ");
 		data->commandline = ft_strjoin(data->commandline, temp);
 		free(temp);
@@ -34,10 +34,13 @@ void	ifendispipe(t_data *data)
 		data->commandline = ft_strdup(temp);
 		while (data->commandline[i])
 			i++;
+		if (temp)
+			free(temp);
 	}
+	return (0);
 }
 
-void	ifdoubleinput2(t_data *data, int i)
+int	ifdoubleinput2(t_data *data, int i)
 {
 	char	*temp;
 	char	*temp2;
@@ -49,6 +52,8 @@ void	ifdoubleinput2(t_data *data, int i)
 		if (temp)
 			free(temp);
 		temp = readline("> ");
+		if (temp == NULL)
+			return (1);
 		if (ft_strcmp(data->arguments[i], temp))
 		{
 			if (temp2[0] != '\0')
@@ -58,9 +63,10 @@ void	ifdoubleinput2(t_data *data, int i)
 	}
 	free(data->arguments[i]);
 	data->arguments[i] = ft_strdup(temp2);
+	return (0);
 }
 
-void	ifdoubleinput(t_data *data)
+int	ifdoubleinput(t_data *data)
 {
 	int		i;
 
@@ -70,8 +76,10 @@ void	ifdoubleinput(t_data *data)
 		if (!ft_strcmp(data->arguments[i], "<<") && data->arguments[i + 1])
 		{
 			i++;
-			ifdoubleinput2(data, i);
+			if (ifdoubleinput2(data, i))
+				return (1);
 		}
 		i++;
 	}
+	return (0);
 }

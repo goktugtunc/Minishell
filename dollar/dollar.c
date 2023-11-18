@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:04:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:13:56 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 14:26:45 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	transformdollar2(t_data *data, char *temp, int i, int j)
 					m++;
 			}
 			temp = dollarfill(data, i, j, m);
-			data->arguments[i] = addstring(data->arguments[i], j, m, temp, data);
+			data->arguments[i] = addstring(data->arguments[i],
+					j, m, temp, data);
 			j = m;
 		}
 		j++;
@@ -97,20 +98,19 @@ void	addquote(char **arguments, int i)
 	arguments[i] = ft_strjoin(temp, "\"");
 }
 
-void	transformdollar(t_data *data)
+void	transformdollar(t_data *data, int quote)
 {
 	int		i;
-	int		quote;
 	int		j;
 	char	*temp;
 
 	i = -1;
 	j = 0;
-	quote = 0;
 	temp = NULL;
 	while (data->arguments[++i])
 	{
-		if (data->arguments[i][0] != '\'')
+		if (data->arguments[i][0] != '\''
+			&& ft_strchr(data->arguments[i], '$'))
 		{
 			if (data->arguments[i][0] == '\"'
 				|| data->arguments[i]

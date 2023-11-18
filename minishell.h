@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 01:47:58 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/18 14:20:33 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ typedef struct s_data{
 	int			exportlen;
 	int			commandcount;
 	int			fderr;
+	int			parsererrorcode;
 	int			pipe_pos;
 }	t_data;
-
-t_data			*g_data;
 
 char	*getpcname(void);
 void	findstarttext(char *pcname, t_data *data);
@@ -94,7 +93,7 @@ void	unsetcommand(char **str, t_data *data);
 void	exitcommand(void);
 char	*simpleinputcommand1(int i, t_data *data);
 char	*simpleoutputcommand1(int i, t_data *data);
-void	transformdollar(t_data *data);
+void	transformdollar(t_data *data, int quote);
 void	ifsendsigquit(int signal);
 void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data);
 void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data);
@@ -111,11 +110,23 @@ int		echonflagcontroller(char *str);
 void	ft_multiple_right_redirection(char *str, t_data *data, t_parse *part);
 void	ft_multiple_left_redirection(char *str, t_data *data, t_parse *part);
 void	commandfinderother(t_parse *parts, t_data *data);
-void	ifendispipe(t_data *data);
-void	ifdoubleinput(t_data *data);
+int		ifendispipe(t_data *data);
+void	preparewhile(t_data *data);
+void	freedoublepointer(char **str);
+int		errorcontrol(t_data *data, int err);
+int		iscommandinbuiltin(char *s);
+void	decisionmechanism(char **str, t_data *data);
+void	commandfinderv2(t_data *data);
+void	printexport(t_data *data);
+int		ifdoubleinput(t_data *data);
 void	print2d(char **str);
 void	ft_input_all(t_parse *part, t_data *data);
 void	ft_output_all(t_parse *part, t_data *data);
 int		check_redir(char **str);
+int		red_len(t_red *red);
+void	commandfinderpipe(t_data *data);
+int		count_redir(char **str);
+char	**with_out_redir(char **str, int x);
+int		words_of_parts_outredir(char **argu);
 
 #endif

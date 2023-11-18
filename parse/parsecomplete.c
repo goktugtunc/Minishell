@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecomplete.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 01:37:58 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/18 14:27:35 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ char	**towdcopy(char **src)
 	int		words;
 
 	i = 0;
-	 //&& src[0][0] != '<' && src[0][0] != '>' 
 	if (src[0][0] && src[0][0] != '|' && src[0][0] != '<' && src[0][0] != '>')
 		words = words_of_parts(src);
-	else if((src[0][0] == '<' || src[0][0] == '>') && src[1])
+	else if ((src[0][0] == '<' || src[0][0] == '>') && src[1])
 		words = 2;
 	else
 		words = 1;
@@ -67,8 +66,7 @@ int	countfrompars(t_data *data)
 	data->commandcount = 0;
 	while (str[i])
 	{
-		//  || (str[i][0] == '>' || str[i][0] == '<')
-		if (str[i][0] == '|')
+		if ((str[i][0] == '|') || (str[i][0] == '>' || str[i][0] == '<'))
 		{
 			if (str[i][0] == '|')
 				data->commandcount++;
@@ -93,126 +91,17 @@ int	countfrompars(t_data *data)
 
 char	*lastparse2(char *str)
 {
-	if (!ft_strncmp(str, "|", 1))
+	if (!ft_strcmp(str, "|"))
 		return (ft_strdup("pipe"));
-	else if (!ft_strncmp(str, "<", 1))
+	else if (!ft_strcmp(str, "<"))
 		return (ft_strdup("simpleinput"));
-	else if (!ft_strncmp(str, "<<", 2))
+	else if (!ft_strcmp(str, "<<"))
 		return (ft_strdup("multipleinput"));
-	else if (!ft_strncmp(str, ">", 1))
+	else if (!ft_strcmp(str, ">"))
 		return (ft_strdup("simpleoutput"));
-	else if (!ft_strncmp(str, ">>", 2))
+	else if (!ft_strcmp(str, ">>"))
 		return (ft_strdup("multipleoutput"));
 	return (NULL);
-}
-int	count_redir(char **str)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while(str[i])
-	{
-		if (str[i][0] == '<' || str[i][0] == '>' || str[i][0] == '|')
-			count++;
-		i++;
-	}
-	return (count);
-}
-void	print2d(char **str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		printf("*%s\n", str[i]);
-		i++;
-	}
-}
-
-int	words_of_parts_outredir(char **argu)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	if (argu[i][0] == '|')
-		return (1);
-	while (argu[i])
-	{
-		if (argu[i][0] == '<' || argu[i][0] == '>')
-		{
-			count--;
-			i++;
-		}
-		if (argu[i][0] == '|')
-			return (count);
-		i++;
-		count++;
-	}
-	return (count);
-}
-
-char **with_out_redir(char **str, int x)
-{
-	char	**new;
-	int		i;
-	int		j;
-
-	j = 0;
-	x = 0;
-	i = 0;
-	new = (char **)malloc(sizeof(char *) * words_of_parts_outredir(str) + 1);
-	while (str[i] && str[i][0] != '|')
-	{
-		if (str[i][0] != '<' && str[i][0] != '>')
-		{
-			new[j] = ft_strdup(str[i]);
-			j++;
-		}
-		else
-			i++;
-		i++;
-
-	}
-	new[j] = NULL;
-	//free(str);
-	return (new);
-}
-
-int	check_input_redir(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i][0] != '|')
-	{
-		if (str[i][0] == '<' || str[i][0] == '>' || !ft_strcmp(str[i], "simpleoutput")
-			|| !ft_strcmp(str[i], "simpleinput") || !ft_strcmp(str[i], "multipleoutput") ||
-			!ft_strcmp(str[i], "multipleinput") )	
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	check_redir(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i][0] != '|')
-	{
-		if (str[i][0] == '<' || str[i][0] == '>' || !ft_strcmp(str[i], "simpleoutput")
-			|| !ft_strcmp(str[i], "simpleinput") || !ft_strcmp(str[i], "multipleoutput") ||
-			!ft_strcmp(str[i], "multipleinput") )	
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 t_parse	*lastparse(char **str, int tru, int i, t_data *data)
@@ -221,28 +110,30 @@ t_parse	*lastparse(char **str, int tru, int i, t_data *data)
 	int		j;
 	int		z;
 	int		forpipe;
-	
+
 	forpipe = 0;
 	z = 0;
 	j = 0;
-	last = (t_parse *)malloc(sizeof(t_parse) * (countfrompars(data) + 1));
+	last = malloc(sizeof(t_parse) * (countfrompars(data) + 1));
 	while (str[++i])
 	{
 		if (str[i][0] == '|')
 		{
 			if (check_redir(&str[forpipe]))
-				last[j - 1].red[z].type = NULL;			
+				last[j - 1].red[z].type = NULL;
 			forpipe = i + 1;
 			tru = 1;
 			last[j].str = towdcopy(&str[i]);
 			last[j].type = lastparse2(str[i]);
 			j++;
 		}
-		else if ((str[i][0] == '>' || str[i][0] == '<') && str[i + 1] && check_redir(&str[forpipe]))//tru
+		else if ((str[i][0] == '>' || str[i][0] == '<')
+			&& str[i + 1] && check_redir(&str[forpipe]))
 		{
 			if (tru == 1)
 			{
-				last[j].red = malloc(sizeof(t_red) * (count_redir(&str[forpipe]) + 1));
+				last[j].red = malloc(sizeof(t_red)
+						* (count_redir(&str[forpipe]) + 1));
 				tru = 0;
 				z = 0;
 				last[j].str = with_out_redir(&str[forpipe], i);
@@ -267,4 +158,3 @@ t_parse	*lastparse(char **str, int tru, int i, t_data *data)
 		last[j - 1].red[z].type = NULL;
 	return (last);
 }
-
