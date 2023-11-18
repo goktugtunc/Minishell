@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:04:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:25:24 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 02:08:29 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,20 @@ void	commandfinderpipe(t_data *data)
 	else
 	{
 		ft_output_all(&(data->parts[0]), data);
+	}
+}
+
+void	ft_sub_output(t_parse *part, int i)
+{
+	int	fd;
+
+	while (i + 1)
+	{
+		if (part->red[i].str[0] == '>' && part->red[i].str[1] == '>')
+			fd = open(&(part->red[i].str[2]), O_CREAT, 0777);
+		else if (part->red[i].str[0] == '>')
+			fd = open(&(part->red[i].str[1]), O_CREAT, 0777);
+		i--;
+		close(fd);
 	}
 }

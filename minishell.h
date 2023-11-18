@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 18:52:17 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/19 02:08:38 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
+# include <termios.h>
 # include "libft/libft.h"
 
 typedef struct s_red{
@@ -56,6 +57,14 @@ typedef struct s_data{
 	int			pipe_pos;
 }	t_data;
 
+typedef struct s_global{
+	int	error;
+	int	heredoc;
+	int	execstatus;
+}	t_global;
+
+t_global	g_global;
+
 char	*getpcname(void);
 void	findstarttext(char *pcname, t_data *data);
 int		findpath(char *searchedpath, t_data *data);
@@ -72,7 +81,6 @@ int		ifmultiquote(char *a, int i, int *j, t_data *data);
 int		ifsinglequote(char *a, int i, int *j, t_data *data);
 int		pipecontrol(char *a, int i, t_data *data);
 t_parse	*lastparse(char **str, int tru, int i, t_data *data);
-void	freeendwhile(t_data *data);
 void	quoteerror(t_data *data);
 int		commandpointerlen(char **d);
 void	cdcommand(char **a, t_data *data);
@@ -100,16 +108,13 @@ void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data);
 void	echocommand(char **str);
 void	ft_chiled(char **str, t_data *data);
 void	decisionmechanism(char **str, t_data *data);
-void	ft_dorequire(void);
 void	ft_odd_right_redirection(char *str, t_data *data, t_parse *part);
 void	ft_odd_left_redirection(char *str, t_data *data, t_parse *part);
-void	commandfinder(void);
 char	*removequotes2(char *str);
 void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
 void	ft_multiple_right_redirection(char *str, t_data *data, t_parse *part);
 void	ft_multiple_left_redirection(char *str, t_data *data, t_parse *part);
-void	commandfinderother(t_parse *parts, t_data *data);
 int		ifendispipe(t_data *data);
 void	preparewhile(t_data *data);
 void	freedoublepointer(char **str);
@@ -128,6 +133,7 @@ void	commandfinderpipe(t_data *data);
 int		count_redir(char **str);
 char	**with_out_redir(char **str, int x);
 int		words_of_parts_outredir(char **argu);
+void	delete_ctrl(void);
 void	ft_sub_output(t_parse *part, int i);
 
 #endif

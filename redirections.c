@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:05:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 17:29:12 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/19 02:16:03 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,12 @@ void	ft_multiple_right_redirection(char *str, t_data *data, t_parse *part)
 
 void	ft_multiple_left_redirection(char *str, t_data *data, t_parse *part)
 {
+	int	fds[2];
 	int	chiled;
-	int fds[2];
 
-	(void )str;
 	data->fderr = dup(1);
 	pipe(fds);
-	write(fds[1], str ,ft_strlen(str));
-	
+	write(fds[1], str, ft_strlen(str));
 	chiled = fork();
 	if (chiled == -1)
 		exit(1);

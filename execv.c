@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:12:22 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 01:46:33 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,12 @@ char	*get_the_path(char **env, char *str, t_data *data)
 void	ft_chiled(char **str, t_data *data)
 {
 	int		chiled;
+	int		fds[2];
 	char	*temp;
 
+	g_global.execstatus = 1;
+	data->exitstatus = 0;
+	pipe(fds);
 	chiled = fork();
 	if (chiled == -1)
 		exit(1);
@@ -79,6 +83,9 @@ void	ft_chiled(char **str, t_data *data)
 		if (execve(temp,
 				str, data->envp) == -1)
 		{
+			close(fds[0]);
+			write(fds[1], "1", 1);
+			close(fds[1]);
 			dup2(data->fderr, 1);
 			if (str[0][0])
 				printf("-bash: %s: command not found\n", str[0]);
@@ -86,6 +93,13 @@ void	ft_chiled(char **str, t_data *data)
 		}
 	}
 	wait(NULL);
+	close(fds[1]);
+	temp = malloc(3);
+	read(fds[0], temp, 2);
+	close(fds[0]);
+	if (temp[0] == '1')
+		data->exitstatus = 127;
+	free(temp);
 }
 
 void	echocommand(char **str)

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishellmain.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 00:55:22 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/19 01:47:41 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-	exitstatus ayarlanacak - $? denildiğinde çıkacak değer
-	signal fonksiyonları ayarlanacak
+	norm
+	leak
 */
 
 void	commandfinderv2(t_data *data)
@@ -40,11 +40,10 @@ void	commandfinderv2(t_data *data)
 
 void	startprogram2(t_data *data)
 {
-	data->errorstatus = 0;
-	data->commandline = readline("minishell");
+	data->commandline = readline(data->starttext);
 	if (data->commandline == NULL)
 		ifsendeof(data);
-	if (data->commandline[0])
+	if (ft_strcmp(data->commandline, ""))
 		add_history(data->commandline);
 	else
 		free(data->commandline);
@@ -60,7 +59,7 @@ void	startprogram(t_data *data)
 		{
 			data->parts = NULL;
 			parser(data);
-			if (data->parsererrorcode == 0)
+			if (data->parsererrorcode == 0 && g_global.error == 0)
 			{
 				transformdollar(data, 0);
 				data->exitstatus = 127;
@@ -68,7 +67,7 @@ void	startprogram(t_data *data)
 				data->parts = lastparse(data->arguments, 1, -1, data);
 				commandfinderv2(data);
 			}
-			else if (data->parsererrorcode != 3)
+			else if (data->parsererrorcode != 3 && g_global.error == 0)
 			{
 				printf("> bash: syntax error: unexpected end of file\n");
 				data->exitstatus = 258;
@@ -85,6 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_data));
 	signal(SIGINT, ifsendsigint);
 	signal(SIGQUIT, ifsendsigquit);
+	delete_ctrl();
 	initializefunction(envp, argc, argv, data);
 	startprogram(data);
 	return (0);

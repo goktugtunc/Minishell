@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 20:20:24 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 00:29:57 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 01:06:59 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 	data->envp[pwdindex] = ft_strjoin2("PWD=", newpwd);
 	free(data->starttext);
 	if (ft_strcmp(getcwd(NULL, 0), getenv("HOME")) == 0)
-		data->starttext = ft_strjoin2(data->simplestarttext, " ~ \033[0m");
+		data->starttext = ft_strjoin2(data->simplestarttext, " ~ ");
 	else
 	{
 		newstarttext = ft_split(data->envp[pwdindex], '/');
 		data->starttext = ft_strjoin2(data->simplestarttext, " ");
 		data->starttext = ft_strjoin(data->starttext,
 				newstarttext[lastarg(newstarttext)]);
-		data->starttext = ft_strjoin(data->starttext, " % \033[0m");
+		data->starttext = ft_strjoin(data->starttext, " % ");
 	}
 }
 

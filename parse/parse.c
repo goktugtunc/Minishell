@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:45:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:03:29 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 20:52:13 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ void	parser(t_data *data)
 	data->commandline = ft_strtrim(temp, " ");
 	if (ifendispipe(data) == 1)
 		data->parsererrorcode = 3;
-	if (data->parsererrorcode == 0)
+	else
+		g_global.heredoc = 0;
+	if (data->parsererrorcode == 0 && g_global.error == 0)
 	{
 		data->arguments = malloc(
 				ft_strlen(data->commandline) * sizeof(char *) + 1);
@@ -108,8 +110,12 @@ void	parser(t_data *data)
 		data->arguments[argi] = NULL;
 		errorcontrol(data, 0);
 		if (data->parsererrorcode == 0)
+		{
 			if (ifdoubleinput(data))
 				data->parsererrorcode = 2;
+			else
+				g_global.heredoc = 0;
+		}
 	}
 	free(temp);
 }

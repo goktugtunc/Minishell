@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/16 21:32:30 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 01:13:23 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	findstarttext(char *pcname, t_data *data)
 	temp = getcwd(NULL, 0);
 	pwd = ft_split(temp, '/');
 	free(temp);
-	data->simplestarttext = ft_strjoin2("\033[32m", getenv("LOGNAME"));
+	data->simplestarttext = ft_strjoin2("Miniroot - ", getenv("LOGNAME"));
 	data->simplestarttext = ft_strjoin(data->simplestarttext, "@");
 	data->simplestarttext = ft_strjoin(data->simplestarttext, pcname);
 	data->starttext = ft_strjoin2(data->simplestarttext, " ");
@@ -70,7 +70,7 @@ void	findstarttext(char *pcname, t_data *data)
 		data->starttext = ft_strjoin(data->starttext, "~");
 	else
 		data->starttext = ft_strjoin(data->starttext, pwd[lastarg(pwd)]);
-	data->starttext = ft_strjoin(data->starttext, " % \033[0m");
+	data->starttext = ft_strjoin(data->starttext, " % ");
 	while (pwd[i])
 		free(pwd[i++]);
 	free(pwd[i]);
@@ -88,6 +88,7 @@ void	quoteerror(t_data *data)
 			ft_strtrim(data->starttext, "\033[320m"));
 		free(data->commandline);
 		data->errorstatus = 1;
+		data->exitstatus = 1;
 	}
 }
 

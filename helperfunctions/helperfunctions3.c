@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:10:23 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:24:43 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 01:26:26 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,94 +81,6 @@ int	echonflagcontroller(char *str)
 	return (0);
 }
 
-//char	**findfiles(void)
-//{
-//	char	*temp;
-//	char	*returnval;
-//	char	*files;
-//	int		fd[2];
-//	pid_t	id;
-//	int		bytesread;
-
-//	temp = NULL;
-//	returnval = NULL;
-//	while (1)
-//	files = malloc(999 * sizeof(char));
-//	pipe(fd);
-//	id = fork();
-//	if (id == 0)
-//	{
-//		temp = readline("> ");
-//		if (ft_strcmp(str[0], temp))
-//		{
-//			if (!returnval)
-//				returnval = ft_strdup(temp);
-//			else
-//			{
-//				returnval = ft_strjoin(returnval, "\n");
-//				returnval = ft_strjoin(returnval, temp);
-//			}
-//			free(temp);
-//		}
-//		else
-//			break ;
-//		dup2(fd[1], STDOUT_FILENO);
-//		execve("/bin/ls",
-//			ft_split("ls", ' '), NULL);
-//	}
-//	else
-//	{
-//		wait(NULL);
-//		bytesread = read(fd[0], files, 999);
-//		if (bytesread == -1)
-//			ft_error("File read error!");
-//		files[bytesread] = '\0';
-//	}
-//	return (ft_split(files, '\n'));
-//}
-
-//void	changewildcard(t_data *data, int i, int len)
-//{
-//	char	**str;
-//	char	**temp;
-//	int		j;
-//	int		tempi;
-
-//	j = 0;
-//	tempi = i;
-//	temp = malloc(sizeof(char *) * (len - i));
-//	str = findfiles();
-//	free(data->arguments[tempi]);
-//	while (data->arguments[++tempi])
-//	{
-//		temp[j++] = ft_strdup(data->arguments[tempi]);
-//		free(data->arguments[tempi]);
-//	}
-//	temp[j] = NULL;
-//	j = -1;
-//	while (str[++j])
-//		data->arguments[i++] = ft_strdup(ft_strtrim(str[j], "\n"));
-//	j = 0;
-//	while (temp[j])
-//		data->arguments[i++] = ft_strdup(temp[j++]);
-//	data->arguments[i] = NULL;
-//}
-
-//void	findwildcard(t_data *data)
-//{
-//	int	i;
-
-//	i = 0;
-//	while (data->arguments[i])
-//	{
-//		if (!ft_strcmp(data->arguments[i], "*"))
-//			changewildcard(data, i, commandpointerlen(data->arguments));
-//		i++;
-//	}
-//	free(str[0]);
-//	str[0] = returnval;
-//}
-
 void	freedoublepointer(char **str)
 {
 	int	i;
@@ -191,7 +103,9 @@ void	preparewhile(t_data *data)
 	i = 0;
 	j = 0;
 	data->parsererrorcode = 0;
-	if (data->commandline && data->commandline[0])
+	g_global.error = 0;
+	g_global.execstatus = 0;
+	if (data->commandline && data->commandline[0] && data->errorstatus == 0)
 	{
 		free(data->commandline);
 		if (data->arguments)
@@ -212,4 +126,5 @@ void	preparewhile(t_data *data)
 			free(data->parts);
 		}
 	}
+	data->errorstatus = 0;
 }

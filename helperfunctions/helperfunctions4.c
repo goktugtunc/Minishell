@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:13:29 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:05:48 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 20:34:42 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,17 @@ void	errorcontrol2(t_data *data)
 	int	i;
 
 	i = 0;
-	if (!ft_strcmp(data->arguments[0], "|"))
+	if (!ft_strcmp(data->arguments[0], "|") && data->parsererrorcode == 0
+		&& g_global.error == 0)
 	{
 		printf("Minishell: syntax error near unexpected token `|'\n");
 		data->exitstatus = 258;
 		data->parsererrorcode = 3;
 	}
-	while (data->arguments[i])
+	while (data->arguments[i] && g_global.error == 0)
 		i++;
-	if (isredirection(data->arguments[i - 1]))
+	if (isredirection(data->arguments[i - 1]) && data->parsererrorcode == 0
+		&& g_global.error == 0)
 	{
 		printf("Minishell: syntax error near unexpected token `newline'\n");
 		data->exitstatus = 258;
@@ -52,9 +54,8 @@ void	errorcontrol(t_data *data, int err)
 	int	i;
 
 	i = 0;
-	errorcontrol2(data);
 	while (data->arguments[i] && data->arguments[i + 1]
-		&& data->parsererrorcode == 0)
+		&& data->parsererrorcode == 0 && g_global.error == 0)
 	{
 		if (!ft_strcmp(data->arguments[i], "|")
 			&& !ft_strcmp(data->arguments[i + 1], "|"))
@@ -74,6 +75,7 @@ void	errorcontrol(t_data *data, int err)
 		}
 		i++;
 	}
+	errorcontrol2(data);
 }
 
 int	iscommandinbuiltin(char *s)

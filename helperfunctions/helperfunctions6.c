@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helperfunctions6.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 13:42:59 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 18:51:02 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/19 02:13:46 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,6 @@ void	ft_input_all(t_parse *part, t_data *data)
 		}
 	}
 	decisionmechanism(part[0].str, data);
-}
-void	ft_sub_output(t_parse *part, int i)
-{
-	int fd;
-
-	while(i + 1)
-	{
-		if (part->red[i].str[0] == '>' && part->red[i].str[1] == '>')
-			fd = open(&(part->red[i].str[2]), O_CREAT, 0777);
-		else if (part->red[i].str[0] == '>')
-			fd = open(&(part->red[i].str[1]), O_CREAT, 0777);
-		i--;
-		close(fd);
-	}
 }
 
 void	ft_output_all(t_parse *part, t_data *data)
