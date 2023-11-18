@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 00:41:25 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:12:22 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	ft_chiled(char **str, t_data *data)
 	char	*temp;
 
 	chiled = fork();
+	if (chiled == -1)
+		exit(1);
 	if (chiled == 0)
 	{
 		temp = get_the_path(data->envp, str[0], data);

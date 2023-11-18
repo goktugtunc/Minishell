@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:07:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:01:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:13:44 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data)
 
 	pipe(fds);
 	chiled = fork();
+	if (chiled == -1)
+		exit (1);
 	if (chiled == 0)
 	{
 		close(fds[0]);
@@ -70,6 +72,8 @@ void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data)
 	int		chiled;
 
 	chiled = fork();
+	if (chiled == -1)
+		exit(1);
 	if (chiled == 0)
 	{
 		pipecommand(part1, part2, data->commandcount - 2, data);

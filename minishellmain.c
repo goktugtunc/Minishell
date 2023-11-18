@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 16:08:18 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:15:22 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 	exitstatus ayarlanacak - $? denildiğinde çıkacak değer
 	signal fonksiyonları ayarlanacak
-	fork error kontrolleri yapılacak
 	<< işareti yapılacak
 	birden fazla output olduğunda kullanılmayan outputlar dosya oluşturmalı
 */
