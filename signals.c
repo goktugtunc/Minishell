@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:16:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 00:53:21 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 13:56:59 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,15 @@ void	ifsendeof(t_data *data)
 	printf("\033[K");
 	printf("\033[1A");
 	printf("%sexit                                        \n", data->starttext);
+	printf("\t\033[32m   _____\n");
+	printf("\t  /     \\\n");
+	printf("\t /       \\\n");
+	printf("\t|   .   . |\n");
+	printf("\t|  ´   ´  |\n");
+	printf("\t|   ___   |\n");
+	printf("\t|  /   \\  |\n");
+	printf("\t \\       /\n");
+	printf("\t  \\_____/\n\n\033[0m");
 	exit(0);
 }
 

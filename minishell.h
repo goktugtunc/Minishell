@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:17:23 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 13:06:49 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	removequotes(t_data *data);
 int		echonflagcontroller(char *str);
 void	ft_multiple_right_redirection(char *str, t_data *data, t_parse *part);
 void	ft_multiple_left_redirection(char *str, t_data *data, t_parse *part);
-int		ifendispipe(t_data *data);
+int		ifendispipe(t_data *data, int i);
 void	preparewhile(t_data *data);
 void	freedoublepointer(char **str);
 void	errorcontrol(t_data *data, int err);

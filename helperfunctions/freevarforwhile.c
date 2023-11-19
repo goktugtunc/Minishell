@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 02:56:42 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:24:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 16:21:45 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	preparewhile2(t_data *data)
 	g_global.error = 0;
 	g_global.execstatus = 0;
 	data->errorstatus = 0;
+	data->commandcount = 0;
 	data->commandline = NULL;
 	data->arguments = NULL;
 	data->parts = NULL;
@@ -44,7 +45,17 @@ void	preparewhile(t_data *data)
 				free(data->parts[i].type);
 				i++;
 			}
+			i = 0;
+			//write(1, "1", 1);
+			//while (data->parts[i].red && data->parts[i].red->type)
+			//{
+			//	write(1, "2", 1);
+			//	free(data->parts[i].red->str);
+			//	free(data->parts[i++].red->type);
+			//}
+			//write(1, "3", 1);
 			free(data->parts);
+			//write(1, "4", 1);
 		}
 	}
 	preparewhile2(data);

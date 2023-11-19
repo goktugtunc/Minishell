@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:17:16 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 12:49:31 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,10 @@ char	*get_the_path(char **env, char *str, t_data *data)
 	return (NULL);
 }
 
-void	ft_chiled(char **str, t_data *data)
+void	runexecve(t_data *data, char **str, int fds[2], int chiled)
 {
-	int		chiled;
-	int		fds[2];
 	char	*temp;
 
-	g_global.execstatus = 1;
-	data->exitstatus = 0;
-	pipe(fds);
-	chiled = fork();
-	if (chiled == -1)
-		exit(1);
 	if (chiled == 0)
 	{
 		temp = get_the_path(data->envp, str[0], data);
@@ -100,4 +92,18 @@ void	ft_chiled(char **str, t_data *data)
 	if (temp[0] == '1')
 		data->exitstatus = 127;
 	free(temp);
+}
+
+void	ft_chiled(char **str, t_data *data)
+{
+	int		chiled;
+	int		fds[2];
+
+	g_global.execstatus = 1;
+	data->exitstatus = 0;
+	pipe(fds);
+	chiled = fork();
+	if (chiled == -1)
+		exit(1);
+	runexecve(data, str, fds, chiled);
 }

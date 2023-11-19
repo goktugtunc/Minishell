@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 20:20:24 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:11:04 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 16:41:03 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 	int		oldpwdindex;
 	int		pwdindex;
 	char	**newstarttext;
+	int		i;
 
+	i = 0;
 	oldpwdindex = findenvpindex("OLDPWD=", 7, data);
 	pwdindex = findenvpindex("PWD=", 4, data);
 	free(data->envp[oldpwdindex]);
@@ -25,7 +27,7 @@ void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 	data->envp[oldpwdindex] = ft_strjoin2("OLDPWD=", oldpwd);
 	data->envp[pwdindex] = ft_strjoin2("PWD=", newpwd);
 	free(data->starttext);
-	if (ft_strcmp(getcwd(NULL, 0), getenv("HOME")) == 0)
+	if (ft_strcmp(newpwd, getenv("HOME")) == 0)
 		data->starttext = ft_strjoin2(data->simplestarttext, " ~ ");
 	else
 	{
@@ -34,7 +36,12 @@ void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 		data->starttext = ft_strjoin(data->starttext,
 				newstarttext[commandpointerlen(newstarttext) - 1]);
 		data->starttext = ft_strjoin(data->starttext, " % ");
+		while (newstarttext[i])
+			free(newstarttext[i++]);
+		free(newstarttext);
 	}
+	free(newpwd);
+	free(oldpwd);
 }
 
 void	cdcommand(char **a, t_data *data)
@@ -53,6 +60,7 @@ void	cdcommand(char **a, t_data *data)
 	{
 		if (chdir(a[1]))
 		{
+			free(pwd);
 			perror(a[1]);
 		}
 		else

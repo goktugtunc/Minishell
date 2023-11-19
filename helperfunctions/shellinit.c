@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shellline.c                                        :+:      :+:    :+:   */
+/*   shellinit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:12:33 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 16:02:02 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,35 @@ void	findstarttext(char *pcname, t_data *data)
 	free(pwd);
 	free(temp);
 	free(pcname);
+}
+
+void	initializefunction(char **envp, int argc, char **argv, t_data *data)
+{
+	char	*pcname;
+
+	if (argc > 1)
+		printf("\033[31;4mMinishell: Command not found: %s\n\033[0m",
+			argv[1]);
+	pcname = getpcname();
+	findstarttext(pcname, data);
+	data->path = ft_split(getenv("PATH"), ':');
+	data->envp = copyenv(envp);
+	data->exportp = copyenv(envp);
+	data->exportlen = commandpointerlen(data->exportp);
+	g_global.error = 0;
+	data->exitstatus = 0;
+	g_global.execstatus = 0;
+	g_global.heredoc = 0;
+	data->commandcount = 0;
+	data->arguments = NULL;
+	data->commandline = NULL;
+	data->parts = NULL;
+	printf("\033[32m/* ************************************************ */\n");
+	printf("/*                                                  */\n");
+	printf("/*          Welcome to our Miniroot Shell           */\n");
+	printf("/*          gotunc       ---       amonem           */\n");
+	printf("/*                                                  */\n");
+	printf("/* ************************************************ */\n\n\033[0m");
 }
 
 void	ft_error(char *a)

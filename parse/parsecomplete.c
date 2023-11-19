@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:27:35 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 16:23:42 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,12 @@ char	**towdcopy(char **src)
 	return (dest);
 }
 
-int	countfrompars(t_data *data)
+int	countfrompars(t_data *data, int i, int count, int tru)
 {
 	char	**str;
-	int		i;
-	int		count;
-	int		tru;
 
-	tru = 1;
-	count = 0;
-	i = 0;
 	str = data->arguments;
-	data->commandcount = 0;
-	while (str[i])
+	while (str[++i])
 	{
 		if ((str[i][0] == '|') || (str[i][0] == '>' || str[i][0] == '<'))
 		{
@@ -84,7 +77,6 @@ int	countfrompars(t_data *data)
 			count++;
 			data->commandcount++;
 		}
-		i++;
 	}
 	return (count);
 }
@@ -114,7 +106,7 @@ t_parse	*lastparse(char **str, int tru, int i, t_data *data)
 	forpipe = 0;
 	z = 0;
 	j = 0;
-	last = malloc(sizeof(t_parse) * (countfrompars(data) + 1));
+	last = malloc(sizeof(t_parse) * (countfrompars(data, -1, 0, 1) + 1));
 	while (str[++i])
 	{
 		if (str[i][0] == '|')
