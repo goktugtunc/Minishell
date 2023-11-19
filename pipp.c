@@ -6,7 +6,7 @@
 /*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:07:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/17 19:45:31 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/19 18:19:51 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data)
 
 	pipe(fds);
 	chiled = fork();
+	if (chiled == -1)
+		exit (1);
 	if (chiled == 0)
 	{
 		close(fds[0]);
 		dup2(fds[1], 1);
-			ft_output_all(part2, data);
+		ft_output_all(part1, data);
 		close(fds[1]);
 		exit(0);
 	}
@@ -57,7 +59,8 @@ void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data)
 	wait(NULL);
 	dup2(fds[0], 0);
 	if (i > 1)
-		pipecommand(part1 + pass_pipe(part1), part2 + pass_pipe(part2), i - 2, data);
+		pipecommand(part1 + pass_pipe(part1),
+			part2 + pass_pipe(part2), i - 2, data);
 	else
 		ft_output_all(part2, data);
 	close(fds[0]);
@@ -68,6 +71,8 @@ void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data)
 	int		chiled;
 
 	chiled = fork();
+	if (chiled == -1)
+		exit(1);
 	if (chiled == 0)
 	{
 		pipecommand(part1, part2, data->commandcount - 2, data);

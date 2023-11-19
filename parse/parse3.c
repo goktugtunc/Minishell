@@ -6,26 +6,30 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/16 02:41:56 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 15:34:59 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ifendispipe(t_data *data)
+int	ifendispipe2(t_data *data, int i)
 {
-	int		i;
 	char	*temp;
 
 	temp = NULL;
-	i = 0;
 	while (data->commandline[i])
 		i++;
 	while (data->commandline[i - 1] == '|')
 	{
-		if (temp)
-			free(temp);
+		g_global.heredoc = 1;
 		temp = readline("> ");
+		if (temp == NULL && g_global.error == 0)
+			return (1);
+		if (g_global.error == 1)
+		{
+			free(temp);
+			return (0);
+		}
 		data->commandline = ft_strjoin(data->commandline, " ");
 		data->commandline = ft_strjoin(data->commandline, temp);
 		free(temp);
@@ -34,10 +38,40 @@ void	ifendispipe(t_data *data)
 		data->commandline = ft_strdup(temp);
 		while (data->commandline[i])
 			i++;
+		if (temp)
+			free(temp);
 	}
+	return (0);
 }
 
-void	ifdoubleinput2(t_data *data, int i)
+int	ifendispipe(t_data *data, int i)
+{
+	while (data->commandline[i])
+		i++;
+	if (data->commandline[--i] == '|')
+	{
+		while (--i != -1)
+		{
+			if (data->commandline[i] == '<' || data->commandline[i] == '|'
+				|| data->commandline[i] == '>')
+			{
+				printf("Minishell: syntax error near unexpected token `|'\n");
+				data->exitstatus = 258;
+				return (1);
+			}
+			else if (data->commandline[i] != ' ')
+				break ;
+		}
+		if (ifendispipe2(data, 0))
+		{
+			g_global.heredoc = 0;
+			return (1);
+		}
+	}
+	return (0);
+}
+
+int	ifdoubleinput2(t_data *data, int i)
 {
 	char	*temp;
 	char	*temp2;
@@ -49,18 +83,31 @@ void	ifdoubleinput2(t_data *data, int i)
 		if (temp)
 			free(temp);
 		temp = readline("> ");
+		if (temp == NULL)
+		{
+			free(temp2);
+			return (1);
+		}
+		if (g_global.error == 1)
+		{
+			free(temp);
+			free(temp2);
+			return (0);
+		}
 		if (ft_strcmp(data->arguments[i], temp))
 		{
-			if (temp2[0] != '\0')
-				temp2 = ft_strjoin(temp2, "\n");
 			temp2 = ft_strjoin(temp2, temp);
+			temp2 = ft_strjoin(temp2, "\n");
 		}
 	}
 	free(data->arguments[i]);
 	data->arguments[i] = ft_strdup(temp2);
+	free(temp);
+	free(temp2);
+	return (0);
 }
 
-void	ifdoubleinput(t_data *data)
+int	ifdoubleinput(t_data *data)
 {
 	int		i;
 
@@ -69,9 +116,14 @@ void	ifdoubleinput(t_data *data)
 	{
 		if (!ft_strcmp(data->arguments[i], "<<") && data->arguments[i + 1])
 		{
+			g_global.heredoc = 1;
 			i++;
-			ifdoubleinput2(data, i);
+			if (ifdoubleinput2(data, i))
+				return (1);
+			if (g_global.error == 1)
+				return (0);
 		}
 		i++;
 	}
+	return (0);
 }

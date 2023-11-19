@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:13:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/14 17:58:09 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/18 12:21:53 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,6 @@ void	exportcommand(char **str, int i, int error, t_data *data)
 		}
 	}
 	sortexport(data);
-	i = -1;
 	if (error == 0 && !str[1])
-		while (data->exportp[++i])
-			printf("declare -x %s\n", data->exportp[i]);
+		printexport(data);
 }
