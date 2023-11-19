@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 03:05:10 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:16:10 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 18:44:16 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,24 @@ void	commandfinderpipe(t_data *data)
 	{
 		ft_output_all(&(data->parts[0]), data);
 	}
+}
+
+void	addstringhelper2(t_data *data, char *firststr, int argi, int startindex)
+{
+	int	i;
+
+	i = -1;
+	while (++i < startindex)
+		firststr[i] = data->arguments[argi][i];
+	firststr[i] = 0;
+}
+
+void	addstringhelper3(t_data *data, char *thirdstr, int argi, int endindex)
+{
+	int	i;
+
+	i = 0;
+	while (data->arguments[argi][endindex])
+		thirdstr[i++] = data->arguments[argi][endindex++];
+	thirdstr[i] = 0;
 }
