@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:52:17 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 21:14:55 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 03:10:52 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void	initializefunction(char **envp, int argc, char **argv, t_data *data)
 	data->path = ft_split(getenv("PATH"), ':');
 	data->envp = copyenv(envp);
 	data->exportp = copyenv(envp);
-	data->exportlen = lastarg(data->exportp) + 1;
+	data->exportlen = commandpointerlen(data->exportp);
 	g_global.error = 0;
 	data->exitstatus = 0;
 	g_global.execstatus = 0;
 	g_global.heredoc = 0;
+	data->arguments = NULL;
+	data->commandline = NULL;
+	data->parts = NULL;
 }

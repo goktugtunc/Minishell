@@ -6,59 +6,11 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:19:05 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 14:12:06 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 03:16:52 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	decisionmechanism(char **str, t_data *data)
-{
-	if (ft_strcmp(str[0], "cd") == 0)
-		cdcommand(str, data);
-	else if (ft_strcmp(str[0], "echo") == 0)
-		echocommand(str);
-	else if (ft_strcmp(str[0], "env") == 0)
-		envcommand(data);
-	else if (ft_strcmp(str[0], "export") == 0)
-		exportcommand(str, 0, 0, data);
-	else if (ft_strcmp(str[0], "pwd") == 0)
-		pwdcommand(data);
-	else if (ft_strcmp(str[0], "unset") == 0)
-		unsetcommand(str, data);
-	else if (ft_strcmp(str[0], "exit") == 0)
-		exitcommand();
-	else
-		ft_chiled(str, data);
-}
-
-void	printexport(t_data *data)
-{
-	int	i;
-	int	j;
-	int	status;
-
-	i = 0;
-	j = 0;
-	status = 0;
-	while (data->exportp[i])
-	{
-		while (data->exportp[i][j])
-		{
-			printf("%c", data->exportp[i][j]);
-			if (status == 0 && data->exportp[i][j] == '=')
-			{
-				status = 1;
-				printf("\"");
-			}
-			j++;
-		}
-		printf("\"\n");
-		status = 0;
-		i++;
-		j = 0;
-	}
-}
 
 int	count_redir(char **str)
 {
@@ -74,18 +26,6 @@ int	count_redir(char **str)
 		i++;
 	}
 	return (count);
-}
-
-void	print2d(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		printf("*%s\n", str[i]);
-		i++;
-	}
 }
 
 int	words_of_parts_outredir(char **argu)
@@ -110,4 +50,31 @@ int	words_of_parts_outredir(char **argu)
 		count++;
 	}
 	return (count);
+}
+
+int	red_len(t_red *red)
+{
+	int	i;
+
+	i = 0;
+	while (red[i].type)
+	{
+		i++;
+	}
+	return (i - 1);
+}
+
+void	ft_sub_output(t_parse *part, int i)
+{
+	int	fd;
+
+	while (i + 1)
+	{
+		if (part->red[i].str[0] == '>' && part->red[i].str[1] == '>')
+			fd = open(&(part->red[i].str[2]), O_CREAT, 0777);
+		else if (part->red[i].str[0] == '>')
+			fd = open(&(part->red[i].str[1]), O_CREAT, 0777);
+		i--;
+		close(fd);
+	}
 }

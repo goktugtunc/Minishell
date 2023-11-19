@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 02:08:38 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 03:17:23 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	pwdcommand(t_data *data);
 int		findpathindex(char *searchedpath, t_data *data);
 int		findenvpindex(char *searchedenvp, int searchindex, t_data *data);
 int		findenvpindex2(char *searchedenvp, t_data *data);
-int		lastarg(char **a);
 void	envcommand(t_data *data);
 void	exportcommand(char **str, int i, int error, t_data *data);
 char	**adddoublepointer(char **dp, char *add);
@@ -105,7 +104,6 @@ void	transformdollar(t_data *data, int quote);
 void	ifsendsigquit(int signal);
 void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data);
 void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data);
-void	echocommand(char **str);
 void	ft_chiled(char **str, t_data *data);
 void	decisionmechanism(char **str, t_data *data);
 void	ft_odd_right_redirection(char *str, t_data *data, t_parse *part);
@@ -119,12 +117,10 @@ int		ifendispipe(t_data *data);
 void	preparewhile(t_data *data);
 void	freedoublepointer(char **str);
 void	errorcontrol(t_data *data, int err);
-int		iscommandinbuiltin(char *s);
 void	decisionmechanism(char **str, t_data *data);
 void	commandfinderv2(t_data *data);
 void	printexport(t_data *data);
 int		ifdoubleinput(t_data *data);
-void	print2d(char **str);
 void	ft_input_all(t_parse *part, t_data *data);
 void	ft_output_all(t_parse *part, t_data *data);
 int		check_redir(char **str);

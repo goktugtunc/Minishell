@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helperfunctions7.c                                 :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/18 14:04:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 02:08:29 by gotunc           ###   ########.fr       */
+/*   Created: 2023/11/19 03:05:10 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/19 03:16:10 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	red_len(t_red *red)
+void	decisionmechanism(char **str, t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (red[i].type)
-	{
-		i++;
-	}
-	return (i - 1);
+	if (ft_strcmp(str[0], "cd") == 0)
+		cdcommand(str, data);
+	else if (ft_strcmp(str[0], "echo") == 0)
+		echocommand(str);
+	else if (ft_strcmp(str[0], "env") == 0)
+		envcommand(data);
+	else if (ft_strcmp(str[0], "export") == 0)
+		exportcommand(str, 0, 0, data);
+	else if (ft_strcmp(str[0], "pwd") == 0)
+		pwdcommand(data);
+	else if (ft_strcmp(str[0], "unset") == 0)
+		unsetcommand(str, data);
+	else if (ft_strcmp(str[0], "exit") == 0)
+		exitcommand();
+	else
+		ft_chiled(str, data);
 }
 
 void	commandfinderpipe(t_data *data)
@@ -42,20 +50,5 @@ void	commandfinderpipe(t_data *data)
 	else
 	{
 		ft_output_all(&(data->parts[0]), data);
-	}
-}
-
-void	ft_sub_output(t_parse *part, int i)
-{
-	int	fd;
-
-	while (i + 1)
-	{
-		if (part->red[i].str[0] == '>' && part->red[i].str[1] == '>')
-			fd = open(&(part->red[i].str[2]), O_CREAT, 0777);
-		else if (part->red[i].str[0] == '>')
-			fd = open(&(part->red[i].str[1]), O_CREAT, 0777);
-		i--;
-		close(fd);
 	}
 }

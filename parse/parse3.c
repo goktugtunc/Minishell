@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 02:09:32 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 02:49:27 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ int	ifendispipe2(t_data *data, int i)
 	while (data->commandline[i - 1] == '|')
 	{
 		temp = readline("> ");
-		if (temp == NULL)
+		if (temp == NULL && g_global.error == 0)
 			return (1);
 		if (g_global.error == 1)
+		{
+			free(temp);
 			return (0);
+		}
 		data->commandline = ft_strjoin(data->commandline, " ");
 		data->commandline = ft_strjoin(data->commandline, temp);
 		free(temp);
@@ -42,16 +45,14 @@ int	ifendispipe2(t_data *data, int i)
 
 int	ifendispipe(t_data *data)
 {
-	int		i;
-	char	*temp;
+	int	i;
 
-	temp = NULL;
 	i = 0;
 	while (data->commandline[i])
 		i++;
 	if (data->commandline[i - 1] == '|')
 	{
-		i -= 2;
+		i -= 1;
 		while (--i != -1)
 		{
 			if (data->commandline[i] == '<' || data->commandline[i] == '|'
@@ -61,10 +62,15 @@ int	ifendispipe(t_data *data)
 				data->exitstatus = 258;
 				return (1);
 			}
+			else if (data->commandline[i] != ' ')
+				break ;
 		}
 		g_global.heredoc = 1;
 		if (ifendispipe2(data, 0))
+		{
+			g_global.heredoc = 0;
 			return (1);
+		}
 	}
 	return (0);
 }

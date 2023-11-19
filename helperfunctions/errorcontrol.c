@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helperfunctions4.c                                 :+:      :+:    :+:   */
+/*   errorcontrol.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:13:29 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 20:34:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 03:13:28 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,4 @@ void	errorcontrol(t_data *data, int err)
 		i++;
 	}
 	errorcontrol2(data);
-}
-
-int	iscommandinbuiltin(char *s)
-{
-	if (!ft_strcmp(s, "cd") || !ft_strcmp(s, "echo") || !ft_strcmp(s, "env")
-		|| !ft_strcmp(s, "export") || !ft_strcmp(s, "pwd")
-		|| !ft_strcmp(s, "unset") || !ft_strcmp(s, "exit"))
-		return (1);
-	return (0);
 }

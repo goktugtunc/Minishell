@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 01:46:33 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 03:17:16 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,4 @@ void	ft_chiled(char **str, t_data *data)
 	if (temp[0] == '1')
 		data->exitstatus = 127;
 	free(temp);
-}
-
-void	echocommand(char **str)
-{
-	if (str[1])
-	{
-		if (echonflagcontroller(str[1]) == 1)
-			print_twodstr(&str[2], 1);
-		else
-			print_twodstr(&str[1], 0);
-	}
-	else
-		printf("\n");
 }

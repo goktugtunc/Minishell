@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helperfunctions.c                                  :+:      :+:    :+:   */
+/*   shellline.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 01:13:23 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 03:12:33 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	lastarg(char **a)
-{
-	int	i;
-
-	i = 0;
-	while (a[i])
-		i++;
-	return (i - 1);
-}
 
 char	*getpcname(void)
 {
@@ -69,7 +59,8 @@ void	findstarttext(char *pcname, t_data *data)
 	if (ft_strcmp(temp, getenv("HOME")) == 0)
 		data->starttext = ft_strjoin(data->starttext, "~");
 	else
-		data->starttext = ft_strjoin(data->starttext, pwd[lastarg(pwd)]);
+		data->starttext = ft_strjoin(data->starttext,
+				pwd[commandpointerlen(pwd) - 1]);
 	data->starttext = ft_strjoin(data->starttext, " % ");
 	while (pwd[i])
 		free(pwd[i++]);
@@ -77,19 +68,6 @@ void	findstarttext(char *pcname, t_data *data)
 	free(pwd);
 	free(temp);
 	free(pcname);
-}
-
-void	quoteerror(t_data *data)
-{
-	if (check_quote(data->commandline,
-			ft_strlen(data->commandline)) != 0)
-	{
-		printf("\033[31;4m%sQuote Error!\n\033[0m",
-			ft_strtrim(data->starttext, "\033[320m"));
-		free(data->commandline);
-		data->errorstatus = 1;
-		data->exitstatus = 1;
-	}
 }
 
 void	ft_error(char *a)

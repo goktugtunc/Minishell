@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 01:47:41 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 02:53:16 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	startprogram(t_data *data)
 		startprogram2(data);
 		if (data->errorstatus == 0 && data->commandline[0])
 		{
-			data->parts = NULL;
 			parser(data);
 			if (data->parsererrorcode == 0 && g_global.error == 0)
 			{

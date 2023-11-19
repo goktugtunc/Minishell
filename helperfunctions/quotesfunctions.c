@@ -1,16 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helperfunctions3.c                                 :+:      :+:    :+:   */
+/*   quotesfunctions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 23:10:23 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 01:26:26 by gotunc           ###   ########.fr       */
+/*   Created: 2023/11/19 03:02:40 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/19 03:04:25 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	quoteerror(t_data *data)
+{
+	if (check_quote(data->commandline,
+			ft_strlen(data->commandline)) != 0)
+	{
+		printf("\033[31;4m%sQuote Error!\n\033[0m",
+			ft_strtrim(data->starttext, "\033[320m"));
+		free(data->commandline);
+		data->commandline = NULL;
+		data->errorstatus = 1;
+		data->exitstatus = 1;
+	}
+}
+
+int	check_quote(char *line, int control)
+{
+	int	i;
+	int	sign;
+
+	sign = 0;
+	i = 0;
+	while (line[i] && i <= control)
+	{
+		if (line[i] == '\'')
+		{
+			if (sign == 0)
+				sign = 1;
+			else if (sign == 1)
+				sign = 0;
+		}
+		else if (line[i] == '\"')
+		{
+			if (sign == 0)
+				sign = 2;
+			else if (sign == 2)
+				sign = 0;
+		}
+		i++;
+	}
+	return (sign);
+}
 
 char	*removequotes2(char *str)
 {
@@ -62,69 +104,4 @@ void	removequotes(t_data *data)
 	free(data->arguments);
 	returnvalue[i] = NULL;
 	data->arguments = returnvalue;
-}
-
-int	echonflagcontroller(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-')
-	{
-		while (str[++i])
-		{
-			if (str[i] != 'n')
-				return (0);
-		}
-		return (1);
-	}
-	return (0);
-}
-
-void	freedoublepointer(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str[i]);
-	free(str);
-}
-
-void	preparewhile(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	data->parsererrorcode = 0;
-	g_global.error = 0;
-	g_global.execstatus = 0;
-	if (data->commandline && data->commandline[0] && data->errorstatus == 0)
-	{
-		free(data->commandline);
-		if (data->arguments)
-			freedoublepointer(data->arguments);
-		i = 0;
-		if (data->parts)
-		{
-			while (data->parts[i].type != NULL)
-			{
-				while (data->parts[i].str[j])
-					free(data->parts[i].str[j++]);
-				free(data->parts[i].str[j]);
-				free(data->parts[i].type);
-				i++;
-				j = 0;
-			}
-			free(data->parts->str);
-			free(data->parts);
-		}
-	}
-	data->errorstatus = 0;
 }

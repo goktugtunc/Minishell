@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helperfunctions2.c                                 :+:      :+:    :+:   */
+/*   doublepointer2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 16:05:18 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/10 04:45:38 by gotunc           ###   ########.fr       */
+/*   Created: 2023/11/19 03:09:14 by gotunc            #+#    #+#             */
+/*   Updated: 2023/11/19 03:21:35 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	commandpointerlen(char **d)
+{
+	int	i;
+
+	i = 0;
+	while (d[i])
+		i++;
+	return (i);
+}
 
 char	**copyenv(char **env)
 {
@@ -28,56 +38,30 @@ char	**copyenv(char **env)
 	return (copiedenv);
 }
 
-int	check_quote(char *line, int control)
+void	printexport(t_data *data)
 {
 	int	i;
-	int	sign;
+	int	j;
+	int	status;
 
-	sign = 0;
 	i = 0;
-	while (line[i] && i <= control)
+	j = 0;
+	status = 0;
+	while (data->exportp[i])
 	{
-		if (line[i] == '\'')
+		while (data->exportp[i][j])
 		{
-			if (sign == 0)
-				sign = 1;
-			else if (sign == 1)
-				sign = 0;
+			printf("%c", data->exportp[i][j]);
+			if (status == 0 && data->exportp[i][j] == '=')
+			{
+				status = 1;
+				printf("\"");
+			}
+			j++;
 		}
-		else if (line[i] == '\"')
-		{
-			if (sign == 0)
-				sign = 2;
-			else if (sign == 2)
-				sign = 0;
-		}
+		printf("\"\n");
+		status = 0;
 		i++;
+		j = 0;
 	}
-	return (sign);
-}
-
-void	print_twodstr(char **str, int flagcontrol)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		printf("%s", str[i]);
-		if (str[i + 1])
-			printf(" ");
-		i++;
-		if (!str[i] && flagcontrol == 0)
-			printf("\n");
-	}
-}
-
-int	commandpointerlen(char **d)
-{
-	int	i;
-
-	i = 0;
-	while (d[i])
-		i++;
-	return (i);
 }

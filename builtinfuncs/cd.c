@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 20:20:24 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 01:06:59 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 03:11:04 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 		newstarttext = ft_split(data->envp[pwdindex], '/');
 		data->starttext = ft_strjoin2(data->simplestarttext, " ");
 		data->starttext = ft_strjoin(data->starttext,
-				newstarttext[lastarg(newstarttext)]);
+				newstarttext[commandpointerlen(newstarttext) - 1]);
 		data->starttext = ft_strjoin(data->starttext, " % ");
 	}
 }
