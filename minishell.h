@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 13:06:49 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 18:15:37 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ char	**with_out_redir(char **str, int x);
 int		words_of_parts_outredir(char **argu);
 void	delete_ctrl(void);
 void	ft_sub_output(t_parse *part, int i);
+void	isupdate1helperforexport(t_data *data, char *str);
 
 #endif

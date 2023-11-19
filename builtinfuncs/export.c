@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:13:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/18 12:21:53 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 18:15:51 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 int	isthere(char *str, t_data *data)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	**temp;
 
 	i = 0;
+	j = 0;
 	while (data->envp[i])
 	{
-		if (ft_strcmp(ft_split(data->envp[i], '=')[0], str) == 0)
+		temp = ft_split(data->envp[i], '=');
+		if (ft_strcmp(temp[0], str) == 0)
 			return (1);
+		while (temp[j])
+			free(temp[j++]);
+		free(temp);
+		j = 0;
 		i++;
 	}
 	return (0);
@@ -53,17 +61,30 @@ void	sortexport(t_data *data)
 
 void	isupdate2(char *str, int i, t_data *data)
 {
+	char	**temp;
+	char	**temp2;
+	int		j;
+
 	while (--i != -1)
 	{
+		j = 0;
+		temp = ft_split(str, '=');
+		temp2 = ft_split(data->exportp[i], '=');
 		if (ft_strchr(data->exportp[i], '='))
 		{
-			if (ft_strcmp(ft_split(str, '=')[0],
-				ft_split(data->exportp[i], '=')[0]) == 0)
+			if (ft_strcmp(temp[0], temp2[0]) == 0)
 				data->exportp = removedoublepointerarg(data->exportp, i);
 		}
 		else
-			if (ft_strcmp(ft_split(str, '=')[0], data->exportp[i]) == 0)
+			if (ft_strcmp(temp[0], data->exportp[i]) == 0)
 				data->exportp = removedoublepointerarg(data->exportp, i);
+		while (temp[j])
+			free(temp[j++]);
+		j = 0;
+		while (temp2[j])
+			free(temp2[j++]);
+		free(temp);
+		free(temp2);
 	}
 }
 
@@ -79,13 +100,7 @@ void	isupdate(char *str, int i, t_data *data)
 		return ;
 	}
 	isupdate2(str, commandpointerlen(data->exportp), data);
-	i = commandpointerlen(data->envp);
-	while (--i != -1)
-	{
-		if (ft_strcmp(ft_split(str, '=')[0],
-			ft_split(data->envp[i], '=')[0]) == 0)
-			data->envp = removedoublepointerarg(data->envp, i);
-	}
+	isupdate1helperforexport(data, str);
 }
 
 void	exportcommand(char **str, int i, int error, t_data *data)
@@ -110,6 +125,6 @@ void	exportcommand(char **str, int i, int error, t_data *data)
 		}
 	}
 	sortexport(data);
-	if (error == 0 && !str[1])
+	if (!str[1])
 		printexport(data);
 }

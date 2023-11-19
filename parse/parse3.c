@@ -6,17 +6,14 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 15:34:59 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 18:17:47 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ifendispipe2(t_data *data, int i)
+int	ifendispipe2(t_data *data, int i, char *temp)
 {
-	char	*temp;
-
-	temp = NULL;
 	while (data->commandline[i])
 		i++;
 	while (data->commandline[i - 1] == '|')
@@ -62,7 +59,7 @@ int	ifendispipe(t_data *data, int i)
 			else if (data->commandline[i] != ' ')
 				break ;
 		}
-		if (ifendispipe2(data, 0))
+		if (ifendispipe2(data, 0, NULL))
 		{
 			g_global.heredoc = 0;
 			return (1);

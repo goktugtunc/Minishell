@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 20:20:24 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 16:41:03 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/19 18:14:06 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 	int		oldpwdindex;
 	int		pwdindex;
 	char	**newstarttext;
-	int		i;
 
-	i = 0;
 	oldpwdindex = findenvpindex("OLDPWD=", 7, data);
 	pwdindex = findenvpindex("PWD=", 4, data);
 	free(data->envp[oldpwdindex]);
@@ -36,9 +34,7 @@ void	makepwd(char *oldpwd, char *newpwd, t_data *data)
 		data->starttext = ft_strjoin(data->starttext,
 				newstarttext[commandpointerlen(newstarttext) - 1]);
 		data->starttext = ft_strjoin(data->starttext, " % ");
-		while (newstarttext[i])
-			free(newstarttext[i++]);
-		free(newstarttext);
+		freedoublepointer(newstarttext);
 	}
 	free(newpwd);
 	free(oldpwd);
