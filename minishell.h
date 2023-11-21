@@ -6,7 +6,7 @@
 /*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:20:46 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/21 21:59:15 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_lastpars{
 	int		z;
 	int		j;
 	t_parse *last;
-	int		forpipe;
+	int		fpi;
 	int		tru;
 	char	**str;
 }	t_lastparse;
@@ -113,7 +113,7 @@ char	*simpleoutputcommand1(int i, t_data *data);
 void	transformdollar(t_data *data, int quote);
 void	ifsendsigquit(int signal);
 void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data);
-void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data);
+void	ft_chiledfpi(t_parse *part1, t_parse *part2, t_data *data);
 void	ft_chiled(char **str, t_data *data);
 void	decisionmechanism(char **str, t_data *data);
 void	ft_odd_right_redirection(char *str, t_data *data, t_parse *part);
@@ -141,5 +141,10 @@ char	**with_out_redir(char **str, int x);
 int		words_of_parts_outredir(char **argu);
 void	delete_ctrl(void);
 void	ft_sub_output(t_parse *part, int i);
+int		words_of_parts(char **argu);
+char	**towdcopy(char **src);
+int		countfrompars(t_data *data, int i, int count, int tru);
+char	*lastparse_define_type(char *str);
+
 
 #endif

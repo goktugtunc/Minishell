@@ -6,7 +6,7 @@
 /*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:07:22 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:19:51 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/21 21:51:27 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data)
 	close(fds[0]);
 }
 
-void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data)
+void	ft_chiledfpi(t_parse *part1, t_parse *part2, t_data *data)
 {
 	int		chiled;
 

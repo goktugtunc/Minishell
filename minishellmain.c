@@ -6,7 +6,7 @@
 /*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:03 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:28:37 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/21 21:51:27 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	commandfinderv2(t_data *data)
 	}
 	if (!ft_strcmp(data->parts[i].type, "pipe") && data->parts[i + 1].type)
 	{
-		ft_chiledforpipe(&(data->parts[i - 1]), &(data->parts[i + 1]), data);
+		ft_chiledfpi(&(data->parts[i - 1]), &(data->parts[i + 1]), data);
 	}
 	else
 	{
