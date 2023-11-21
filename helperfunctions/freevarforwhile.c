@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freevarforwhile.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 02:56:42 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:02:34 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/21 23:37:23 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	prep_parts_red(t_data *data)
 
 void	preparewhile(t_data *data)
 {
-
 	if (data->commandline && data->commandline[0])
 	{
 		free(data->commandline);

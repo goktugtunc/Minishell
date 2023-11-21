@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeforred.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 13:42:59 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:26:55 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/21 23:37:07 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	ft_output_all(t_parse *part, t_data *data)
 				ft_multiple_right_redirection(&(part->red[i].str[2]),
 					data, part);
 				ft_sub_output(part, i - 1);
-
 				return ;
 			}
 			else if (part->red[i].str[0] == '>')

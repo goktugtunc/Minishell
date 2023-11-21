@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/21 23:17:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/21 23:36:21 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_lastpars{
 	int		i;
 	int		z;
 	int		j;
-	t_parse *last;
+	t_parse	*last;
 	int		fpi;
 	int		tru;
 	char	**str;
