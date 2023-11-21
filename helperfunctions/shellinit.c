@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellinit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/21 23:38:17 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 01:06:07 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	initializefunction(char **envp, int argc, char **argv, t_data *data)
 	data->commandline = NULL;
 	data->parts = NULL;
 	data->fderr = dup(1);
+	printwelcome();
 }
 
 void	ft_error(char *a)
