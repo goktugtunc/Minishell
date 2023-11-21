@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:04:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 13:34:36 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/21 23:25:54 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,48 @@ char	*dollarfill(t_data *data, int m, int startindex, int endindex)
 	return (temp);
 }
 
+char	*addstringhelper(char *firststr, char *temp, char *thirdstr)
+{
+	char	*temp2;
+
+	temp2 = ft_strjoin(firststr, temp);
+	free(temp);
+	temp = ft_strjoin(temp2, thirdstr);
+	free(thirdstr);
+	return (temp);
+}
+
 char	*addstring(int argi, int startindex, int endindex, t_data *data)
 {
 	char	*firststr;
 	char	*temp;
-	char	*thirdstr;
 	char	*addstr;
-	int		i;
+	char	*thirdstr;
+	char	**temp3;
 
 	addstr = dollarfill(data, argi, startindex, endindex);
-	i = -1;
 	firststr = malloc(sizeof(char) * (startindex + 1));
 	thirdstr = malloc((ft_strlen(data->arguments[argi]) - endindex + 1));
-	while (++i < startindex)
-		firststr[i] = data->arguments[argi][i];
-	firststr[i] = 0;
-	i = 0;
-	while (data->arguments[argi][endindex])
-		thirdstr[i++] = data->arguments[argi][endindex++];
-	thirdstr[i] = 0;
+	addstringhelper2(data, firststr, argi, startindex);
+	addstringhelper3(data, thirdstr, argi, endindex);
 	if (findenvpindex2(addstr + 1, data) != -1)
-		temp = ft_split(data->envp[findenvpindex2(addstr + 1, data)], '=')[1];
+	{
+		temp3 = ft_split(data->envp[findenvpindex2(addstr + 1, data)], '=');
+		temp = ft_strdup(temp3[1]);
+		freedoublepointer(temp3);
+	}
 	else if (!ft_strcmp(addstr, "$?"))
 		temp = ft_itoa(data->exitstatus);
 	else
 		temp = ft_strdup("\0");
 	free(data->arguments[argi]);
-	return (ft_strjoin(ft_strjoin(firststr, temp), thirdstr));
+	free(addstr);
+	return (addstringhelper(firststr, temp, thirdstr));
 }
 
 void	transformdollar2(t_data *data, int i, int m, int j)
 {
-	while (data->arguments[i][j])
+	while (data->arguments[i][++j])
 	{
 		if (data->arguments[i][j] == '$')
 		{
@@ -83,23 +93,14 @@ void	transformdollar2(t_data *data, int i, int m, int j)
 					j, m, data);
 			j = m;
 		}
-		j++;
 	}
-}
-
-void	addquote(char **arguments, int i)
-{
-	char	*temp;
-
-	temp = ft_strjoin2("\"", arguments[i]);
-	free(arguments[i]);
-	arguments[i] = ft_strjoin(temp, "\"");
 }
 
 void	transformdollar(t_data *data, int quote)
 {
 	int		i;
 	int		j;
+	char	*temp;
 
 	i = -1;
 	j = 0;
@@ -109,13 +110,15 @@ void	transformdollar(t_data *data, int quote)
 			&& ft_strchr(data->arguments[i], '$'))
 		{
 			if (data->arguments[i][0] == '\"'
-				|| data->arguments[i]
+				&& data->arguments[i]
 				[ft_strlen(data->arguments[i]) - 1] == '\"')
 			{
-				data->arguments[i] = ft_strtrim2(data->arguments[i], "\"");
+				temp = ft_strtrim(data->arguments[i], "\"");
+				free(data->arguments[i]);
+				data->arguments[i] = temp;
 				quote = 1;
 			}
-			transformdollar2(data, i, 0, 0);
+			transformdollar2(data, i, 0, -1);
 			if (quote == 1)
 				addquote(data->arguments, i);
 		}

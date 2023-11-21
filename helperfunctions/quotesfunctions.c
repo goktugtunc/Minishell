@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 03:02:40 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:04:25 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/21 22:57:13 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	quoteerror(t_data *data)
 {
+	char	*temp;
+
 	if (check_quote(data->commandline,
 			ft_strlen(data->commandline)) != 0)
 	{
-		printf("\033[31;4m%sQuote Error!\n\033[0m",
-			ft_strtrim(data->starttext, "\033[320m"));
+		temp = ft_strtrim(data->starttext, "\033[320m");
+		printf("\033[31;4m%sQuote Error!\n\033[0m", temp);
 		free(data->commandline);
+		free(temp);
 		data->commandline = NULL;
 		data->errorstatus = 1;
 		data->exitstatus = 1;

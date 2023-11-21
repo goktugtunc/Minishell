@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 03:05:10 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/21 21:51:27 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/21 23:19:31 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	decisionmechanism(char **str, t_data *data)
 	else if (ft_strcmp(str[0], "unset") == 0)
 		unsetcommand(str, data);
 	else if (ft_strcmp(str[0], "exit") == 0)
-		exitcommand();
+		exitcommand(data);
 	else
 		ft_chiled(str, data);
 }
@@ -51,4 +51,33 @@ void	commandfinderpipe(t_data *data)
 	{
 		ft_output_all(&(data->parts[0]), data);
 	}
+}
+
+void	addquote(char **arguments, int i)
+{
+	char	*temp;
+
+	temp = ft_strjoin2("\"", arguments[i]);
+	free(arguments[i]);
+	arguments[i] = ft_strjoin(temp, "\"");
+}
+
+void	addstringhelper2(t_data *data, char *firststr, int argi, int startindex)
+{
+	int	i;
+
+	i = -1;
+	while (++i < startindex)
+		firststr[i] = data->arguments[argi][i];
+	firststr[i] = 0;
+}
+
+void	addstringhelper3(t_data *data, char *thirdstr, int argi, int endindex)
+{
+	int	i;
+
+	i = 0;
+	while (data->arguments[argi][endindex])
+		thirdstr[i++] = data->arguments[argi][endindex++];
+	thirdstr[i] = 0;
 }

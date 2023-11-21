@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/21 21:59:15 by amonem           ###   ########.fr       */
+/*   Updated: 2023/11/21 23:17:42 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*get_the_path(char **env, char *str, t_data *data);
 int		exportparser(char *str);
 int		findexportindex(char *searchedexportp, int searchindex, t_data *data);
 void	unsetcommand(char **str, t_data *data);
-void	exitcommand(void);
+void	exitcommand(t_data *data);
 char	*simpleinputcommand1(int i, t_data *data);
 char	*simpleoutputcommand1(int i, t_data *data);
 void	transformdollar(t_data *data, int quote);
@@ -145,6 +145,10 @@ int		words_of_parts(char **argu);
 char	**towdcopy(char **src);
 int		countfrompars(t_data *data, int i, int count, int tru);
 char	*lastparse_define_type(char *str);
-
+void	addquote(char **arguments, int i);
+void	addstringhelper2(t_data *data, char *firststr,
+			int argi, int startindex);
+void	addstringhelper3(t_data *data, char *thirdstr, int argi, int endindex);
+void	isupdate1helperforexport(t_data *data, char *str);
 
 #endif
