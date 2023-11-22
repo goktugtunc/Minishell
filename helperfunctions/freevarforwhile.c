@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freevarforwhile.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 02:56:42 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 16:21:45 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:51:11 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,37 @@ void	preparewhile2(t_data *data)
 	data->parts = NULL;
 }
 
-void	preparewhile(t_data *data)
+void	prep_parts_red(t_data *data)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = 0;
+	while (data->parts[i].type != NULL)
+	{
+		if (data->parts[i].red)
+		{
+			while (data->parts[i].red[j].type)
+			{
+				free(data->parts[i].red[j].str);
+				data->parts[i].red[j].str = NULL;
+				free(data->parts[i].red[j].type);
+				data->parts[i].red[j++].type = NULL;
+			}
+			j = 0;
+			free(data->parts[i].red);
+			data->parts[i].red = NULL;
+		}
+		freedoublepointer(data->parts[i].str);
+		free(data->parts[i].type);
+		i++;
+	}
+	free(data->parts);
+}
+
+void	preparewhile(t_data *data)
+{
 	if (data->commandline && data->commandline[0])
 	{
 		free(data->commandline);
@@ -36,26 +62,9 @@ void	preparewhile(t_data *data)
 		{
 			freedoublepointer(data->arguments);
 		}
-		i = 0;
 		if (data->parts)
 		{
-			while (data->parts[i].type != NULL)
-			{
-				freedoublepointer(data->parts[i].str);
-				free(data->parts[i].type);
-				i++;
-			}
-			i = 0;
-			//write(1, "1", 1);
-			//while (data->parts[i].red && data->parts[i].red->type)
-			//{
-			//	write(1, "2", 1);
-			//	free(data->parts[i].red->str);
-			//	free(data->parts[i++].red->type);
-			//}
-			//write(1, "3", 1);
-			free(data->parts);
-			//write(1, "4", 1);
+			prep_parts_red(data);
 		}
 	}
 	preparewhile2(data);

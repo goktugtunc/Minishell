@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:13:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:15:51 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:50:44 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ void	exportcommand(char **str, int i, int error, t_data *data)
 		}
 	}
 	sortexport(data);
-	if (!str[1])
+	if (error == 0 && !str[1])
 		printexport(data);
 }

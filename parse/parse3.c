@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 23:40:08 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:17:47 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 01:02:57 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ifendispipe2(t_data *data, int i, char *temp)
+int	ifendispipe2(t_data *data, int i)
 {
-	while (data->commandline[i])
-		i++;
+	char	*temp;
+
+	temp = NULL;
 	while (data->commandline[i - 1] == '|')
 	{
 		g_global.heredoc = 1;
@@ -33,8 +34,7 @@ int	ifendispipe2(t_data *data, int i, char *temp)
 		temp = ft_strtrim(data->commandline, " ");
 		free(data->commandline);
 		data->commandline = ft_strdup(temp);
-		while (data->commandline[i])
-			i++;
+		i = ft_strlen(data->commandline);
 		if (temp)
 			free(temp);
 	}
@@ -59,13 +59,29 @@ int	ifendispipe(t_data *data, int i)
 			else if (data->commandline[i] != ' ')
 				break ;
 		}
-		if (ifendispipe2(data, 0, NULL))
+		if (ifendispipe2(data, ft_strlen(data->commandline)))
 		{
 			g_global.heredoc = 0;
 			return (1);
 		}
 	}
 	return (0);
+}
+
+int	freedoubleinput(char *temp1, char *temp2, int status)
+{
+	if (status == 1)
+	{
+		free(temp2);
+		return (status);
+	}
+	else if (status == 0)
+	{
+		free(temp1);
+		free(temp2);
+		return (status);
+	}
+	return (-1);
 }
 
 int	ifdoubleinput2(t_data *data, int i)
@@ -81,16 +97,9 @@ int	ifdoubleinput2(t_data *data, int i)
 			free(temp);
 		temp = readline("> ");
 		if (temp == NULL)
-		{
-			free(temp2);
-			return (1);
-		}
+			return (freedoubleinput(NULL, temp2, 1));
 		if (g_global.error == 1)
-		{
-			free(temp);
-			free(temp2);
-			return (0);
-		}
+			return (freedoubleinput(temp, temp2, 0));
 		if (ft_strcmp(data->arguments[i], temp))
 		{
 			temp2 = ft_strjoin(temp2, temp);

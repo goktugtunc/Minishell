@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executeforred.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 13:42:59 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 03:08:19 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:51:09 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,6 @@ char	**with_out_redir(char **str, int x)
 	}
 	new[j] = NULL;
 	return (new);
-}
-
-int	check_input_redir(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i][0] != '|')
-	{
-		if (str[i][0] == '<' || str[i][0] == '>'
-			|| !ft_strcmp(str[i], "simpleoutput")
-			|| !ft_strcmp(str[i], "simpleinput")
-			|| !ft_strcmp(str[i], "multipleoutput")
-			|| !ft_strcmp(str[i], "multipleinput"))
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 int	check_redir(char **str)
@@ -110,15 +92,15 @@ void	ft_output_all(t_parse *part, t_data *data)
 		{
 			if (part->red[i].str[0] == '>' && part->red[i].str[1] == '>')
 			{
-				ft_sub_output(part, i - 1);
 				ft_multiple_right_redirection(&(part->red[i].str[2]),
 					data, part);
+				ft_sub_output(part, i - 1);
 				return ;
 			}
 			else if (part->red[i].str[0] == '>')
 			{
-				ft_sub_output(part, i - 1);
 				ft_odd_right_redirection(&(part->red[i].str[1]), data, part);
+				ft_sub_output(part, i - 1);
 				return ;
 			}
 			i--;

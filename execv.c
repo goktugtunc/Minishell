@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execv.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 03:08:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 12:49:31 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 01:01:56 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	runexecve(t_data *data, char **str, int fds[2], int chiled)
 		if (execve(temp,
 				str, data->envp) == -1)
 		{
+			dup2(data->fderr, 1);
 			close(fds[0]);
 			write(fds[1], "1", 1);
 			close(fds[1]);
-			dup2(data->fderr, 1);
 			if (str[0][0])
 				printf("-bash: %s: command not found\n", str[0]);
 			exit (0);

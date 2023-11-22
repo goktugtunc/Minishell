@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 23:53:45 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 17:41:18 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:50:46 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,5 @@ void	pwdcommand(t_data *data)
 	i = 0;
 	temp = ft_split(data->envp[findenvpindex("PWD=", 4, data)], '=');
 	printf("%s\n", temp[1]);
-	while (temp[i])
-		free(temp[i++]);
-	free(temp);
+	freedoublepointer(temp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shellinit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:20:31 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 16:02:02 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 01:06:07 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ void	findstarttext(char *pcname, t_data *data)
 	free(pcname);
 }
 
+void	printwelcome(void)
+{
+	printf("\033[32m/* ************************************************ */\n");
+	printf("/*                                                  */\n");
+	printf("/*          Welcome to our Miniroot Shell           */\n");
+	printf("/*          gotunc       ---       amonem           */\n");
+	printf("/*                                                  */\n");
+	printf("/* ************************************************ */\n\n\033[0m");
+}
+
 void	initializefunction(char **envp, int argc, char **argv, t_data *data)
 {
 	char	*pcname;
@@ -91,12 +101,8 @@ void	initializefunction(char **envp, int argc, char **argv, t_data *data)
 	data->arguments = NULL;
 	data->commandline = NULL;
 	data->parts = NULL;
-	printf("\033[32m/* ************************************************ */\n");
-	printf("/*                                                  */\n");
-	printf("/*          Welcome to our Miniroot Shell           */\n");
-	printf("/*          gotunc       ---       amonem           */\n");
-	printf("/*                                                  */\n");
-	printf("/* ************************************************ */\n\n\033[0m");
+	data->fderr = dup(1);
+	printwelcome();
 }
 
 void	ft_error(char *a)

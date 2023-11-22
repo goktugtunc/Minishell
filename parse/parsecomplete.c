@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsecomplete.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 22:43:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 16:23:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 01:03:00 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ int	countfrompars(t_data *data, int i, int count, int tru)
 			if (str[i][0] == '|')
 				data->commandcount++;
 			else if (str[i + 1])
-			{
 				i++;
-				data->commandcount--;
-			}
 			tru = 1;
 			count++;
 		}
@@ -81,7 +78,7 @@ int	countfrompars(t_data *data, int i, int count, int tru)
 	return (count);
 }
 
-char	*lastparse2(char *str)
+char	*lastparse_define_type(char *str)
 {
 	if (!ft_strcmp(str, "|"))
 		return (ft_strdup("pipe"));
@@ -94,59 +91,4 @@ char	*lastparse2(char *str)
 	else if (!ft_strcmp(str, ">>"))
 		return (ft_strdup("multipleoutput"));
 	return (NULL);
-}
-
-t_parse	*lastparse(char **str, int tru, int i, t_data *data)
-{
-	t_parse	*last;
-	int		j;
-	int		z;
-	int		forpipe;
-
-	forpipe = 0;
-	z = 0;
-	j = 0;
-	last = malloc(sizeof(t_parse) * (countfrompars(data, -1, 0, 1) + 1));
-	while (str[++i])
-	{
-		if (str[i][0] == '|')
-		{
-			if (check_redir(&str[forpipe]))
-				last[j - 1].red[z].type = NULL;
-			forpipe = i + 1;
-			tru = 1;
-			last[j].str = towdcopy(&str[i]);
-			last[j].type = lastparse2(str[i]);
-			j++;
-		}
-		else if ((str[i][0] == '>' || str[i][0] == '<')
-			&& str[i + 1] && check_redir(&str[forpipe]))
-		{
-			if (tru == 1)
-			{
-				last[j].red = malloc(sizeof(t_red)
-						* (count_redir(&str[forpipe]) + 1));
-				tru = 0;
-				z = 0;
-				last[j].str = with_out_redir(&str[forpipe], i);
-				last[j].type = ft_strdup("word");
-				j++;
-			}
-			last[j - 1].red[z].str = ft_strjoin2(str[i], str[i + 1]);
-			last[j - 1].red[z].type = lastparse2(str[i]);
-			z++;
-		}
-		else if (tru == 1 && !check_redir(&str[forpipe]))
-		{
-			tru = 0;
-			last[j].red = NULL;
-			last[j].str = towdcopy(&str[i]);
-			last[j].type = ft_strdup("word");
-			j++;
-		}
-	}
-	last[j].type = NULL;
-	if (check_redir(&str[forpipe]))
-		last[j - 1].red[z].type = NULL;
-	return (last);
 }

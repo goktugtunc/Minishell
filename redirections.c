@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:05:43 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 02:16:03 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 01:02:22 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_odd_right_redirection(char *str, t_data *data, t_parse *part)
 	int	fd;
 	int	chiled;
 
-	data->fderr = dup(1);
 	fd = open(str, O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	chiled = fork();
 	if (chiled == -1)
@@ -37,7 +36,6 @@ void	ft_odd_left_redirection(char *str, t_data *data, t_parse *part)
 	int	fd;
 	int	chiled;
 
-	data->fderr = dup(1);
 	fd = open(str, O_RDWR, 0777);
 	chiled = fork();
 	if (chiled == -1)
@@ -56,7 +54,6 @@ void	ft_multiple_right_redirection(char *str, t_data *data, t_parse *part)
 	int	fd;
 	int	chiled;
 
-	data->fderr = dup(1);
 	fd = open(str, O_CREAT | O_WRONLY | O_APPEND, 0777);
 	chiled = fork();
 	if (chiled == -1)
@@ -76,7 +73,6 @@ void	ft_multiple_left_redirection(char *str, t_data *data, t_parse *part)
 	int	fds[2];
 	int	chiled;
 
-	data->fderr = dup(1);
 	pipe(fds);
 	write(fds[1], str, ft_strlen(str));
 	chiled = fork();

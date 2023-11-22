@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 03:05:10 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:44:16 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:51:06 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	decisionmechanism(char **str, t_data *data)
 	else if (ft_strcmp(str[0], "unset") == 0)
 		unsetcommand(str, data);
 	else if (ft_strcmp(str[0], "exit") == 0)
-		exitcommand();
+		exitcommand(data);
 	else
 		ft_chiled(str, data);
 }
@@ -45,12 +45,21 @@ void	commandfinderpipe(t_data *data)
 	}
 	if (!ft_strcmp(data->parts[i].type, "pipe") && data->parts[i + 1].type)
 	{
-		ft_chiledforpipe(&(data->parts[i - 1]), &(data->parts[i + 1]), data);
+		ft_chiledfpi(&(data->parts[i - 1]), &(data->parts[i + 1]), data);
 	}
 	else
 	{
 		ft_output_all(&(data->parts[0]), data);
 	}
+}
+
+void	addquote(char **arguments, int i)
+{
+	char	*temp;
+
+	temp = ft_strjoin2("\"", arguments[i]);
+	free(arguments[i]);
+	arguments[i] = ft_strjoin(temp, "\"");
 }
 
 void	addstringhelper2(t_data *data, char *firststr, int argi, int startindex)

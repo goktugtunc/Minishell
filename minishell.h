@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:35:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 18:46:08 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 01:02:01 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ typedef struct s_parse
 	char	*type;
 	t_red	*red;
 }	t_parse;
+
+typedef struct s_lastpars{
+	int		i;
+	int		z;
+	int		j;
+	t_parse	*last;
+	int		fpi;
+	int		tru;
+	char	**str;
+}	t_lastparse;
 
 typedef struct s_data{
 	t_parse		*parts;
@@ -97,13 +107,13 @@ char	*get_the_path(char **env, char *str, t_data *data);
 int		exportparser(char *str);
 int		findexportindex(char *searchedexportp, int searchindex, t_data *data);
 void	unsetcommand(char **str, t_data *data);
-void	exitcommand(void);
+void	exitcommand(t_data *data);
 char	*simpleinputcommand1(int i, t_data *data);
 char	*simpleoutputcommand1(int i, t_data *data);
 void	transformdollar(t_data *data, int quote);
 void	ifsendsigquit(int signal);
 void	pipecommand(t_parse *part1, t_parse *part2, int i, t_data *data);
-void	ft_chiledforpipe(t_parse *part1, t_parse *part2, t_data *data);
+void	ft_chiledfpi(t_parse *part1, t_parse *part2, t_data *data);
 void	ft_chiled(char **str, t_data *data);
 void	decisionmechanism(char **str, t_data *data);
 void	ft_odd_right_redirection(char *str, t_data *data, t_parse *part);
@@ -131,10 +141,14 @@ char	**with_out_redir(char **str, int x);
 int		words_of_parts_outredir(char **argu);
 void	delete_ctrl(void);
 void	ft_sub_output(t_parse *part, int i);
-void	isupdate1helperforexport(t_data *data, char *str);
+int		words_of_parts(char **argu);
+char	**towdcopy(char **src);
+int		countfrompars(t_data *data, int i, int count, int tru);
+char	*lastparse_define_type(char *str);
+void	addquote(char **arguments, int i);
 void	addstringhelper2(t_data *data, char *firststr,
 			int argi, int startindex);
-void	addstringhelper3(t_data *data, char *thirdstr,
-			int argi, int endindex);
+void	addstringhelper3(t_data *data, char *thirdstr, int argi, int endindex);
+void	isupdate1helperforexport(t_data *data, char *str);
 
 #endif

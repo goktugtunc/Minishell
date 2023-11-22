@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doublepointer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 04:57:39 by goktugtunc        #+#    #+#             */
-/*   Updated: 2023/11/19 18:55:12 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:50:55 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ char	**adddoublepointer(char **dp, char *add)
 	while (dp[i])
 	{
 		returndp[i] = ft_strdup(dp[i]);
+		free(dp[i]);
 		i++;
 	}
+	free(dp[i]);
 	returndp[i] = ft_strdup(add);
 	returndp[i + 1] = NULL;
-	i = 0;
-	while (dp[i])
-		free(dp[i++]);
 	free(dp);
 	return (returndp);
 }
@@ -49,12 +48,11 @@ char	**removedoublepointerarg(char **dp, int i)
 			returndp[rdpi] = ft_strdup(dp[j]);
 			rdpi++;
 		}
+		free(dp[j]);
 		j++;
 	}
+	free(dp[j]);
 	returndp[rdpi] = NULL;
-	j = 0;
-	while (dp[j])
-		free(dp[j++]);
 	free(dp);
 	return (returndp);
 }
@@ -66,9 +64,9 @@ int	exportparser(char *str)
 	i = 0;
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (0);
-	while (str[i])
+	if (str[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}
@@ -106,5 +104,6 @@ void	freedoublepointer(char **str)
 		free(str[i]);
 		i++;
 	}
+	free(str[i]);
 	free(str);
 }

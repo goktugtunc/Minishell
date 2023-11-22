@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amonem <amonem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:04:15 by gotunc            #+#    #+#             */
-/*   Updated: 2023/11/19 19:00:42 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:50:52 by amonem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*addstring(int argi, int startindex, int endindex, t_data *data)
 	else
 		temp = ft_strdup("\0");
 	free(data->arguments[argi]);
+	free(addstr);
 	return (addstringhelper(firststr, temp, thirdstr));
 }
 
@@ -95,19 +96,11 @@ void	transformdollar2(t_data *data, int i, int m, int j)
 	}
 }
 
-void	addquote(char **arguments, int i)
-{
-	char	*temp;
-
-	temp = ft_strjoin2("\"", arguments[i]);
-	free(arguments[i]);
-	arguments[i] = ft_strjoin(temp, "\"");
-}
-
 void	transformdollar(t_data *data, int quote)
 {
 	int		i;
 	int		j;
+	char	*temp;
 
 	i = -1;
 	j = 0;
@@ -117,10 +110,12 @@ void	transformdollar(t_data *data, int quote)
 			&& ft_strchr(data->arguments[i], '$'))
 		{
 			if (data->arguments[i][0] == '\"'
-				|| data->arguments[i]
+				&& data->arguments[i]
 				[ft_strlen(data->arguments[i]) - 1] == '\"')
 			{
-				data->arguments[i] = ft_strtrim2(data->arguments[i], "\"");
+				temp = ft_strtrim(data->arguments[i], "\"");
+				free(data->arguments[i]);
+				data->arguments[i] = temp;
 				quote = 1;
 			}
 			transformdollar2(data, i, 0, -1);
